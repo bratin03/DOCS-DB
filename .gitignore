@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# VSCode specific
+.vscode/
+
+# Data and Log files
+*.txt
+*.log
+*.dat

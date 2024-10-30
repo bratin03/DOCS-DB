@@ -21,7 +21,7 @@ class PageInMemory
 ### Methods
 
 1. void createPage()
-   1. Start with a directory named 'tmp'
+   1. Start with a directory named 'datastore'
    2. To create a new page, increment pageCount by 1 (Use mutex lock within an #ifdef MUTEX_LOCK) (This is because we are not sure if we actually need a lock here)
    3. Create a hash object with seed 1, hash the pageCount and take the mod with hashMod
    4. Create a directory with the name as this value if it does not exist
