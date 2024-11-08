@@ -4,21 +4,23 @@
 using namespace std;
 
 int main() {
-    // Create an instance of ConfigManager
 
     string config_file_pathv = getPrevDirectory() + "/config.txt";
-
     ConfigManager config(config_file_pathv);
+    string temp = config.get("pageCount");
+    pageCount = stoull(temp);
 
-    // Access and modify configuration
-    config.set("pageCount", "0");
-    // config.set("theme", "dark");
-    // config.set("window_width", "1024");
-    // config.set("window_height", "768");
+    cout << "Page Count: " << pageCount << endl;
 
-    // Access individual configuration settings
-    std::cout << "pageCount: " << config.get("pageCount") << "\n";
-    // std::cout << "Theme: " << config.get("theme") << "\n";
+    // for(int i = 0; i < 10; i++) {
+    //     createPage(config);
+    // }
+
+    for(int i = 0; i < 5; i++) {
+        removePage(i);
+    }
+
+    cout << "Page Count: " << pageCount << endl;
 
     // Print entire config for verification
     std::cout << "\nCurrent Configuration:\n";

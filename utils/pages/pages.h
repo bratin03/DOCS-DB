@@ -7,6 +7,8 @@
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
+
+#include "config.h"
 using namespace std;
 
 extern uint64_t pageCount;
@@ -36,10 +38,12 @@ class PageInMemory {
 
 // FUNCTION DEFINITIONS
 
-void createPage();
+void createPage(ConfigManager& config);
 
 void removePage(uint64_t pageID);
 
 string getPrevDirectory();
+
+
 
 

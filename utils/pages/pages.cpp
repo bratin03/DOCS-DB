@@ -1,5 +1,5 @@
 #include "pages.h"
-
+// #include "config.h"
 
 // Returns the parent directory of the current directory
 // It will basically return '<path_to_DOCS_DB>/utils'
@@ -24,8 +24,11 @@ string getPrevDirectory() {
 
 
 
-void createPage() {
+void createPage(ConfigManager& config) {
+
     pageCount++;
+    config.set("pageCount", to_string(pageCount));
+
 
     hash<uint64_t> hash_fn;
     uint64_t hashValue = hash_fn(pageCount) % HASHMOD;
@@ -42,4 +45,10 @@ void createPage() {
 }
 
 
+void removePage(uint64_t pageID) {
+    // Remove the file with the name as pageID
+    string dirPath = getPrevDirectory() + "/tmp/" + to_string(pageID % HASHMOD);
+    string filePath = dirPath + "/" + to_string(pageID);
+    filesystem::remove(filePath);
+}
 
