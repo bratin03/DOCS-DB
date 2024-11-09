@@ -1,3 +1,6 @@
+#ifndef PAGES_H
+#define PAGES_H
+
 #include <cstdint>
 #include <map>
 #include <string>
@@ -17,7 +20,7 @@
 using namespace std;
 
 extern uint32_t pageCount;
-const uint32_t HASHMOD = 10000;
+const uint32_t HASHMOD = 10;
 const uint32_t MAX_PAGES_IN_MEMORY = 10;
 const uint32_t PATH_MAX_ = 500;
 const uint32_t PAGE_SIZE = 4096;
@@ -74,4 +77,8 @@ public:
     void *getPage(uint32_t pageID);
     void putPage(uint32_t pageID);
     void evictPage();
+    uint32_t getLRUPageID();
 };
+
+
+#endif

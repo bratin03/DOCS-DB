@@ -3,6 +3,9 @@
 #include <iostream>
 using namespace std;
 
+
+
+
 int main() {
 
     PageManager pageManager;
@@ -14,16 +17,20 @@ int main() {
 
     cout << "Page Count: " << pageCount << endl;
 
-    // for(int i = 0; i < 10; i++) {
-    //     createPage(config);
-    // }
+    for (int i = 0; i < 100; i++)
+    {
+        uint32_t pageID = pageManager.createPage(config);
+        void * start = pageManager.getPage(pageID);
+        
+        cout << "Page ID: " << pageID << endl;
+    }
 
-    // for(int i = 0; i < 5; i++) {
-    //     removePage(i);
-    // }
 
-    std::cout << "\nCurrent Configuration:\n";
+    cout << "\nCurrent Configuration:\n";
     config.printConfig();
+    
+
+
 
     return 0;
 }

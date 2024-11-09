@@ -1,5 +1,6 @@
 #include "pages.h"
 
+uint32_t pageCount = 0;
 
 string PageManager::getPrevDirectory()
 {
@@ -49,7 +50,15 @@ void *PageManager::getPage(uint32_t pageID)
     uint32_t hashValue = hash_fn(pageID) % HASHMOD;
 
     string dirPath = getPrevDirectory() + "/tmp/" + to_string(hashValue);
+
+    bool op = filesystem::create_directories(dirPath);
+    cout << "Created directory: " << op << endl;
+
+
     string filePath = dirPath + "/" + to_string(pageID);
+    ofstream file(filePath);
+
+
     int fd = open(filePath.c_str(), O_RDWR | O_CREAT, 0666);
     if (fd == -1)
     {
@@ -61,7 +70,7 @@ void *PageManager::getPage(uint32_t pageID)
     if (startptr == MAP_FAILED)
     {
         cout << "Error in mmap\n";
-        return;
+        return NULL;
     }
 
     PageInMemory *page = new PageInMemory(pageID, fd);
@@ -90,13 +99,16 @@ void PageManager::evictPage()
     uint32_t lruPageID = getLRUPageID();
     if (pageMap.find(lruPageID) == pageMap.end())
     {
-        cout << "Error in getting LRU page\n";
         return;
     }
     if (pageMap[lruPageID]->refCount == 0)
     {
         pageRemoveMutex.lock();
-        removePage(lruPageID);
+        munmap(pageMap[lruPageID]->startptr, PAGE_SIZE);
+        delete pageMap[lruPageID];
+        pageMap.erase(lruPageID);
+        pageGetSemaphore->release();
+
         pageRemoveMutex.unlock();
     }
 }
@@ -117,4 +129,20 @@ void PageManager::updateLRU(uint32_t pageID)
             page.second->LRUCounter++;
         }
     }
+}
+
+
+uint32_t PageManager::getLRUPageID()
+{
+    uint32_t maxLRU = 0;
+    uint32_t lruPageID = 0;
+    for (auto &page : pageMap)
+    {
+        if (page.second->LRUCounter > maxLRU)
+        {
+            maxLRU = page.second->LRUCounter;
+            lruPageID = page.first;
+        }
+    }
+    return lruPageID;
 }
