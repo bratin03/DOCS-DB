@@ -6,44 +6,72 @@
 #include <functional>
 #include <iostream>
 #include <unistd.h>
+#include <mutex>
 #include <cstring>
-
+#include <sys/mman.h>
 #include "config.h"
+#include <fcntl.h>
+#include <semaphore>
+#include <atomic>
+#include <bits/stdc++.h>
 using namespace std;
 
-extern uint64_t pageCount;
-const uint64_t HASHMOD = 10000;
-const uint64_t MAX_PAGES_IN_MEMORY = 10;
-const uint64_t PATH_MAX = 500;
+extern uint32_t pageCount;
+const uint32_t HASHMOD = 10000;
+const uint32_t MAX_PAGES_IN_MEMORY = 10;
+const uint32_t PATH_MAX_ = 500;
+const uint32_t PAGE_SIZE = 4096;
 
+class PageInMemory
+{
+private:
+public:
+    uint32_t LRUCounter;
+    atomic<uint32_t> refCount;
+    uint32_t pageID;
+    uint32_t fd;
+    bool dirty;
+    void *startptr;
 
-class PageInMemory {
-    private:
-        uint64_t LRUCounter;
-        bool removable;
-        uint64_t pageID;
-        uint64_t fd;
+    PageInMemory(uint32_t pageID, uint32_t fd)
+    {
+        this->pageID = pageID;
+        this->fd = fd;
+        this->LRUCounter = 0;
+        this->refCount = 0;
+        this->dirty = false;
+    }
 
-    
-    public:
-
-    // Define Getters and Setters as and when required  
+    ~PageInMemory()
+    {
+        close(fd);
+    }
 };
 
+class PageManager
+{
 
-// map<uint64_t, PageInMemory*> pageMap;
+private:
+    map<uint32_t, PageInMemory *> pageMap;
+    mutex pageCreateMutex;
+    mutex pageRemoveMutex;
+    counting_semaphore<MAX_PAGES_IN_MEMORY> *pageGetSemaphore;
 
+public:
+    PageManager()
+    {
+        pageGetSemaphore = new counting_semaphore<MAX_PAGES_IN_MEMORY>(MAX_PAGES_IN_MEMORY);
+    }
 
+    ~PageManager()
+    {
+        delete pageGetSemaphore;
+    }
 
-
-// FUNCTION DEFINITIONS
-
-void createPage(ConfigManager& config);
-
-void removePage(uint64_t pageID);
-
-string getPrevDirectory();
-
-
-
-
+    void updateLRU(uint32_t pageID);
+    string getPrevDirectory();
+    uint32_t createPage(ConfigManager &config);
+    void *getPage(uint32_t pageID);
+    void putPage(uint32_t pageID);
+    void evictPage();
+};
