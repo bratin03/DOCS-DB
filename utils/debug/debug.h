@@ -5,18 +5,16 @@
 #include <mutex>
 #include <map>
 
+using namespace std;
+
 /**
- * @enum LogLevel
- * @brief Enumeration for log levels.
- * 
- * This enum defines the various log levels that can be used when logging messages.
+ * @brief The log levels that can be used to categorize log messages.
  */
-enum LogLevel {
-    DEBUG,   ///< Debug level for detailed diagnostic messages.
-    INFO,    ///< Informational messages.
-    WARNING, ///< Warning messages indicating potential issues.
-    ERROR    ///< Error messages indicating failures or problems.
-};
+#define DEBUG 0
+#define INFO 1
+#define WARNING 2
+#define ERROR 3
+
 
 /**
  * @brief Logs a message to a specified file with a timestamp and thread ID.
@@ -29,6 +27,6 @@ enum LogLevel {
  * @param level The log level of the message (e.g., DEBUG, INFO, WARNING, ERROR).
  * @param message The log message to be recorded.
  */
-void log(const std::string& file_name, LogLevel level, const std::string& message);
+void log(const string& file_name, int level, const string& message);
 
 #endif // DEBUG_H

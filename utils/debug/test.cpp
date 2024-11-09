@@ -25,7 +25,7 @@ std::string generate_random_string(size_t length)
 // Function that each thread will run
 void log_random_info(int group_id, int num_lines)
 {
-    std::string file_name = "log_group_" + std::to_string(group_id) + ".dat";
+    std::string file_name = "log_group_" + std::to_string(group_id) + ".log";
     for (int i = 0; i < num_lines; ++i)
     {
         std::string message = generate_random_string(20); // Generate random string of length 20

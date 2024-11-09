@@ -5,9 +5,10 @@
 #include <mutex>
 #include <map>
 #include <thread>
+#include <filesystem>
 #include <sstream>
 
-static std::map<std::string, std::mutex> file_mutexes; ///< Mutexes for each log file
+static map<string, mutex> file_mutexes; ///< Mutexes for each log file
 
 /**
  * @brief Logs a message to a specified file with a timestamp, thread ID, and log level.
@@ -20,40 +21,46 @@ static std::map<std::string, std::mutex> file_mutexes; ///< Mutexes for each log
  * The function will only perform logging if the DEBUG macro is defined.
  *
  * Level is one of DEBUG, INFO, WARNING, or ERROR.
- * 
+ *
  * @param file_name The name of the file to log the message.
  * @param level The log level (DEBUG, INFO, WARNING, ERROR).
  * @param message The message to log.
  */
-void log(const std::string &file_name, LogLevel level, const std::string &message)
+void log(const string &file_name, int level, const string &message)
 {
     // Get the mutex for the specific file to ensure thread safety
-    std::lock_guard<std::mutex> guard(file_mutexes[file_name]);
+    lock_guard<mutex> guard(file_mutexes[file_name]);
 
-    std::ofstream log_file;
+    ofstream log_file;
+
+    // Parse the file to get the directory structures
+    // Create the directories if they don't exist
+    filesystem::path path = file_name;
+    filesystem::create_directories(path.parent_path());
+    
 
     // Open the file in append mode
-    log_file.open(file_name, std::ios::app);
+    log_file.open(file_name, ios::app);
 
     // Check if the file was opened successfully
     if (!log_file.is_open())
     {
-        std::cerr << "Error opening log file: " << file_name << std::endl;
+        cerr << "Error opening log file: " << file_name << endl;
         return;
     }
 
     // Get current time and format it as a string
-    std::time_t now = std::time(nullptr);
+    time_t now = time(nullptr);
     char buf[20]; // YYYY-MM-DD HH:MM:SS
-    std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", std::localtime(&now));
+    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", localtime(&now));
 
     // Get thread ID
-    std::thread::id thread_id = std::this_thread::get_id();
-    std::ostringstream thread_id_stream;
+    thread::id thread_id = this_thread::get_id();
+    ostringstream thread_id_stream;
     thread_id_stream << thread_id;
 
     // Map LogLevel to string
-    std::string level_str;
+    string level_str;
     switch (level)
     {
     case DEBUG:
@@ -74,7 +81,7 @@ void log(const std::string &file_name, LogLevel level, const std::string &messag
     }
 
     // Write the timestamp, thread ID, level, and message to the file
-    log_file << buf << " [" << thread_id_stream.str() << "] [" << level_str << "] " << message << std::endl;
+    log_file << buf << " [" << thread_id_stream.str() << "] [" << level_str << "] " << message << endl;
 
     // Close the file
     log_file.close();
