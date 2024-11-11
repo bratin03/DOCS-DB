@@ -38,3 +38,6 @@
 **/*.esld
 
 **/*.out
+
+/part-2/client
+/part-2/server
