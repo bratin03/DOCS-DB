@@ -17,7 +17,7 @@
 *.dll
 
 # Fortran module files
-*.mod
+# *.mod
 *.smod
 
 # Compiled Static libraries
@@ -28,9 +28,11 @@
 
 # Executables
 *.exe
-*.out
+*.outassignment complete
 *.app
 
 
 /utils/tmp
 /.vscode
+
+**/*.esld
