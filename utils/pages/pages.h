@@ -12,12 +12,16 @@
 #include <mutex>
 #include <cstring>
 #include <sys/mman.h>
-#include "config.h"
 #include <fcntl.h>
 #include <semaphore>
 #include <atomic>
-#include <bits/stdc++.h>
+#include "../config/config.h"
+#include "../debug/debug.h"
 using namespace std;
+
+#ifdef LOG
+const string LOG_PAGE_FILE = "/tmp/utils_page.log";
+#endif
 
 extern uint32_t pageCount;
 const uint32_t HASHMOD = 10;
@@ -38,6 +42,10 @@ public:
 
     PageInMemory(uint32_t pageID, uint32_t fd)
     {
+#ifdef LOG
+        log(LOG_PAGE_FILE, INFO, "PageInMemory Constructor: PageID: " + to_string(pageID) + " FD: " + to_string(fd));
+#endif
+
         this->pageID = pageID;
         this->fd = fd;
         this->LRUCounter = 0;
@@ -47,6 +55,9 @@ public:
 
     ~PageInMemory()
     {
+#ifdef LOG
+        log(LOG_PAGE_FILE, INFO, "PageInMemory Destructor: PageID: " + to_string(pageID) + " FD: " + to_string(fd));
+#endif
         close(fd);
     }
 };
@@ -63,11 +74,17 @@ private:
 public:
     PageManager()
     {
+#ifdef LOG
+        log(LOG_PAGE_FILE, INFO, "PageManager Constructor");
+#endif
         pageGetSemaphore = new counting_semaphore<MAX_PAGES_IN_MEMORY>(MAX_PAGES_IN_MEMORY);
     }
 
     ~PageManager()
     {
+#ifdef LOG
+        log(LOG_PAGE_FILE, INFO, "PageManager Destructor");
+#endif
         delete pageGetSemaphore;
     }
 
@@ -79,6 +96,5 @@ public:
     void evictPage();
     uint32_t getLRUPageID();
 };
-
 
 #endif

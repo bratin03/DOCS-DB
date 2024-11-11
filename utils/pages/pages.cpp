@@ -7,20 +7,23 @@ string PageManager::getPrevDirectory()
     char current_directory[PATH_MAX];
     if (getcwd(current_directory, sizeof(current_directory)) == NULL)
     {
-        cout << "Error in getting current directory\n";
+#ifdef LOG
+        log(LOG_PAGE_FILE, ERROR, "Error in getting current directory");
+#endif
         return "";
     }
     char *last_slash = strrchr(current_directory, '/');
 
     if (last_slash == NULL)
     {
-        cout << "Error in getting current directory\n";
+#ifdef LOG
+        log(LOG_PAGE_FILE, ERROR, "Error in getting previous directory");
+#endif
         return "";
     }
     *last_slash = '\0';
     return string(current_directory);
 }
-
 
 uint32_t PageManager::createPage(ConfigManager &config)
 {
@@ -28,21 +31,28 @@ uint32_t PageManager::createPage(ConfigManager &config)
     pageCount++;
     auto temp_pageCount = pageCount;
     config.set("pageCount", to_string(pageCount));
+#ifdef LOG
+    log(LOG_PAGE_FILE, INFO, "Page Created: PageID: " + to_string(temp_pageCount));
+#endif
     pageCreateMutex.unlock();
     return temp_pageCount;
 }
-
 
 void *PageManager::getPage(uint32_t pageID)
 {
     if (pageMap.find(pageID) != pageMap.end())
     {
-        cout << "Page already in memory\n";
+#ifdef LOG
+        log(LOG_PAGE_FILE, INFO, "Page Found in Memory: PageID: " + to_string(pageID));
+#endif
         pageMap[pageID]->refCount++;
         updateLRU(pageID);
         return pageMap[pageID]->startptr;
     }
 
+#ifdef LOG
+    log(LOG_PAGE_FILE, INFO, "Page Not Found in Memory: PageID: " + to_string(pageID));
+#endif
     evictPage();
     pageGetSemaphore->acquire();
 
@@ -52,24 +62,31 @@ void *PageManager::getPage(uint32_t pageID)
     string dirPath = getPrevDirectory() + "/tmp/" + to_string(hashValue);
 
     bool op = filesystem::create_directories(dirPath);
-    cout << "Created directory: " << op << endl;
-
-
+    if (!op)
+    {
+#ifdef LOG
+        log(LOG_PAGE_FILE, ERROR, "Error in creating directory: " + dirPath);
+#endif
+        return NULL;
+    }
     string filePath = dirPath + "/" + to_string(pageID);
     ofstream file(filePath);
-
 
     int fd = open(filePath.c_str(), O_RDWR | O_CREAT, 0666);
     if (fd == -1)
     {
-        cout << "Error in opening file\n";
+#ifdef LOG
+        log(LOG_PAGE_FILE, ERROR, "Error in opening file: " + filePath);
+#endif
         return NULL;
     }
     ftruncate(fd, PAGE_SIZE);
     void *startptr = mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (startptr == MAP_FAILED)
     {
-        cout << "Error in mmap\n";
+#ifdef LOG
+        log(LOG_PAGE_FILE, ERROR, "Error in mmap");
+#endif
         return NULL;
     }
 
@@ -79,26 +96,39 @@ void *PageManager::getPage(uint32_t pageID)
     pageMap[pageID]->refCount++;
     updateLRU(pageID);
 
+#ifdef LOG
+    log(LOG_PAGE_FILE, INFO, "Page Loaded in Memory: PageID: " + to_string(pageID));
+#endif
+
     return startptr;
 }
-
 
 void PageManager::putPage(uint32_t pageID)
 {
     if (pageMap.find(pageID) == pageMap.end())
     {
-        cout << "Page not in memory\n";
+#ifdef LOG
+        log(LOG_PAGE_FILE, ERROR, "Error in putting page: PageID: " + to_string(pageID));
+#endif
         return;
     }
     pageMap[pageID]->refCount--;
+#ifdef LOG
+    if (pageMap[pageID]->refCount == 0)
+    {
+        log(LOG_PAGE_FILE, INFO, "Page RefCount 0: PageID: " + to_string(pageID));
+    }
+#endif
 }
-
 
 void PageManager::evictPage()
 {
     uint32_t lruPageID = getLRUPageID();
     if (pageMap.find(lruPageID) == pageMap.end())
     {
+#ifdef LOG
+        log(LOG_PAGE_FILE, WARNING, "Error in evicting page: PageID: " + to_string(lruPageID));
+#endif
         return;
     }
     if (pageMap[lruPageID]->refCount == 0)
@@ -108,17 +138,20 @@ void PageManager::evictPage()
         delete pageMap[lruPageID];
         pageMap.erase(lruPageID);
         pageGetSemaphore->release();
-
+#ifdef LOG
+        log(LOG_PAGE_FILE, INFO, "Page Evicted: PageID: " + to_string(lruPageID));
+#endif
         pageRemoveMutex.unlock();
     }
 }
-
 
 void PageManager::updateLRU(uint32_t pageID)
 {
     if (pageMap.find(pageID) == pageMap.end())
     {
-        cout << "Error in updating LRU\n";
+#ifdef LOG
+        log(LOG_PAGE_FILE, ERROR, "Error in updating LRU: PageID: " + to_string(pageID));
+#endif
         return;
     }
     pageMap[pageID]->LRUCounter = 0;
@@ -130,7 +163,6 @@ void PageManager::updateLRU(uint32_t pageID)
         }
     }
 }
-
 
 uint32_t PageManager::getLRUPageID()
 {

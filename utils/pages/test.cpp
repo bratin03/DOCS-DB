@@ -1,10 +1,7 @@
-#include "config.h"
+#include "../config/config.h"
 #include "pages.h"
 #include <iostream>
 using namespace std;
-
-
-
 
 int main() {
 
@@ -17,7 +14,7 @@ int main() {
 
     cout << "Page Count: " << pageCount << endl;
 
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 5; i++)
     {
         uint32_t pageID = pageManager.createPage(config);
         void * start = pageManager.getPage(pageID);

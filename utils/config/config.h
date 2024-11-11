@@ -1,11 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
+
 #include <map>
-using namespace std;
-
-
 #include <string>
-
+using namespace std;
 class ConfigManager {
 private:
     string config_file;
