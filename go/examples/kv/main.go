@@ -12,7 +12,7 @@ import (
 var (
 	read  = flag.Bool("read", true, "enable read mode")
 	write = flag.Bool("write", true, "enable write mode")
-	count = flag.Int("n", 1000000, "count of write operation")
+	count = flag.Int("n", 10000000, "count of write operation")
 )
 
 func main() {
