@@ -15,6 +15,8 @@ Indian Institute of Technology, Kharagpur
 #include "../../red_black_tree/red_black.h"
 #include "../../utils/types.h"
 #include <string>
+#include <list>
+#include <map>
 #include <queue>
 #include <ios>
 #include <filesystem>
@@ -94,12 +96,8 @@ public:
      * @param id The segment ID.
      * @param level_order The level order of the segment.
      *
-     * @return The generated filename as a string.
-     */
-    static std::string create_filename_based_on_level(uint16_t id, uint16_t level_order);
-
-    /**
-     * @brief Extract the segment ID and level from the path.
+     * @return The generated filename as a string./home/somya/Documents/acads/7th_Sem/DOCS/DOCS-DB/cpp/src/lsm_tree/level/level.h:122:37: error: ‘list’ is not a member of ‘std’
+  122 |     static std::pair<uint16_t, std::list<std::pair<uint32_t, std::vector<level *>>>> collect_levels(const std::string &path, uint64_t memtable_size);m the path.
      *
      * The segment filename is expected to be in the format "00001_00010". This
      * function extracts the ID and level order from that format.
