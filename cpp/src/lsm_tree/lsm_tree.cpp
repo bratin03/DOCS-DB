@@ -9,6 +9,7 @@ Indian Institute of Technology, Kharagpur
 */
 
 #include "lsm_tree.h"
+#include <shared_mutex>
 
 /**
  * @class lsm_tree
@@ -45,6 +46,9 @@ lsm_tree::~lsm_tree()
  */
 void lsm_tree::put(const std::string &key, const std::string &value)
 {
+
+    std::unique_lock<std::shared_mutex> lock(tree_mutex);
+
     if (memtable.size() >= MEMTABLE_SIZE)
     {
         compact();
@@ -69,6 +73,9 @@ void lsm_tree::put(const std::string &key, const std::string &value)
  */
 std::string lsm_tree::get(const std::string &key)
 {
+    
+    std::shared_lock<std::shared_mutex> lock(tree_mutex);
+
     std::optional<std::string> memtable_val = memtable.get(key);
     if (memtable_val.has_value())
     {
@@ -94,6 +101,9 @@ std::string lsm_tree::get(const std::string &key)
  */
 void lsm_tree::remove(const std::string &key)
 {
+
+    std::unique_lock<std::shared_mutex> lock(tree_mutex);
+
     put(key, DOCS_DB);
 }
 
@@ -105,6 +115,8 @@ void lsm_tree::remove(const std::string &key)
  */
 void lsm_tree::drop_table()
 {
+    std::unique_lock<std::shared_mutex> lock(tree_mutex);
+
     memtable.delete_tree();
     wal.clear();
 
@@ -216,6 +228,8 @@ std::optional<std::string> lsm_tree::search_all_segments(const std::string &targ
  */
 void lsm_tree::restore_db()
 {
+    std::unique_lock<std::shared_mutex> lock(tree_mutex);
+
     restore_memtable();
     restore_segments();
 }

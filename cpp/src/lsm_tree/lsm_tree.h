@@ -21,6 +21,8 @@ Indian Institute of Technology, Kharagpur
 #include <list>
 #include <vector>
 #include <optional>
+#include <shared_mutex>
+#include <mutex>
 
 /**
  * @brief Path definitions for internal storage.
@@ -182,6 +184,14 @@ private:
      * @return The path where the new segment will be stored.
      */
     std::string get_new_segment_path(uint16_t level_order);
+
+
+    /**
+     * @brief Mutex for thread-safe access to the LSM tree.
+     */
+    mutable std::shared_mutex tree_mutex;
+
+
 };
 
 #endif // LSM_TREE_H
