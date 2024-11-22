@@ -135,6 +135,16 @@ public:
      */
     std::string get_name() const;
 
+
+    /**
+     * @brief Creates a filename based on segment index and level order.
+     * 
+     * @param segment_i The segment index (e.g., segment number).
+     * @param level_order The level order (e.g., hierarchical level).
+     * @return std::string The generated filename.
+     */
+    static std::string create_filename_based_on_level(uint16_t id, uint16_t level_order);
+
 private:
     static const uint64_t SPARSITY_FACTOR{128}; ///< The sparsity factor for the index
 

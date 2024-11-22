@@ -2,7 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#define TEST_MODE
+#include <filesystem>
+// #define TEST_MODE
 
 enum commands
 {
@@ -28,7 +29,6 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
 {
     lsm_tree db;
     bool run = true;
-
     std::ifstream infile(filename); // Open the file for reading
     if (!infile.is_open())
     {
@@ -88,7 +88,7 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
                         std::cout << "Failed: " << key << std::endl;
                         exit(1);
                     }
-#endif
+#endif  
                     outfile << "GET: " << db.get(key) << std::endl;
                 }
             }
