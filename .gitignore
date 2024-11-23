@@ -44,3 +44,6 @@
 
 /build
 cpp/build
+
+/go
+/berkeley_db
