@@ -1,9 +1,12 @@
 sudo mkdir -p /data/f-stack
 
-sudo git clone --branch master https://github.com/F-Stack/f-stack.git /data/f-stack
+sudo git clone https://github.com/F-Stack/f-stack.git /data/f-stack
 
 sudo apt-get install libnuma-dev
-sudo pip3 install pyelftools --upgrade
+
+sudo apt install python3-pip
+
+sudo pip3 install pyelftools --upgrade --break-system-packages
 
 cd /data/f-stack/dpdk/
 
@@ -42,8 +45,8 @@ python3 /data/f-stack/dpdk/usertools/dpdk-devbind.py --status
 
 # sudo ifconfig veth2-br down
 
-sudo ifconfig wlp1s0 down
-sudo python3 /data/f-stack/dpdk/usertools/dpdk-devbind.py --bind=igb_uio wlp1s0
+sudo ifconfig enP11757s1 down
+sudo python3 /data/f-stack/dpdk/usertools/dpdk-devbind.py --bind=igb_uio enP11757s1
 
 sudo apt-get install gawk
 
@@ -73,5 +76,5 @@ export PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib/
 
 cd /data/f-stack/lib/
 
-sudo PKG_CONFIG_PATH=$PKG_CONFIG_PATH make
-make install
+sudo PKG_CONFIG_PATH=$PKG_CONFIG_PATH FF_PATH=$FF_PATH make
+sudo PKG_CONFIG_PATH=$PKG_CONFIG_PATH FF_PATH=$FF_PATH make install
