@@ -2,25 +2,41 @@ cmake_minimum_required(VERSION 3.14)
 
 project(DOCS-DB)
 
+# Set the C++ standard to C++20
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -O3")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Add common compiler flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O3")
+
+# Boost Configuration
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
+# Find Boost libraries
 find_package(Boost 1.50 REQUIRED COMPONENTS filesystem)
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIR})
-message(STATUS "Boost version: ${Boost_VERSION}")
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    link_directories(${Boost_LIBRARY_DIRS})
+    message(STATUS "Boost version: ${Boost_VERSION}")
+else()
+    message(FATAL_ERROR "Boost not found. Install Boost and try again.")
+endif()
 
-# Add subdirectory for source code
+# Add the source code directory
 add_subdirectory(src)
 
-# Add a subdirectory for testing
+# Add the test directory
 add_subdirectory(test)
 
-file(GLOB db_app repl.cpp)
-add_executable(repl ${db_app})
-target_link_libraries(repl ${Boost_LIBRARIES})
-target_link_libraries(repl lsm-tree)
+# Collect and compile REPL application
+file(GLOB DB_APP repl.cpp)
+add_executable(repl ${DB_APP})
+
+# Link Boost, pthread, and the custom LSM-tree library
+target_link_libraries(repl PRIVATE ${Boost_LIBRARIES} lsm-tree pthread)
+
+# Ensure C++20 standard for repl target
+set_target_properties(repl PROPERTIES CXX_STANDARD 20)
