@@ -43,7 +43,7 @@ sudo insmod /data/f-stack/dpdk/build/kernel/linux/kni/rte_kni.ko carrier=on
 
 python3 /data/f-stack/dpdk/usertools/dpdk-devbind.py --status
 
-# sudo ifconfig veth2-br down
+
 
 sudo ifconfig enP11757s1 down
 sudo python3 /data/f-stack/dpdk/usertools/dpdk-devbind.py --bind=igb_uio enP11757s1

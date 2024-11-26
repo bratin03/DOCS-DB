@@ -41,3 +41,9 @@
 
 /part-2/client
 /part-2/server
+
+/build
+cpp/build
+
+/go
+/berkeley_db
