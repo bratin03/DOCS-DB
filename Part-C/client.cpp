@@ -29,7 +29,7 @@ string buildRESPCommand(const string &command, const string &key, const string &
 }
 
 /**
- * @brief Main function to establish a connection to the server, send commands, and receive responses.
+ * @brief Main function to establish a connection to the server, send commands, and process responses.
  *
  * @return int Exit status of the program.
  */
@@ -63,32 +63,48 @@ int main()
         return -1;
     }
 
-    std:: cout << "Connection Established" << std::endl;
+    cout << "Connection Established" << endl;
+
+    // Commands to be sent
+    string command;
+
     // Send SET command
-    string command = buildRESPCommand("SET", "mykey", "myvalue");
+    command = buildRESPCommand("SET", "mykey", "myvalue");
     send(sock, command.c_str(), command.size(), 0);
-    read(sock, buffer, 1024);
-    cout << buffer << endl;
+    int bytesRead = read(sock, buffer, sizeof(buffer));
+    if (bytesRead > 0)
+    {
+        cout << "Response to SET command: " << string(buffer, bytesRead) << endl;
+    }
 
     // Send GET command
     command = buildRESPCommand("GET", "mykey");
     send(sock, command.c_str(), command.size(), 0);
-    read(sock, buffer, 1024);
-    cout << buffer << endl;
+    bytesRead = read(sock, buffer, sizeof(buffer));
+    if (bytesRead > 0)
+    {
+        cout << "Response to GET command: " << string(buffer, bytesRead) << endl;
+    }
 
     // Send DEL command
     command = buildRESPCommand("DEL", "mykey");
     send(sock, command.c_str(), command.size(), 0);
-    read(sock, buffer, 1024);
-    cout << buffer << endl;
+    bytesRead = read(sock, buffer, sizeof(buffer));
+    if (bytesRead > 0)
+    {
+        cout << "Response to DEL command: " << string(buffer, bytesRead) << endl;
+    }
 
-    // Send GET command again
+    // Send GET command again (expecting no data)
     command = buildRESPCommand("GET", "mykey");
     send(sock, command.c_str(), command.size(), 0);
-    read(sock, buffer, 1024);
-    cout << buffer << endl;
+    bytesRead = read(sock, buffer, sizeof(buffer));
+    if (bytesRead > 0)
+    {
+        cout << "Response to GET command (after DEL): " << string(buffer, bytesRead) << endl;
+    }
 
-
+    // Close the connection
     close(sock);
     return 0;
 }
