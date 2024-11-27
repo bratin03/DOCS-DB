@@ -1,8 +1,0 @@
-# docs
-**/docs/*
-# build
-**/build/*
-# log
-**/.log
-
-.vscode

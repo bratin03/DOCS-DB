@@ -29,6 +29,56 @@ string buildRESPCommand(const string &command, const string &key, const string &
 }
 
 /**
+ * @brief Parses the server response based on RESP format and displays the result.
+ *
+ * @param command The command that was sent (e.g., "GET", "SET", "DEL").
+ * @param key The key used in the command.
+ * @param response The server response as a string.
+ */
+void parseServerResponse(const string &command, const string &key, const string &response)
+{
+    
+    cout << "\nCommand: " << command << " " << key << endl;
+
+    // Handle SET and DEL commands (they won't return a value in response)
+    if (command == "SET" || command == "DEL")
+    {
+        cout << "Response:" << endl;
+    }
+    else if (command == "GET")  // GET command expects a response
+    {
+        cout << "Response: ";
+
+        if (response.empty() || response[0] == '$' && response.substr(1, 2) == "0")  // No value found for GET
+        {
+            cout << endl;  // Empty response
+        }
+        else if (response[0] == '$')  // Bulk String Response
+        {
+            size_t lenEnd = response.find("\r\n", 1);  // Find the end of the length part
+            int length = stoi(response.substr(1, lenEnd - 1));  // Get the length of the bulk string
+            if (length > 0)
+            {
+                string value = response.substr(lenEnd + 2, length);  // Extract the value part
+                cout << value << endl;  // Print the value
+            }
+            else
+            {
+                cout << endl;  // No value found for GET, print empty
+            }
+        }
+        else
+        {
+            cout << "Unexpected response format" << endl;
+        }
+    }
+    else
+    {
+        cout << "Unexpected command" << endl;
+    }
+}
+
+/**
  * @brief Main function to establish a connection to the server, send commands, and process responses.
  *
  * @return int Exit status of the program.
@@ -74,7 +124,7 @@ int main()
     int bytesRead = read(sock, buffer, sizeof(buffer));
     if (bytesRead > 0)
     {
-        cout << "Response to SET command: " << string(buffer, bytesRead) << endl;
+        parseServerResponse("SET", "mykey", string(buffer, bytesRead));
     }
 
     // Send GET command
@@ -83,7 +133,7 @@ int main()
     bytesRead = read(sock, buffer, sizeof(buffer));
     if (bytesRead > 0)
     {
-        cout << "Response to GET command: " << string(buffer, bytesRead) << endl;
+        parseServerResponse("GET", "mykey", string(buffer, bytesRead));
     }
 
     // Send DEL command
@@ -92,16 +142,16 @@ int main()
     bytesRead = read(sock, buffer, sizeof(buffer));
     if (bytesRead > 0)
     {
-        cout << "Response to DEL command: " << string(buffer, bytesRead) << endl;
+        parseServerResponse("DEL", "mykey", string(buffer, bytesRead));
     }
 
-    // Send GET command again (expecting no data)
+    // Send GET command again (expecting empty response)
     command = buildRESPCommand("GET", "mykey");
     send(sock, command.c_str(), command.size(), 0);
     bytesRead = read(sock, buffer, sizeof(buffer));
     if (bytesRead > 0)
     {
-        cout << "Response to GET command (after DEL): " << string(buffer, bytesRead) << endl;
+        parseServerResponse("GET", "mykey", string(buffer, bytesRead));
     }
 
     // Close the connection
