@@ -47,3 +47,6 @@ cpp/build
 
 /go
 /berkeley_db
+/Part-A/build
+*/server
+*/client

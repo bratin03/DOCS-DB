@@ -1,17 +1,16 @@
-# Makefile for DOCS DB project
-
 CXX = g++
-CXXFLAGS = -std=c++17 -pthread -O2
-TARGETS = server client
+CXXFLAGS = -std=c++23 -I/home/somya/Documents/acads/7th_Sem/DOCS/DOCS-DB/Part-A/include
+LDFLAGS = -L/home/somya/Documents/acads/7th_Sem/DOCS/DOCS-DB/Part-A/build/src -llsm-tree
 
-all: $(TARGETS)
+all: server client
 
-server: Server.cpp StorageEngine.cpp StorageEngine.h
-	$(CXX) $(CXXFLAGS) -o server Server.cpp StorageEngine.cpp
+server: server.cpp
+	$(CXX) $(CXXFLAGS) server.cpp -o server $(LDFLAGS)
 
-client: Client.cpp
-	$(CXX) $(CXXFLAGS) -o client Client.cpp
+
+client: client.cpp
+	$(CXX) $(CXXFLAGS) client.cpp -o client $(LDFLAGS)
 
 clean:
-	rm -f $(TARGETS)
-	rm -f benchmark_results/*.txt
+	rm -f server
+	rm -f client

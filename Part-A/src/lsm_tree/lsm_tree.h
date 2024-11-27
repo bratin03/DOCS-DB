@@ -27,8 +27,8 @@ Indian Institute of Technology, Kharagpur
 /**
  * @brief Path definitions for internal storage.
  */
-#define WAL_PATH "../src/.internal_storage/wal.log"
-#define SEGMENT_BASE "../src/.internal_storage/segments/"
+#define WAL_PATH "/tmp/docs-db/.internal_storage/wal.log"
+#define SEGMENT_BASE "/tmp/docs-db/.internal_storage/segments"
 
 /**
  * @class lsm_tree

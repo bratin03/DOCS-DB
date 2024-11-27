@@ -102,8 +102,6 @@ std::string lsm_tree::get(const std::string &key)
 void lsm_tree::remove(const std::string &key)
 {
 
-    std::unique_lock<std::shared_mutex> lock(tree_mutex);
-
     put(key, DOCS_DB);
 }
 
@@ -115,7 +113,7 @@ void lsm_tree::remove(const std::string &key)
  */
 void lsm_tree::drop_table()
 {
-    std::unique_lock<std::shared_mutex> lock(tree_mutex);
+    // std::unique_lock<std::shared_mutex> lock(tree_mutex);
 
     memtable.delete_tree();
     wal.clear();
