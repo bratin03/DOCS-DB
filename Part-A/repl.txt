@@ -1,4 +1,6 @@
 SET 1 "12"
 SET 2 "24"
-DEL 1 
 GET 2
+GET 1
+GET 2
+DEL 2
