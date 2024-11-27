@@ -305,7 +305,6 @@ void level::merge_sst_values(level *sst_a, level *sst_b)
             last_key = min_kv_pair.key;
         }
 
-        // std::cout << "NEXT PAIR: " << min_kv_pair.to_log_entry();
         bloom.set(min_kv_pair.key);
 
         if (sparsity_i++ == SPARSITY_FACTOR)

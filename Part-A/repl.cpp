@@ -2,7 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-// #define TEST_MODE
+
+// #define TEST_MODE // This flag is only for testing purposes
 
 enum commands
 {
@@ -97,7 +98,9 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
                     if (key != value)
                     {
                         // Fail and exit
-                        std::cout << "Failed: " << key << std::endl;
+                        std::cout << "Failed for key: " << key << std::endl;
+                        std::cout << "Expected: " << key << std::endl;
+                        std::cout << "Got: " << value << std::endl;
                         exit(1);
                     }
 #endif

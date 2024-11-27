@@ -76,7 +76,14 @@ void write_ahead_log::repopulate_memtable(red_black_tree &memtable) const
         size_t seperator_pos = line.find(SEPERATOR);
         key = line.substr(0, seperator_pos);
         value = line.substr(seperator_pos + 1, line.size());
-
+        if (value == TOMBSTONE)
+        {
+            memtable.remove(key);
+        }
+        else
+        {
+            memtable.insert(kv_pair{key, value});
+        }
         memtable.insert(kv_pair{key, value});
     }
 
