@@ -1,0 +1,173 @@
+\hypertarget{classlsm__tree}{}\doxysection{lsm\+\_\+tree Class Reference}
+\label{classlsm__tree}\index{lsm\_tree@{lsm\_tree}}
+
+
+Implements a Log-\/\+Structured Merge (L\+SM) Tree for key-\/value storage.  
+
+
+
+
+{\ttfamily \#include $<$lsm\+\_\+tree.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classlsm__tree_a2cb599dcd078a109274cb89977b53cf7}{lsm\+\_\+tree}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for the L\+SM tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classlsm__tree_ae3c270ce0063296dd3172744d3acaa09}{$\sim$lsm\+\_\+tree}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the L\+SM tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlsm__tree_a1913491e48fc93128591b673e6834abc}{put}} (const std\+::string \&key, const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Insert or update a key-\/value pair in the L\+SM tree. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classlsm__tree_a96eee0970b257c718bb58daff90fff32}{get}} (const std\+::string \&key)
+\begin{DoxyCompactList}\small\item\em Retrieve the value associated with a key. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlsm__tree_ad3cafd568a4b05ae0ba34a60ca23576b}{remove}} (const std\+::string \&key)
+\begin{DoxyCompactList}\small\item\em Remove a key-\/value pair from the L\+SM tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlsm__tree_ae56ce4c08dd0eff303ee966d9a912f0a}{drop\+\_\+table}} ()
+\begin{DoxyCompactList}\small\item\em Drop all data in the L\+SM tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a Log-\/\+Structured Merge (L\+SM) Tree for key-\/value storage. 
+
+Implements a Log-\/\+Structured Merge Tree (L\+SM Tree) for efficient data storage and retrieval.
+
+The L\+SM Tree is a disk-\/based storage engine optimized for write-\/heavy workloads. It uses a memtable for fast writes and flushes data to disk in segments (S\+S\+Ts). Periodically, segments are compacted to optimize read performance.
+
+This class is a basic implementation of an L\+SM tree, which organizes data into levels and uses a write-\/ahead log (W\+AL) for durability. The tree stores data in memory (memtable) and periodically flushes to disk as segments. It supports basic operations like putting, getting, and removing key-\/value pairs, along with dropping the table. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlsm__tree_a2cb599dcd078a109274cb89977b53cf7}\label{classlsm__tree_a2cb599dcd078a109274cb89977b53cf7}} 
+\index{lsm\_tree@{lsm\_tree}!lsm\_tree@{lsm\_tree}}
+\index{lsm\_tree@{lsm\_tree}!lsm\_tree@{lsm\_tree}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree()}{lsm\_tree()}}
+{\footnotesize\ttfamily lsm\+\_\+tree\+::lsm\+\_\+tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor for the L\+SM tree. 
+
+Initializes the L\+SM tree with an empty memtable and W\+AL. Prepares the internal structures for storing data and managing segments. \mbox{\Hypertarget{classlsm__tree_ae3c270ce0063296dd3172744d3acaa09}\label{classlsm__tree_ae3c270ce0063296dd3172744d3acaa09}} 
+\index{lsm\_tree@{lsm\_tree}!````~lsm\_tree@{$\sim$lsm\_tree}}
+\index{````~lsm\_tree@{$\sim$lsm\_tree}!lsm\_tree@{lsm\_tree}}
+\doxysubsubsection{\texorpdfstring{$\sim$lsm\_tree()}{~lsm\_tree()}}
+{\footnotesize\ttfamily lsm\+\_\+tree\+::$\sim$lsm\+\_\+tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the L\+SM tree. 
+
+Destructor for the L\+SM Tree.
+
+Cleans up any resources used by the L\+SM tree, including flushing the memtable to disk and closing the write-\/ahead log.
+
+This method ensures that the table is cleared and all resources are freed. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classlsm__tree_ae56ce4c08dd0eff303ee966d9a912f0a}\label{classlsm__tree_ae56ce4c08dd0eff303ee966d9a912f0a}} 
+\index{lsm\_tree@{lsm\_tree}!drop\_table@{drop\_table}}
+\index{drop\_table@{drop\_table}!lsm\_tree@{lsm\_tree}}
+\doxysubsubsection{\texorpdfstring{drop\_table()}{drop\_table()}}
+{\footnotesize\ttfamily void lsm\+\_\+tree\+::drop\+\_\+table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Drop all data in the L\+SM tree. 
+
+Clears the database.
+
+Deletes all entries from the memtable, W\+AL, and segments, effectively resetting the L\+SM tree.
+
+This method deletes the memtable, clears the W\+AL, and removes all segments from disk. \mbox{\Hypertarget{classlsm__tree_a96eee0970b257c718bb58daff90fff32}\label{classlsm__tree_a96eee0970b257c718bb58daff90fff32}} 
+\index{lsm\_tree@{lsm\_tree}!get@{get}}
+\index{get@{get}!lsm\_tree@{lsm\_tree}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily std\+::string lsm\+\_\+tree\+::get (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption})}
+
+
+
+Retrieve the value associated with a key. 
+
+Retrieves a value associated with a key from the database.
+
+Searches through the memtable, segments, and W\+AL to find the most recent value for the given key.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key whose associated value is to be retrieved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value associated with the key.
+\end{DoxyReturn}
+This method first checks the memtable for the key, and if not found, it searches through the disk segments. If the key is found in any segment, the associated value is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value associated with the key, or an empty string if not found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlsm__tree_a1913491e48fc93128591b673e6834abc}\label{classlsm__tree_a1913491e48fc93128591b673e6834abc}} 
+\index{lsm\_tree@{lsm\_tree}!put@{put}}
+\index{put@{put}!lsm\_tree@{lsm\_tree}}
+\doxysubsubsection{\texorpdfstring{put()}{put()}}
+{\footnotesize\ttfamily void lsm\+\_\+tree\+::put (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const std\+::string \&}]{value }\end{DoxyParamCaption})}
+
+
+
+Insert or update a key-\/value pair in the L\+SM tree. 
+
+Inserts a key-\/value pair into the database.
+
+If the key already exists, the value is updated. If the memtable size exceeds the limit, it is flushed to disk.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to insert or update. \\
+\hline
+{\em value} & The value to associate with the key.\\
+\hline
+\end{DoxyParams}
+If the memtable exceeds the specified size (M\+E\+M\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE), it is flushed to disk, a new segment is created, and segments are compacted. The operation is also logged in the Write-\/\+Ahead Log (W\+AL), and the pair is inserted into the memtable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to insert. \\
+\hline
+{\em value} & The value associated with the key. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classlsm__tree_ad3cafd568a4b05ae0ba34a60ca23576b}\label{classlsm__tree_ad3cafd568a4b05ae0ba34a60ca23576b}} 
+\index{lsm\_tree@{lsm\_tree}!remove@{remove}}
+\index{remove@{remove}!lsm\_tree@{lsm\_tree}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily void lsm\+\_\+tree\+::remove (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption})}
+
+
+
+Remove a key-\/value pair from the L\+SM tree. 
+
+Marks a key as deleted by inserting the key with a special value.
+
+Marks the key for deletion in the memtable and W\+AL. The key will also be purged from disk in the next compaction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to remove.\\
+\hline
+\end{DoxyParams}
+In the L\+SM Tree, deletion is achieved by inserting the key with the value {\ttfamily D\+O\+C\+S\+\_\+\+DB}. This ensures that subsequent lookups will recognize the key as deleted.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to delete. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lsm\+\_\+tree/\mbox{\hyperlink{lsm__tree_8h}{lsm\+\_\+tree.\+h}}\item 
+src/lsm\+\_\+tree/\mbox{\hyperlink{lsm__tree_8cpp}{lsm\+\_\+tree.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,136 @@
+\hypertarget{classwrite__ahead__log}{}\doxysection{write\+\_\+ahead\+\_\+log Class Reference}
+\label{classwrite__ahead__log}\index{write\_ahead\_log@{write\_ahead\_log}}
+
+
+Represents a write-\/ahead log (W\+AL) for persisting operations before they are committed to the database.  
+
+
+
+
+{\ttfamily \#include $<$wal.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classwrite__ahead__log_ae2f64acb4080ce5f5501d852ef48ee3f}{write\+\_\+ahead\+\_\+log}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classwrite__ahead__log}{write\+\_\+ahead\+\_\+log}} object with a specified filename. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classwrite__ahead__log_ac12978a68426fd1aada71c4696d2ac6a}{$\sim$write\+\_\+ahead\+\_\+log}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{classwrite__ahead__log}{write\+\_\+ahead\+\_\+log}} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classwrite__ahead__log_a5e9fb95850e2b9147500b03c058e7b0c}{append}} (const std\+::string \&content)
+\begin{DoxyCompactList}\small\item\em Appends content to the write-\/ahead log. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classwrite__ahead__log_a95d9042c77538b5df74b01b9cb75e9f4}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Clears the content of the write-\/ahead log. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classwrite__ahead__log_a26ed9bbe8ba5b9e40415e41a5d14f1b6}{repopulate\+\_\+memtable}} (\mbox{\hyperlink{classred__black__tree}{red\+\_\+black\+\_\+tree}} \&memtable) const
+\begin{DoxyCompactList}\small\item\em Repopulates the memtable from the write-\/ahead log. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a write-\/ahead log (W\+AL) for persisting operations before they are committed to the database. 
+
+A class that handles the write-\/ahead log (W\+AL) operations.
+
+This class provides methods for appending new entries to the W\+AL, clearing it, and repopulating a memtable from the W\+AL after a crash or restart.
+
+The write-\/ahead log is used to ensure durability of the data by logging operations before they are written to the main storage (e.\+g., database files). This class allows appending entries to the W\+AL, clearing the log, and repopulating a memtable from the log in case of recovery. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classwrite__ahead__log_ae2f64acb4080ce5f5501d852ef48ee3f}\label{classwrite__ahead__log_ae2f64acb4080ce5f5501d852ef48ee3f}} 
+\index{write\_ahead\_log@{write\_ahead\_log}!write\_ahead\_log@{write\_ahead\_log}}
+\index{write\_ahead\_log@{write\_ahead\_log}!write\_ahead\_log@{write\_ahead\_log}}
+\doxysubsubsection{\texorpdfstring{write\_ahead\_log()}{write\_ahead\_log()}}
+{\footnotesize\ttfamily write\+\_\+ahead\+\_\+log\+::write\+\_\+ahead\+\_\+log (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Constructs a \mbox{\hyperlink{classwrite__ahead__log}{write\+\_\+ahead\+\_\+log}} object with a specified filename. 
+
+Opens the log file in read/write mode. If the file does not exist, it will be created.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The path to the write-\/ahead log file. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classwrite__ahead__log_ac12978a68426fd1aada71c4696d2ac6a}\label{classwrite__ahead__log_ac12978a68426fd1aada71c4696d2ac6a}} 
+\index{write\_ahead\_log@{write\_ahead\_log}!````~write\_ahead\_log@{$\sim$write\_ahead\_log}}
+\index{````~write\_ahead\_log@{$\sim$write\_ahead\_log}!write\_ahead\_log@{write\_ahead\_log}}
+\doxysubsubsection{\texorpdfstring{$\sim$write\_ahead\_log()}{~write\_ahead\_log()}}
+{\footnotesize\ttfamily write\+\_\+ahead\+\_\+log\+::$\sim$write\+\_\+ahead\+\_\+log (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Destructor for the \mbox{\hyperlink{classwrite__ahead__log}{write\+\_\+ahead\+\_\+log}} class. 
+
+Closes the W\+AL file when the object is destroyed.
+
+This is the default destructor, which does not require any additional implementation. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classwrite__ahead__log_a5e9fb95850e2b9147500b03c058e7b0c}\label{classwrite__ahead__log_a5e9fb95850e2b9147500b03c058e7b0c}} 
+\index{write\_ahead\_log@{write\_ahead\_log}!append@{append}}
+\index{append@{append}!write\_ahead\_log@{write\_ahead\_log}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily void write\+\_\+ahead\+\_\+log\+::append (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{content }\end{DoxyParamCaption})}
+
+
+
+Appends content to the write-\/ahead log. 
+
+Appends content to the write-\/ahead log file.
+
+This method writes a string content to the end of the W\+AL file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em content} & The content to append to the log.\\
+\hline
+\end{DoxyParams}
+This method writes a string content to the W\+AL file. It ensures the content is added to the end of the file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em content} & The string content to be appended to the log. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classwrite__ahead__log_a95d9042c77538b5df74b01b9cb75e9f4}\label{classwrite__ahead__log_a95d9042c77538b5df74b01b9cb75e9f4}} 
+\index{write\_ahead\_log@{write\_ahead\_log}!clear@{clear}}
+\index{clear@{clear}!write\_ahead\_log@{write\_ahead\_log}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void write\+\_\+ahead\+\_\+log\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clears the content of the write-\/ahead log. 
+
+Truncates the W\+AL file to zero size, effectively removing all entries from the log.
+
+This method truncates the W\+AL file to 0 size, effectively clearing all the entries stored in it. \mbox{\Hypertarget{classwrite__ahead__log_a26ed9bbe8ba5b9e40415e41a5d14f1b6}\label{classwrite__ahead__log_a26ed9bbe8ba5b9e40415e41a5d14f1b6}} 
+\index{write\_ahead\_log@{write\_ahead\_log}!repopulate\_memtable@{repopulate\_memtable}}
+\index{repopulate\_memtable@{repopulate\_memtable}!write\_ahead\_log@{write\_ahead\_log}}
+\doxysubsubsection{\texorpdfstring{repopulate\_memtable()}{repopulate\_memtable()}}
+{\footnotesize\ttfamily void write\+\_\+ahead\+\_\+log\+::repopulate\+\_\+memtable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classred__black__tree}{red\+\_\+black\+\_\+tree}} \&}]{memtable }\end{DoxyParamCaption}) const}
+
+
+
+Repopulates the memtable from the write-\/ahead log. 
+
+This method reads the W\+AL file and inserts key-\/value pairs into the provided red-\/black tree (memtable), restoring the state of the memtable after a crash or restart.
+
+
+\begin{DoxyParams}{Parameters}
+{\em memtable} & The red-\/black tree (memtable) to repopulate.\\
+\hline
+\end{DoxyParams}
+This method reads the W\+AL file line by line, extracting key-\/value pairs, and inserts them into the given red-\/black tree (memtable). This process is used to restore the state of the memtable after a crash or restart.
+
+
+\begin{DoxyParams}{Parameters}
+{\em memtable} & The red-\/black tree (memtable) to repopulate from the W\+AL. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/wal/\mbox{\hyperlink{wal_8h}{wal.\+h}}\item 
+src/wal/\mbox{\hyperlink{wal_8cpp}{wal.\+cpp}}\end{DoxyCompactItemize}
