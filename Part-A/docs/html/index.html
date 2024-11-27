@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Main Page</title>
+<title>My Project: DOCS-DB Documentation - Part A</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,11 +60,37 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">My Project Documentation</div>  </div>
+<div class="title">DOCS-DB Documentation - Part A </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><h1><a class="anchor" id="overview"></a>
+Overview</h1>
+<p>DOCS-DB is a high-performance, persistent key-value storage system designed for scalability and reliability. It offers efficient access to data through its robust architecture, which includes in-memory structures and disk-based storage mechanisms. DOCS-DB ensures high throughput and low latency, making it suitable for a wide range of applications, from small-scale systems to large distributed environments.</p>
+<h1><a class="anchor" id="architecture"></a>
+Architecture</h1>
+<p>DOCS-DB leverages an underlying Red-Black Tree (RB_tree) for memory management, providing efficient in-memory storage and fast lookups. To ensure data persistence, DOCS-DB utilizes a Log-Structured Merge Tree (LSM Tree) for on-disk storage, offering optimal write performance and efficient compaction strategies.</p>
+<h1><a class="anchor" id="features"></a>
+Key Features</h1>
+<ul>
+<li><b>Red-Black Tree (RB_tree)</b>: Used for efficient in-memory data storage and management. The RB_tree allows for logarithmic time complexity for key lookups, insertions, and deletions.</li>
+<li><b>Log-Structured Merge Tree (LSM Tree)</b>: Employed for persistent storage, the LSM tree allows DOCS-DB to handle high write loads while providing efficient disk-based data retrieval.</li>
+<li><b>Bloom Filter</b>: A probabilistic data structure used to quickly test whether a key exists in the database. This helps to reduce unnecessary disk lookups, thereby improving read performance.</li>
+<li><b>Memtable</b>: An in-memory data structure that acts as a write buffer before data is flushed to disk. It helps to speed up write operations by allowing writes to be stored in memory temporarily.</li>
+<li><b>Write-Ahead Log (WAL)</b>: Ensures data durability by logging all changes before they are written to the database. This prevents data loss in the event of a crash or system failure.</li>
+<li><b>Stable Storage</b>: Ensures that data is eventually written to stable storage, providing fault tolerance and reliability.</li>
+</ul>
+<h1><a class="anchor" id="performance"></a>
+Performance Considerations</h1>
+<p>DOCS-DB has been designed with performance as a top priority. By using the LSM tree combined with Bloom filters, memtables, and write-ahead logging, the system is optimized for both write-heavy and read-heavy workloads. The use of a Red-Black Tree in memory ensures that read operations are fast and efficient.</p>
+<h1><a class="anchor" id="usecases"></a>
+Use Cases</h1>
+<p>DOCS-DB is well-suited for scenarios where high write throughput is required, such as logging, time-series data, or event-driven architectures. It is also ideal for applications that need to support large-scale data with the need for efficient querying, such as caching layers or NoSQL database systems.</p>
+<h1><a class="anchor" id="roadmap"></a>
+Future Work</h1>
+<p>Future iterations of DOCS-DB will focus on further improving scalability and fault tolerance, including support for distributed systems and horizontal scaling. Additionally, more advanced indexing techniques and query optimization features will be integrated. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

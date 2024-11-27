@@ -27,14 +27,14 @@ std\+::string \mbox{\hyperlink{classlevel_a654e378540eb7e81d4f4f8ea47b06878}{get
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static std\+::string \mbox{\hyperlink{classlevel_a898530d957c7361a9f408b2ce99d3231}{create\+\_\+filename\+\_\+based\+\_\+on\+\_\+level}} (uint16\+\_\+t id, uint16\+\_\+t level\+\_\+order)
-\begin{DoxyCompactList}\small\item\em Create a filename based on the segment ID and the level of the segment. \end{DoxyCompactList}\item 
 static std\+::pair$<$ uint16\+\_\+t, uint16\+\_\+t $>$ \mbox{\hyperlink{classlevel_a01ae6eb9ad644929e2350cf35fdc83f4}{extract\+\_\+id\+\_\+level\+\_\+from\+\_\+path}} (const std\+::string \&path)
 \begin{DoxyCompactList}\small\item\em Extract the segment ID and level from the path. \end{DoxyCompactList}\item 
 static std\+::pair$<$ uint16\+\_\+t, std\+::list$<$ std\+::pair$<$ uint32\+\_\+t, std\+::vector$<$ \mbox{\hyperlink{classlevel}{level}} $\ast$ $>$ $>$ $>$ $>$ \mbox{\hyperlink{classlevel_a0f346d6ef3fb77c0123696e71de8265e}{collect\+\_\+levels}} (const std\+::string \&path, uint64\+\_\+t memtable\+\_\+size)
 \begin{DoxyCompactList}\small\item\em Collect all stored segment files in the specified path and return a list of segments organized by their level hierarchy. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classlevel_a16fdfa4bd69201d1b15d51ac0ecb0018}{delete\+\_\+all\+\_\+segments}} (const std\+::string \&path)
-\begin{DoxyCompactList}\small\item\em Delete all segment files in the specified directory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Delete all segment files in the specified directory. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{classlevel_a898530d957c7361a9f408b2ce99d3231}{create\+\_\+filename\+\_\+based\+\_\+on\+\_\+level}} (uint16\+\_\+t id, uint16\+\_\+t level\+\_\+order)
+\begin{DoxyCompactList}\small\item\em Creates a filename based on segment index and level order. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -147,8 +147,20 @@ A pair containing the largest segment ID and a list of segment levels.
 
 
 
-Create a filename based on the segment ID and the level of the segment. 
+Creates a filename based on segment index and level order. 
 
+Create a filename based on the segment ID and the level of the segment.
+
+
+\begin{DoxyParams}{Parameters}
+{\em segment\+\_\+i} & The segment index (e.\+g., segment number). \\
+\hline
+{\em level\+\_\+order} & The level order (e.\+g., hierarchical level). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string The generated filename.
+\end{DoxyReturn}
 The filename will be formatted as \char`\"{}00001\+\_\+00010\char`\"{} where the first part is the segment ID and the second part is the level order.
 
 
@@ -187,6 +199,25 @@ This method removes all S\+ST segment files in the given directory.
 
 
 Extract the segment ID and level from the path. 
+
+\begin{DoxyVerb} @brief Create a filename based on the segment ID and the level of the segment.
+
+ The filename will be formatted as "00001_00010" where the first part is
+ the segment ID and the second part is the level order.
+
+ @param id The segment ID.
+ @param level_order The level order of the segment.
+
+ @return The generated filename as a string./home/somya/Documents/acads/7th_Sem/DOCS/DOCS-DB/cpp/src/lsm_tree/level/level.h:122:37: error: ‘list’ is not a member of ‘std’
+\end{DoxyVerb}
+ 122 $\vert$ static std\+::pair$<$uint16\+\_\+t, std\+::list$<$std\+::pair$<$uint32\+\_\+t, std\+::vector$<$level $\ast$$>$$>$$>$$>$ \mbox{\hyperlink{classlevel_a0f346d6ef3fb77c0123696e71de8265e}{collect\+\_\+levels(const std\+::string \&path, uint64\+\_\+t memtable\+\_\+size)}};m the path. \begin{DoxyVerb} The segment filename is expected to be in the format "00001_00010". This
+ function extracts the ID and level order from that format.
+
+ @param path The path of the segment file.
+
+ @return A pair containing the segment ID and level order.
+\end{DoxyVerb}
+
 
 The segment filename is expected to be in the format \char`\"{}00001\+\_\+00010\char`\"{}. This function extracts the ID and level order from that format.
 

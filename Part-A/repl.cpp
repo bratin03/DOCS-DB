@@ -1,3 +1,13 @@
+/*
+Student Information:
+1. Bratin Mondal - 21CS10016
+2. Swarnabh Mandal - 21CS10068
+3. Somya Kumar - 21CS30050
+
+Deparment of Computer Science and Engineering
+Indian Institute of Technology, Kharagpur
+*/
+
 #include "src/lsm_tree/lsm_tree.h"
 #include <iostream>
 #include <fstream>
@@ -144,6 +154,12 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
     infile.close(); // Close the input file when done
 }
 
+/**
+ * @brief Main entry point for the REPL program.
+ * @param argc The number of command-line arguments.
+ * @param argv The command-line arguments.
+ * @return The exit status of the program.
+ */
 int main(int argc, const char *argv[])
 {
     if (argc != 2)

@@ -275,7 +275,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>In the LSM Tree, deletion is achieved by inserting the key with the value <code>DOCS_DB</code>. This ensures that subsequent lookups will recognize the key as deleted.</p>
+<p>In the LSM Tree, deletion is achieved by inserting the key with the value <code>TOMBSTONE</code>. This ensures that subsequent lookups will recognize the key as deleted.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>The key to delete. </td></tr>

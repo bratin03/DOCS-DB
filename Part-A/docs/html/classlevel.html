@@ -98,9 +98,6 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a898530d957c7361a9f408b2ce99d3231"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlevel.html#a898530d957c7361a9f408b2ce99d3231">create_filename_based_on_level</a> (uint16_t id, uint16_t level_order)</td></tr>
-<tr class="memdesc:a898530d957c7361a9f408b2ce99d3231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a filename based on the segment ID and the level of the segment.  <a href="classlevel.html#a898530d957c7361a9f408b2ce99d3231">More...</a><br /></td></tr>
-<tr class="separator:a898530d957c7361a9f408b2ce99d3231"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01ae6eb9ad644929e2350cf35fdc83f4"><td class="memItemLeft" align="right" valign="top">static std::pair&lt; uint16_t, uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlevel.html#a01ae6eb9ad644929e2350cf35fdc83f4">extract_id_level_from_path</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:a01ae6eb9ad644929e2350cf35fdc83f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the segment ID and level from the path.  <a href="classlevel.html#a01ae6eb9ad644929e2350cf35fdc83f4">More...</a><br /></td></tr>
 <tr class="separator:a01ae6eb9ad644929e2350cf35fdc83f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,6 +107,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a16fdfa4bd69201d1b15d51ac0ecb0018"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlevel.html#a16fdfa4bd69201d1b15d51ac0ecb0018">delete_all_segments</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:a16fdfa4bd69201d1b15d51ac0ecb0018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete all segment files in the specified directory.  <a href="classlevel.html#a16fdfa4bd69201d1b15d51ac0ecb0018">More...</a><br /></td></tr>
 <tr class="separator:a16fdfa4bd69201d1b15d51ac0ecb0018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a898530d957c7361a9f408b2ce99d3231"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlevel.html#a898530d957c7361a9f408b2ce99d3231">create_filename_based_on_level</a> (uint16_t id, uint16_t level_order)</td></tr>
+<tr class="memdesc:a898530d957c7361a9f408b2ce99d3231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a filename based on segment index and level order.  <a href="classlevel.html#a898530d957c7361a9f408b2ce99d3231">More...</a><br /></td></tr>
+<tr class="separator:a898530d957c7361a9f408b2ce99d3231"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a level in the LSM tree where data is stored in SST files. </p>
@@ -351,7 +351,16 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create a filename based on the segment ID and the level of the segment. </p>
+<p>Creates a filename based on segment index and level order. </p>
+<p>Create a filename based on the segment ID and the level of the segment.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">segment_i</td><td>The segment index (e.g., segment number). </td></tr>
+    <tr><td class="paramname">level_order</td><td>The level order (e.g., hierarchical level). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::string The generated filename.</dd></dl>
 <p>The filename will be formatted as "00001_00010" where the first part is the segment ID and the second part is the level order.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -424,7 +433,22 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Extract the segment ID and level from the path. </p>
-<p>The segment filename is expected to be in the format "00001_00010". This function extracts the ID and level order from that format.</p>
+<pre class="fragment"> @brief Create a filename based on the segment ID and the level of the segment.
+
+ The filename will be formatted as "00001_00010" where the first part is
+ the segment ID and the second part is the level order.
+
+ @param id The segment ID.
+ @param level_order The level order of the segment.
+
+ @return The generated filename as a string./home/somya/Documents/acads/7th_Sem/DOCS/DOCS-DB/cpp/src/lsm_tree/level/level.h:122:37: error: ‘list’ is not a member of ‘std’
+</pre><p> 122 | static std::pair&lt;uint16_t, std::list&lt;std::pair&lt;uint32_t, std::vector&lt;level *&gt;&gt;&gt;&gt; <a class="el" href="classlevel.html#a0f346d6ef3fb77c0123696e71de8265e" title="Collect all stored segment files in the specified path and return a list of segments organized by the...">collect_levels(const std::string &amp;path, uint64_t memtable_size)</a>;m the path. </p><pre class="fragment"> The segment filename is expected to be in the format "00001_00010". This
+ function extracts the ID and level order from that format.
+
+ @param path The path of the segment file.
+
+ @return A pair containing the segment ID and level order.
+</pre><p>The segment filename is expected to be in the format "00001_00010". This function extracts the ID and level order from that format.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>The path of the segment file.</td></tr>

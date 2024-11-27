@@ -1,8 +1,15 @@
 #!/bin/bash
 
 # Define paths
-WAL_PATH="/tmp/docs-db/.internal_storage/wal.log"
-SEGMENT_BASE="/tmp/docs-db/.internal_storage/segments"
+BASE_DIR="/tmp/docs-db"
+WAL_PATH="$BASE_DIR/.internal_storage/wal.log"
+SEGMENT_BASE="$BASE_DIR/.internal_storage/segments"
+
+# Clean up: Remove the entire docs-db directory if it exists
+if [ -d "$BASE_DIR" ]; then
+  echo "Removing existing docs-db directory: $BASE_DIR"
+  rm -rf "$BASE_DIR"
+fi
 
 # Create base directory for WAL_PATH if it doesn't exist
 WAL_DIR=$(dirname "$WAL_PATH")
@@ -24,12 +31,6 @@ fi
 if [ ! -d "$SEGMENT_BASE" ]; then
   echo "Creating SEGMENT_BASE directory: $SEGMENT_BASE"
   mkdir -p "$SEGMENT_BASE"
-fi
-
-# Empty all files in SEGMENT_BASE if the directory exists
-if [ -d "$SEGMENT_BASE" ]; then
-  echo "Emptying files in SEGMENT_BASE directory: $SEGMENT_BASE"
-  find "$SEGMENT_BASE" -type f -exec sh -c 'echo -n > "$1"' _ {} \;
 fi
 
 echo "Setup complete."
