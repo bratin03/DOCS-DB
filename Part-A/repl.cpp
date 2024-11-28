@@ -47,7 +47,7 @@ commands cmd_to_enum(const std::string &in_str)
  * @param filename The name of the input file containing commands.
  * @param outfile The output file stream for logging results.
  */
-void command_loop(const std::string &filename, std::ofstream &outfile)
+void command_loop(const std::string &filename, std::ostream &outfile)
 {
     lsm_tree db;
     bool run = true;
@@ -60,7 +60,6 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
     }
 
     std::string line;
-    outfile << "REPL started. Reading from file: " << filename << std::endl;
 
     while (std::getline(infile, line) && run) // Read each line from the file
     {
@@ -114,7 +113,7 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
                         exit(1);
                     }
 #endif
-                    outfile << "GET: " << db.get(key) << std::endl;
+                    outfile << "Key: " << key << ", Value: " << db.get(key) << std::endl;
                 }
             }
             else
@@ -162,24 +161,28 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
  */
 int main(int argc, const char *argv[])
 {
-    if (argc != 2)
+    // Check if the correct number of arguments are provided
+    if (argc != 2 && argc != 3)
     {
-        std::cerr << "Usage: " << argv[0] << " <filename>" << std::endl;
-        return 1;
+        // Input file must be provided
+        // Output file is optional
+        std::cerr << "Invalid number of arguments" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <input_file> [output_file]" << std::endl;
+        exit(1);
     }
 
     std::string filename = argv[1];
-    std::ofstream outfile("output.txt");
 
-    if (!outfile.is_open())
+    if (argc == 3)
     {
-        std::cerr << "Failed to open output file: output.txt" << std::endl;
-        return 1;
+        std::ofstream outfile(argv[2]);
+        command_loop(filename, outfile);
+        outfile.close();
     }
-
-    command_loop(filename, outfile);
-
-    outfile.close();
+    else
+    {
+        command_loop(filename, std::cout);
+    }
 
     return 0;
 }
