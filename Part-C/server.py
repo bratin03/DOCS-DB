@@ -1,7 +1,11 @@
 import asyncio
+import uvloop
 import sys
 from src.lsm_tree import LSMTree
 
+
+# Set uvloop as the event loop
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 # In-memory storage for the key-value store
 data_store = {}
@@ -31,15 +35,14 @@ async def handle_set(key, value):
 
 async def handle_get(key):
     val = lsm_tree.get(key)
-    if(val != None):
-        return 1, lsm_tree.get(key)
+    if val is not None:
+        return 1, val
     else:
-        return 0,None
+        return 0, None
 
 async def handle_del(key):
-
     val = lsm_tree.get(key)
-    if(val == None):
+    if val is None:
         return None
     lsm_tree.remove(key)
     return "OK"     
@@ -60,19 +63,18 @@ async def handle_client(reader, writer):
 
             if command == "SET" and len(args) == 2:
                 response = await handle_set(args[0], args[1])
-                writer.write(build_resp(response).encode())
+                writer.write(build_resp(response).encode())p
                 
             elif command == "GET" and len(args) == 1:
-                flag,response = await handle_get(args[0])
-                if(flag):
+                flag, response = await handle_get(args[0])
+                if flag:
                     writer.write(build_resp_get(response).encode())
                 else:
                     writer.write(build_error('Key not found').encode())
                     
-                    
             elif command == "DEL" and len(args) == 1:
                 response = await handle_del(args[0])
-                if(response):
+                if response:
                     writer.write(build_resp(response).encode())
                 else:
                     writer.write(build_error('Key not found').encode()) 
