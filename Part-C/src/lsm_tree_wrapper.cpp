@@ -5,27 +5,6 @@
 // C++ code for LSM Tree implementation, mutex, etc.
 std::mutex lsm_tree_mutex;
 
-class lsm_tree_ {
-public:
-    // Your LSM tree class implementation...
-    
-    void put(const std::string& key, const std::string& value) {
-        std::lock_guard<std::mutex> lock(lsm_tree_mutex);
-        // Code to insert or update the key-value pair...
-    }
-
-    std::string get(const std::string& key) {
-        std::lock_guard<std::mutex> lock(lsm_tree_mutex);
-        // Code to retrieve the value for a given key...
-        return "value";  // Example return value
-    }
-
-    void remove(const std::string& key) {
-        std::lock_guard<std::mutex> lock(lsm_tree_mutex);
-        // Code to remove the key-value pair...
-    }
-};
-
 // Now wrap C++ functions with C-compatible API (for use with ctypes, Python, etc.)
 extern "C" {
 
