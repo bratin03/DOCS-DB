@@ -1,8 +1,19 @@
+/*
+Student Information:
+1. Bratin Mondal - 21CS10016
+2. Swarnabh Mandal - 21CS10068
+3. Somya Kumar - 21CS30050
+
+Deparment of Computer Science and Engineering
+Indian Institute of Technology, Kharagpur
+*/
+
 #include "src/lsm_tree/lsm_tree.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
-// #define TEST_MODE
+
+// #define TEST_MODE // This flag is only for testing purposes
 
 enum commands
 {
@@ -36,7 +47,7 @@ commands cmd_to_enum(const std::string &in_str)
  * @param filename The name of the input file containing commands.
  * @param outfile The output file stream for logging results.
  */
-void command_loop(const std::string &filename, std::ofstream &outfile)
+void command_loop(const std::string &filename, std::ostream &outfile)
 {
     lsm_tree db;
     bool run = true;
@@ -49,7 +60,6 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
     }
 
     std::string line;
-    outfile << "REPL started. Reading from file: " << filename << std::endl;
 
     while (std::getline(infile, line) && run) // Read each line from the file
     {
@@ -97,11 +107,13 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
                     if (key != value)
                     {
                         // Fail and exit
-                        std::cout << "Failed: " << key << std::endl;
+                        std::cout << "Failed for key: " << key << std::endl;
+                        std::cout << "Expected: " << key << std::endl;
+                        std::cout << "Got: " << value << std::endl;
                         exit(1);
                     }
 #endif
-                    outfile << "GET: " << db.get(key) << std::endl;
+                    outfile << "Key: " << key << ", Value: " << db.get(key) << std::endl;
                 }
             }
             else
@@ -141,26 +153,36 @@ void command_loop(const std::string &filename, std::ofstream &outfile)
     infile.close(); // Close the input file when done
 }
 
+/**
+ * @brief Main entry point for the REPL program.
+ * @param argc The number of command-line arguments.
+ * @param argv The command-line arguments.
+ * @return The exit status of the program.
+ */
 int main(int argc, const char *argv[])
 {
-    if (argc != 2)
+    // Check if the correct number of arguments are provided
+    if (argc != 2 && argc != 3)
     {
-        std::cerr << "Usage: " << argv[0] << " <filename>" << std::endl;
-        return 1;
+        // Input file must be provided
+        // Output file is optional
+        std::cerr << "Invalid number of arguments" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <input_file> [output_file]" << std::endl;
+        exit(1);
     }
 
     std::string filename = argv[1];
-    std::ofstream outfile("output.txt");
 
-    if (!outfile.is_open())
+    if (argc == 3)
     {
-        std::cerr << "Failed to open output file: output.txt" << std::endl;
-        return 1;
+        std::ofstream outfile(argv[2]);
+        command_loop(filename, outfile);
+        outfile.close();
     }
-
-    command_loop(filename, outfile);
-
-    outfile.close();
+    else
+    {
+        command_loop(filename, std::cout);
+    }
 
     return 0;
 }

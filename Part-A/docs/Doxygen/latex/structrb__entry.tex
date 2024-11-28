@@ -1,0 +1,209 @@
+\hypertarget{structrb__entry}{}\doxysection{rb\+\_\+entry Struct Reference}
+\label{structrb__entry}\index{rb\_entry@{rb\_entry}}
+
+
+Represents an entry in a Red-\/\+Black tree, used in the Memtable or Sparse Index.  
+
+
+
+
+{\ttfamily \#include $<$data.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structrb__entry_a4df069e8bfc6e533cc2efabdbcf39239}{rb\+\_\+entry}} (\mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} pair)
+\begin{DoxyCompactList}\small\item\em Constructor for the Red-\/\+Black tree entry (Memtable version). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrb__entry_afd83d201975004922e4c175a23623c16}{rb\+\_\+entry}} (std\+::string \mbox{\hyperlink{structrb__entry_ae50e16063460b5c42cd8f5686e829df7}{key}}, std\+::any \mbox{\hyperlink{structrb__entry_a9f408a5bf47df1a5dbdfa58c631a175c}{val}})
+\begin{DoxyCompactList}\small\item\em Constructor for the Red-\/\+Black tree entry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrb__entry_a7a5650294d5995d044a832e1e5573cf8}{rb\+\_\+entry}} (std\+::string \mbox{\hyperlink{structrb__entry_ae50e16063460b5c42cd8f5686e829df7}{key}})
+\begin{DoxyCompactList}\small\item\em Constructor for an entry with just a key (no associated value). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrb__entry_a39c826503206818c2ec3b774880cbb2b}{rb\+\_\+entry}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{structrb__entry_a2b4248a3cebeb6bef587f9f219aa0577}{size}} () const
+\begin{DoxyCompactList}\small\item\em Calculates the size of the entry. \end{DoxyCompactList}\item 
+std\+::strong\+\_\+ordering \mbox{\hyperlink{structrb__entry_a586d89ae6aca8300865fe475e9c8ae64}{operator}} (const \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}} \&other) const
+\begin{DoxyCompactList}\small\item\em Compares two {\ttfamily \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}}} objects based on the key. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structrb__entry_a312a70474d12c2f784752e0a976a9999}{operator==}} (const \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}} \&other) const
+\begin{DoxyCompactList}\small\item\em Checks if two {\ttfamily \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}}} objects are equal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structrb__entry_ae50e16063460b5c42cd8f5686e829df7}{key}}
+\begin{DoxyCompactList}\small\item\em The key associated with the entry. \end{DoxyCompactList}\item 
+std\+::optional$<$ std\+::any $>$ \mbox{\hyperlink{structrb__entry_a9f408a5bf47df1a5dbdfa58c631a175c}{val}}
+\begin{DoxyCompactList}\small\item\em The value associated with the key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an entry in a Red-\/\+Black tree, used in the Memtable or Sparse Index. 
+
+This structure contains a {\ttfamily key} of type {\ttfamily std\+::string} and a {\ttfamily val} which can be either a string (for the Memtable) or an {\ttfamily uint64\+\_\+t} (for the Sparse Index, representing an offset inside the S\+ST). It also supports operations like calculating the size of the entry and comparison based on the key. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structrb__entry_a4df069e8bfc6e533cc2efabdbcf39239}\label{structrb__entry_a4df069e8bfc6e533cc2efabdbcf39239}} 
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{rb\_entry()}{rb\_entry()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily rb\+\_\+entry\+::rb\+\_\+entry (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}}]{pair }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor for the Red-\/\+Black tree entry (Memtable version). 
+
+This constructor creates an entry from a key-\/value pair ({\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em pair} & The key-\/value pair to initialize the entry with. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrb__entry_afd83d201975004922e4c175a23623c16}\label{structrb__entry_afd83d201975004922e4c175a23623c16}} 
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{rb\_entry()}{rb\_entry()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily rb\+\_\+entry\+::rb\+\_\+entry (\begin{DoxyParamCaption}\item[{std\+::string}]{key,  }\item[{std\+::any}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for the Red-\/\+Black tree entry. 
+
+This constructor initializes the entry with a key and a value. The value is stored as a {\ttfamily std\+::any} object which can hold any type, but is expected to be either a string or an uint64\+\_\+t (offset in the Sparse Index).
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key for the entry. \\
+\hline
+{\em val} & The value associated with the key. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrb__entry_a7a5650294d5995d044a832e1e5573cf8}\label{structrb__entry_a7a5650294d5995d044a832e1e5573cf8}} 
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{rb\_entry()}{rb\_entry()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily rb\+\_\+entry\+::rb\+\_\+entry (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor for an entry with just a key (no associated value). 
+
+This constructor initializes the entry with just a key, and no value (empty {\ttfamily std\+::optional}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key for the entry. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrb__entry_a39c826503206818c2ec3b774880cbb2b}\label{structrb__entry_a39c826503206818c2ec3b774880cbb2b}} 
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\index{rb\_entry@{rb\_entry}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{rb\_entry()}{rb\_entry()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily rb\+\_\+entry\+::rb\+\_\+entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structrb__entry_a586d89ae6aca8300865fe475e9c8ae64}\label{structrb__entry_a586d89ae6aca8300865fe475e9c8ae64}} 
+\index{rb\_entry@{rb\_entry}!operator@{operator}}
+\index{operator@{operator}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{operator()}{operator()}}
+{\footnotesize\ttfamily std\+::strong\+\_\+ordering rb\+\_\+entry\+::operator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compares two {\ttfamily \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}}} objects based on the key. 
+
+This function compares the keys of two Red-\/\+Black tree entries and returns the comparison result. It uses the {\ttfamily $<$=$>$} (three-\/way comparison) operator and returns\+:
+\begin{DoxyItemize}
+\item {\ttfamily std\+::strong\+\_\+ordering\+::equal} if the keys are the same.
+\item {\ttfamily std\+::strong\+\_\+ordering\+::less} if this entry\textquotesingle{}s key is smaller.
+\item {\ttfamily std\+::strong\+\_\+ordering\+::greater} if this entry\textquotesingle{}s key is larger.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other {\ttfamily \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}}} to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::strong\+\_\+ordering The result of comparing the keys. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrb__entry_a312a70474d12c2f784752e0a976a9999}\label{structrb__entry_a312a70474d12c2f784752e0a976a9999}} 
+\index{rb\_entry@{rb\_entry}!operator==@{operator==}}
+\index{operator==@{operator==}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{structrb__entry_a586d89ae6aca8300865fe475e9c8ae64}{rb\+\_\+entry\+::operator}}== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if two {\ttfamily \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}}} objects are equal. 
+
+This function compares the keys of two Red-\/\+Black tree entries to determine if they are equal.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other {\ttfamily \mbox{\hyperlink{structrb__entry}{rb\+\_\+entry}}} to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the keys of both entries are equal. 
+
+false If the keys are different. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrb__entry_a2b4248a3cebeb6bef587f9f219aa0577}\label{structrb__entry_a2b4248a3cebeb6bef587f9f219aa0577}} 
+\index{rb\_entry@{rb\_entry}!size@{size}}
+\index{size@{size}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily uint64\+\_\+t rb\+\_\+entry\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the size of the entry. 
+
+This function returns the size of the entry, which is the size of the key plus the size of the value.
+\begin{DoxyItemize}
+\item If the value is empty ({\ttfamily std\+::nullopt}), it returns the size of the key.
+\item If the value is a string, it adds the size of the string.
+\item If the value is an {\ttfamily uint64\+\_\+t}, it adds 8 bytes (the size of a 64-\/bit integer).
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+The size of the entry in bytes. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrb__entry_ae50e16063460b5c42cd8f5686e829df7}\label{structrb__entry_ae50e16063460b5c42cd8f5686e829df7}} 
+\index{rb\_entry@{rb\_entry}!key@{key}}
+\index{key@{key}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily std\+::string rb\+\_\+entry\+::key}
+
+
+
+The key associated with the entry. 
+
+\mbox{\Hypertarget{structrb__entry_a9f408a5bf47df1a5dbdfa58c631a175c}\label{structrb__entry_a9f408a5bf47df1a5dbdfa58c631a175c}} 
+\index{rb\_entry@{rb\_entry}!val@{val}}
+\index{val@{val}!rb\_entry@{rb\_entry}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily std\+::optional$<$std\+::any$>$ rb\+\_\+entry\+::val}
+
+
+
+The value associated with the key. 
+
+The value can be\+:
+\begin{DoxyItemize}
+\item A {\ttfamily std\+::string} for Memtable entries.
+\item An {\ttfamily uint64\+\_\+t} representing an offset in the Sparse Index inside the S\+ST.
+\item Empty (represented as {\ttfamily std\+::nullopt}) to simply represent a key in the Red-\/\+Black tree without a value. 
+\end{DoxyItemize}
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/red\+\_\+black\+\_\+tree/\mbox{\hyperlink{data_8h}{data.\+h}}\end{DoxyCompactItemize}

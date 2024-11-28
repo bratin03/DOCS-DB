@@ -1,0 +1,170 @@
+\hypertarget{structkv__pair}{}\doxysection{kv\+\_\+pair Struct Reference}
+\label{structkv__pair}\index{kv\_pair@{kv\_pair}}
+
+
+A structure to represent a key-\/value pair.  
+
+
+
+
+{\ttfamily \#include $<$types.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structkv__pair_a8a8ecc52f7d27ce8631845f35f2b21c3}{empty}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the key-\/value pair is empty. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{structkv__pair_a9850a8d31b38df10d057a29f00f34be1}{to\+\_\+log\+\_\+entry}} () const
+\begin{DoxyCompactList}\small\item\em Converts the key-\/value pair into a log entry string. \end{DoxyCompactList}\item 
+std\+::strong\+\_\+ordering \mbox{\hyperlink{structkv__pair_a556e573cdc07bd48c179c2a5272edd0a}{operator}} (const \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} \&other) const
+\begin{DoxyCompactList}\small\item\em Compares two {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} objects using the key. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structkv__pair_ae9fd293dbc10543ee2ff96a55ed3fdbb}{operator==}} (const \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} \&other) const
+\begin{DoxyCompactList}\small\item\em Checks if two {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} objects are equal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} \mbox{\hyperlink{structkv__pair_a81f1dcb4edc960dd6dde6747c4ad6c5a}{split\+\_\+log\+\_\+entry}} (const std\+::string \&line)
+\begin{DoxyCompactList}\small\item\em Splits a log entry string into a key-\/value pair. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structkv__pair_a61387fcf23d6c3aec2383da403cfec45}{key}}
+\begin{DoxyCompactList}\small\item\em The key in the key-\/value pair. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{structkv__pair_a3164749cafd7b82ed8b50049c01578eb}{val}}
+\begin{DoxyCompactList}\small\item\em The value in the key-\/value pair. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A structure to represent a key-\/value pair. 
+
+This structure holds a {\ttfamily key} and a {\ttfamily val} as strings. It provides utility functions to check if the pair is empty, convert the pair to a log entry string, and split a log entry string back into a key-\/value pair. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structkv__pair_a8a8ecc52f7d27ce8631845f35f2b21c3}\label{structkv__pair_a8a8ecc52f7d27ce8631845f35f2b21c3}} 
+\index{kv\_pair@{kv\_pair}!empty@{empty}}
+\index{empty@{empty}!kv\_pair@{kv\_pair}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily bool kv\+\_\+pair\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the key-\/value pair is empty. 
+
+This function returns {\ttfamily true} if both {\ttfamily key} and {\ttfamily val} are empty strings.
+
+\begin{DoxyReturn}{Returns}
+true If both {\ttfamily key} and {\ttfamily val} are empty. 
+
+false If either {\ttfamily key} or {\ttfamily val} is non-\/empty. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structkv__pair_a556e573cdc07bd48c179c2a5272edd0a}\label{structkv__pair_a556e573cdc07bd48c179c2a5272edd0a}} 
+\index{kv\_pair@{kv\_pair}!operator@{operator}}
+\index{operator@{operator}!kv\_pair@{kv\_pair}}
+\doxysubsubsection{\texorpdfstring{operator()}{operator()}}
+{\footnotesize\ttfamily std\+::strong\+\_\+ordering kv\+\_\+pair\+::operator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compares two {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} objects using the key. 
+
+This function compares two key-\/value pairs and determines their ordering based on the {\ttfamily key}. It returns {\ttfamily equal} if the keys are the same, {\ttfamily less} if the key is smaller, and {\ttfamily greater} if the key is larger.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::strong\+\_\+ordering A comparison result indicating whether this {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} is less than, equal to, or greater than {\ttfamily other}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structkv__pair_ae9fd293dbc10543ee2ff96a55ed3fdbb}\label{structkv__pair_ae9fd293dbc10543ee2ff96a55ed3fdbb}} 
+\index{kv\_pair@{kv\_pair}!operator==@{operator==}}
+\index{operator==@{operator==}!kv\_pair@{kv\_pair}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{structkv__pair_a556e573cdc07bd48c179c2a5272edd0a}{kv\+\_\+pair\+::operator}}== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if two {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} objects are equal. 
+
+This function compares the {\ttfamily key} of two {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} objects to check if they are the same.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the {\ttfamily key} of both {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} objects is the same. 
+
+false If the {\ttfamily key} of the two {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} objects is different. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structkv__pair_a81f1dcb4edc960dd6dde6747c4ad6c5a}\label{structkv__pair_a81f1dcb4edc960dd6dde6747c4ad6c5a}} 
+\index{kv\_pair@{kv\_pair}!split\_log\_entry@{split\_log\_entry}}
+\index{split\_log\_entry@{split\_log\_entry}!kv\_pair@{kv\_pair}}
+\doxysubsubsection{\texorpdfstring{split\_log\_entry()}{split\_log\_entry()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} kv\+\_\+pair\+::split\+\_\+log\+\_\+entry (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{line }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Splits a log entry string into a key-\/value pair. 
+
+Given a log entry string, this function splits it into the corresponding key and value based on the separator. If the input string is empty, it returns an empty key-\/value pair.
+
+
+\begin{DoxyParams}{Parameters}
+{\em line} & The log entry string to be split. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A {\ttfamily \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}}} containing the extracted key and value. 
+\end{DoxyReturn}
+$<$ Return an empty \mbox{\hyperlink{structkv__pair}{kv\+\_\+pair}} if the line is empty.
+
+$<$ Find the position of the separator.
+
+$<$ Extract the key from the string.
+
+$<$ Extract the value from the string.\mbox{\Hypertarget{structkv__pair_a9850a8d31b38df10d057a29f00f34be1}\label{structkv__pair_a9850a8d31b38df10d057a29f00f34be1}} 
+\index{kv\_pair@{kv\_pair}!to\_log\_entry@{to\_log\_entry}}
+\index{to\_log\_entry@{to\_log\_entry}!kv\_pair@{kv\_pair}}
+\doxysubsubsection{\texorpdfstring{to\_log\_entry()}{to\_log\_entry()}}
+{\footnotesize\ttfamily std\+::string kv\+\_\+pair\+::to\+\_\+log\+\_\+entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts the key-\/value pair into a log entry string. 
+
+The key-\/value pair is converted into a string where the key and value are separated by the defined separator ({\ttfamily ,}), followed by a newline character.
+
+\begin{DoxyReturn}{Returns}
+A string representing the key-\/value pair as a log entry (e.\+g., \char`\"{}key,value\textbackslash{}n\char`\"{}). 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structkv__pair_a61387fcf23d6c3aec2383da403cfec45}\label{structkv__pair_a61387fcf23d6c3aec2383da403cfec45}} 
+\index{kv\_pair@{kv\_pair}!key@{key}}
+\index{key@{key}!kv\_pair@{kv\_pair}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily std\+::string kv\+\_\+pair\+::key}
+
+
+
+The key in the key-\/value pair. 
+
+\mbox{\Hypertarget{structkv__pair_a3164749cafd7b82ed8b50049c01578eb}\label{structkv__pair_a3164749cafd7b82ed8b50049c01578eb}} 
+\index{kv\_pair@{kv\_pair}!val@{val}}
+\index{val@{val}!kv\_pair@{kv\_pair}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily std\+::string kv\+\_\+pair\+::val}
+
+
+
+The value in the key-\/value pair. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/utils/\mbox{\hyperlink{types_8h}{types.\+h}}\end{DoxyCompactItemize}

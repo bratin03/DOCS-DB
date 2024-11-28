@@ -73,19 +73,19 @@ void lsm_tree::put(const std::string &key, const std::string &value)
  */
 std::string lsm_tree::get(const std::string &key)
 {
-    
+
     std::shared_lock<std::shared_mutex> lock(tree_mutex);
 
     std::optional<std::string> memtable_val = memtable.get(key);
     if (memtable_val.has_value())
     {
-        return memtable_val.value() == DOCS_DB ? "" : memtable_val.value();
+        return memtable_val.value() == TOMBSTONE ? "" : memtable_val.value();
     }
 
     std::optional<std::string> segment_val = search_all_segments(key);
     if (segment_val.has_value())
     {
-        return segment_val.value() == DOCS_DB ? "" : segment_val.value();
+        return segment_val.value() == TOMBSTONE ? "" : segment_val.value();
     }
 
     return "";
@@ -95,14 +95,14 @@ std::string lsm_tree::get(const std::string &key)
  * @brief Marks a key as deleted by inserting the key with a special value.
  *
  * In the LSM Tree, deletion is achieved by inserting the key with the value
- * `DOCS_DB`. This ensures that subsequent lookups will recognize the key as deleted.
+ * `TOMBSTONE`. This ensures that subsequent lookups will recognize the key as deleted.
  *
  * @param key The key to delete.
  */
 void lsm_tree::remove(const std::string &key)
 {
 
-    put(key, DOCS_DB);
+    put(key, TOMBSTONE);
 }
 
 /**
@@ -131,6 +131,7 @@ void lsm_tree::drop_table()
  */
 void lsm_tree::flush_memtable_to_disk()
 {
+
     auto *sst = new level(get_new_segment_path(0), (long)memtable.size(), memtable);
     if (not segments.empty() and segments.front().first == 0)
     {

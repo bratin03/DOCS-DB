@@ -1,0 +1,4 @@
+<map id="node" name="node">
+<area shape="rect" id="node1" title="A class representing a node in a Red&#45;Black Tree." alt="" coords="15,103,65,130"/>
+<area shape="rect" id="node2" href="$structrb__entry.html" title="Represents an entry in a Red&#45;Black tree, used in the Memtable or Sparse Index." alt="" coords="5,5,75,32"/>
+</map>

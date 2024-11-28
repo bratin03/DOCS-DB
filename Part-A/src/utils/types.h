@@ -13,8 +13,8 @@ Indian Institute of Technology, Kharagpur
 
 #include <string>
 
-#define DOCS_DB "---DOCS_DB---" ///< A placeholder string that is not meant to be used by the user.
-#define SEPERATOR ','           ///< Separator used to split key and value in the log entry.
+#define TOMBSTONE "+++TOMBSTONE+++" ///< A placeholder string that is not meant to be used by the user.
+#define SEPERATOR ','               ///< Separator used to split key and value in the log entry.
 
 /**
  * @struct kv_pair
