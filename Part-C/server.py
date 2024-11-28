@@ -1,9 +1,11 @@
 import asyncio
 import sys
+from src.lsm_tree import LSMTree
+
 
 # In-memory storage for the key-value store
 data_store = {}
-
+lsm_tree = None
 # RESP-2 protocol parsing and response functions
 def parse_resp(message):
     if message.startswith("*"):
@@ -24,20 +26,23 @@ def build_error(message):
 
 # Command Handlers
 def handle_set(key, value):
-    data_store[key] = value
+    lsm_tree.put(key, value)
     return "OK"
 
 def handle_get(key):
-    if key in data_store:
-        return 1,data_store[key]
+    val = lsm_tree.get(key)
+    if(val != None):
+        return 1, lsm_tree.get(key)
     else:
         return 0,None
 
 def handle_del(key):
-    if key in data_store:
-        del data_store[key]
-        return "OK"     
-    return None
+
+    val = lsm_tree.get(key)
+    if(val == None):
+        return None
+    lsm_tree.remove(key)
+    return "OK"     
     
 
 # Server handler for RESP commands
@@ -53,11 +58,8 @@ async def handle_client(reader, writer):
             message = data.decode()
             command, args = parse_resp(message)
 
-            print(f"Received command: {command} with args: {args}")
-
             if command == "SET" and len(args) == 2:
                 response = handle_set(args[0], args[1])
-                print(build_resp(response).encode())
                 writer.write(build_resp(response).encode())
                 
             elif command == "GET" and len(args) == 1:
@@ -76,7 +78,6 @@ async def handle_client(reader, writer):
                     writer.write(build_error('Key not found').encode()) 
                           
             else:
-                print(build_error("Invalid command or arguments").encode())
                 writer.write(build_error("Invalid command or arguments").encode())
 
             await writer.drain()
@@ -96,6 +97,7 @@ async def main(host, port):
 if __name__ == "__main__":
     host = "127.0.0.1"
     port = 6379
+    lsm_tree = LSMTree(lib_path='./build/liblsm_tree_wrapper.so')
     if len(sys.argv) > 1:
         port = int(sys.argv[1])
     asyncio.run(main(host, port))
