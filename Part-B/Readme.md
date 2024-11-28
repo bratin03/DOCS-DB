@@ -27,7 +27,7 @@
 
 ## Server without DPDK
 >> 1. Run the `server` file ans also retrieve the PID of the server.
->> 2. You can do sy by running as './server & echo $! > server.pid'
+>> 2. You can do so by running as './server & echo $! > server.pid'
 
 ## Server without DPDK
 <!-- To be added -->
