@@ -3,7 +3,7 @@ from ctypes import c_char_p
 
 
 class LSMTree:
-    def __init__(self, lib_path='./liblsm_tree_wrapper.so'):
+    def __init__(self, lib_path='../build/liblsm_tree_wrapper.so'):
         """
         Initializes the LSMTree object by loading the shared library
         and setting up function signatures.
