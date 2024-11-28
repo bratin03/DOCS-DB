@@ -1,0 +1,113 @@
+\hypertarget{client_8cpp}{}\doxysection{src/client.cpp File Reference}
+\label{client_8cpp}\index{src/client.cpp@{src/client.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+Include dependency graph for client.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{client_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{client_8cpp_a28d06fc286f28044ed3380969700ff3f}{S\+E\+R\+V\+E\+R\+\_\+\+IP}}~\char`\"{}127.\+0.\+0.\+1\char`\"{}
+\item 
+\#define \mbox{\hyperlink{client_8cpp_ac42367fe5c999ec6650de83e9d72fe8c}{S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT}}~8080
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{client_8cpp_a53e9408c445088704da3d394d42f6ffc}{run\+\_\+client}} (int client\+\_\+id, int num\+\_\+packets)
+\begin{DoxyCompactList}\small\item\em Simulates a client sending multiple packets to a server and measuring the round-\/trip latency. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{client_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function to initialize the client and run the packet transmission. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{client_8cpp_a28d06fc286f28044ed3380969700ff3f}\label{client_8cpp_a28d06fc286f28044ed3380969700ff3f}} 
+\index{client.cpp@{client.cpp}!SERVER\_IP@{SERVER\_IP}}
+\index{SERVER\_IP@{SERVER\_IP}!client.cpp@{client.cpp}}
+\doxysubsubsection{\texorpdfstring{SERVER\_IP}{SERVER\_IP}}
+{\footnotesize\ttfamily \#define S\+E\+R\+V\+E\+R\+\_\+\+IP~\char`\"{}127.\+0.\+0.\+1\char`\"{}}
+
+\mbox{\Hypertarget{client_8cpp_ac42367fe5c999ec6650de83e9d72fe8c}\label{client_8cpp_ac42367fe5c999ec6650de83e9d72fe8c}} 
+\index{client.cpp@{client.cpp}!SERVER\_PORT@{SERVER\_PORT}}
+\index{SERVER\_PORT@{SERVER\_PORT}!client.cpp@{client.cpp}}
+\doxysubsubsection{\texorpdfstring{SERVER\_PORT}{SERVER\_PORT}}
+{\footnotesize\ttfamily \#define S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT~8080}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{client_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{client_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{client.cpp@{client.cpp}!main@{main}}
+\index{main@{main}!client.cpp@{client.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function to initialize the client and run the packet transmission. 
+
+This function parses command line arguments to get the client ID and the number of packets to send. It then creates the necessary log directory and calls the {\ttfamily run\+\_\+client} function to start the client process.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of command-\/line arguments. \\
+\hline
+{\em argv} & The array of command-\/line argument strings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int The exit status of the program. 
+\end{DoxyReturn}
+$<$ Client ID for logging purposes
+
+$<$ Number of packets to send
+
+$<$ Run the client with specified parameters\mbox{\Hypertarget{client_8cpp_a53e9408c445088704da3d394d42f6ffc}\label{client_8cpp_a53e9408c445088704da3d394d42f6ffc}} 
+\index{client.cpp@{client.cpp}!run\_client@{run\_client}}
+\index{run\_client@{run\_client}!client.cpp@{client.cpp}}
+\doxysubsubsection{\texorpdfstring{run\_client()}{run\_client()}}
+{\footnotesize\ttfamily void run\+\_\+client (\begin{DoxyParamCaption}\item[{int}]{client\+\_\+id,  }\item[{int}]{num\+\_\+packets }\end{DoxyParamCaption})}
+
+
+
+Simulates a client sending multiple packets to a server and measuring the round-\/trip latency. 
+
+This function connects to a server, sends a series of packets, and measures the round-\/trip time (latency) for each packet. The client sends packets of random sizes between 512 and 1024 bytes and logs the latency and bandwidth metrics in a log file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & The unique identifier for the client (used for naming the log file). \\
+\hline
+{\em num\+\_\+packets} & The number of packets the client will send. \\
+\hline
+\end{DoxyParams}
+$<$ Server address structure
+
+$<$ Buffer to hold packet data
+
+$<$ Random number generator
+
+$<$ Total latency accumulated over all packets
+
+$<$ Total bytes sent to the server
+
+$<$ Random packet size
+
+$<$ Fill the buffer with data
+
+$<$ Start time for latency measurement
+
+$<$ End time for latency measurement
+
+$<$ Average latency in microseconds

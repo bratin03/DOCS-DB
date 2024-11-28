@@ -1,0 +1,100 @@
+\hypertarget{server_8cpp}{}\doxysection{src/server.cpp File Reference}
+\label{server_8cpp}\index{src/server.cpp@{src/server.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$sys/resource.\+h$>$}\newline
+Include dependency graph for server.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{server_8cpp_a614217d263be1fb1a5f76e2ff7be19a2}{P\+O\+RT}}~8080
+\item 
+\#define \mbox{\hyperlink{server_8cpp_a6b20d41d6252e9871430c242cb1a56e7}{B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}~2048
+\item 
+\#define \mbox{\hyperlink{server_8cpp_a11e88723c999cbe5c3aaac1bc9604667}{M\+A\+X\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+C\+O\+U\+NT}}~10
+\item 
+\#define \mbox{\hyperlink{server_8cpp_a28d06fc286f28044ed3380969700ff3f}{S\+E\+R\+V\+E\+R\+\_\+\+IP}}~\char`\"{}127.\+0.\+0.\+1\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{server_8cpp_a28ce186ce771194512785b1d1d5310c0}{handle\+Client}} (int client\+Socket)
+\begin{DoxyCompactList}\small\item\em Handles a single client connection, receives multiple packets, and sends back the length of each packet. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{server_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main function to start the server, listen for incoming client connections, and handle each client in a new thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{server_8cpp_a6b20d41d6252e9871430c242cb1a56e7}\label{server_8cpp_a6b20d41d6252e9871430c242cb1a56e7}} 
+\index{server.cpp@{server.cpp}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!server.cpp@{server.cpp}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE~2048}
+
+\mbox{\Hypertarget{server_8cpp_a11e88723c999cbe5c3aaac1bc9604667}\label{server_8cpp_a11e88723c999cbe5c3aaac1bc9604667}} 
+\index{server.cpp@{server.cpp}!MAX\_PACKET\_COUNT@{MAX\_PACKET\_COUNT}}
+\index{MAX\_PACKET\_COUNT@{MAX\_PACKET\_COUNT}!server.cpp@{server.cpp}}
+\doxysubsubsection{\texorpdfstring{MAX\_PACKET\_COUNT}{MAX\_PACKET\_COUNT}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+C\+O\+U\+NT~10}
+
+\mbox{\Hypertarget{server_8cpp_a614217d263be1fb1a5f76e2ff7be19a2}\label{server_8cpp_a614217d263be1fb1a5f76e2ff7be19a2}} 
+\index{server.cpp@{server.cpp}!PORT@{PORT}}
+\index{PORT@{PORT}!server.cpp@{server.cpp}}
+\doxysubsubsection{\texorpdfstring{PORT}{PORT}}
+{\footnotesize\ttfamily \#define P\+O\+RT~8080}
+
+\mbox{\Hypertarget{server_8cpp_a28d06fc286f28044ed3380969700ff3f}\label{server_8cpp_a28d06fc286f28044ed3380969700ff3f}} 
+\index{server.cpp@{server.cpp}!SERVER\_IP@{SERVER\_IP}}
+\index{SERVER\_IP@{SERVER\_IP}!server.cpp@{server.cpp}}
+\doxysubsubsection{\texorpdfstring{SERVER\_IP}{SERVER\_IP}}
+{\footnotesize\ttfamily \#define S\+E\+R\+V\+E\+R\+\_\+\+IP~\char`\"{}127.\+0.\+0.\+1\char`\"{}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{server_8cpp_a28ce186ce771194512785b1d1d5310c0}\label{server_8cpp_a28ce186ce771194512785b1d1d5310c0}} 
+\index{server.cpp@{server.cpp}!handleClient@{handleClient}}
+\index{handleClient@{handleClient}!server.cpp@{server.cpp}}
+\doxysubsubsection{\texorpdfstring{handleClient()}{handleClient()}}
+{\footnotesize\ttfamily void handle\+Client (\begin{DoxyParamCaption}\item[{int}]{client\+Socket }\end{DoxyParamCaption})}
+
+
+
+Handles a single client connection, receives multiple packets, and sends back the length of each packet. 
+
+This function is responsible for receiving data from the client, calculating the size of each packet, and sending the size back to the client. It runs in its own thread for each client connection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+Socket} & The socket descriptor for the client. \\
+\hline
+\end{DoxyParams}
+$<$ Buffer to store the received data.
+
+$<$ Variable to store the number of bytes received from the client.\mbox{\Hypertarget{server_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{server_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{server.cpp@{server.cpp}!main@{main}}
+\index{main@{main}!server.cpp@{server.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main function to start the server, listen for incoming client connections, and handle each client in a new thread. 
+
+This function is responsible for creating the server socket, binding it to a specific IP address and port, and listening for incoming client connections. For each client connection, a new thread is spawned to handle the communication. The server continues to run until it receives a termination signal (S\+I\+G\+I\+NT). $<$ Server and client socket file descriptors.
+
+$<$ Structs to hold server and client addresses.
+
+$<$ Length of the client address.
+
+$<$ Option to enable socket address reuse.

@@ -7,7 +7,7 @@ Part-A:
 
 Part-B:
 - [] Testing and Benchmarking Script for Part-B @bratin03 [Need @somya-kr's laptop]
-- [] Readme for Part-B @bratin03 and Installation Instructions @bratin03
+- [X] Readme for Part-B @bratin03 and Installation Instructions @bratin03 [Dpdk Part remaining]
 
 Part-C:
 - [] Repl Protocol implementation @somya-kr (Without Dpdk)
