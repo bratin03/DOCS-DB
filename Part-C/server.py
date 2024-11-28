@@ -25,18 +25,18 @@ def build_error(message):
     return f"-ERR {message}\r\n"
 
 # Command Handlers
-def handle_set(key, value):
+async def handle_set(key, value):
     lsm_tree.put(key, value)
     return "OK"
 
-def handle_get(key):
+async def handle_get(key):
     val = lsm_tree.get(key)
     if(val != None):
         return 1, lsm_tree.get(key)
     else:
         return 0,None
 
-def handle_del(key):
+async def handle_del(key):
 
     val = lsm_tree.get(key)
     if(val == None):
@@ -59,11 +59,11 @@ async def handle_client(reader, writer):
             command, args = parse_resp(message)
 
             if command == "SET" and len(args) == 2:
-                response = handle_set(args[0], args[1])
+                response = await handle_set(args[0], args[1])
                 writer.write(build_resp(response).encode())
                 
             elif command == "GET" and len(args) == 1:
-                flag,response = handle_get(args[0])
+                flag,response = await handle_get(args[0])
                 if(flag):
                     writer.write(build_resp_get(response).encode())
                 else:
@@ -71,7 +71,7 @@ async def handle_client(reader, writer):
                     
                     
             elif command == "DEL" and len(args) == 1:
-                response = handle_del(args[0])
+                response = await handle_del(args[0])
                 if(response):
                     writer.write(build_resp(response).encode())
                 else:
