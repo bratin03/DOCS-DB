@@ -1,0 +1,171 @@
+\hypertarget{classclient_1_1RESPClient}{}\doxysection{client.\+R\+E\+S\+P\+Client Class Reference}
+\label{classclient_1_1RESPClient}\index{client.RESPClient@{client.RESPClient}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_ada31bc72373736ffb110c8e2a8e1caf4}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classclient_1_1RESPClient_a84bd4b600535178288bfcead20c2ee55}{host}}=\textquotesingle{}127.\+0.\+0.\+1\textquotesingle{}, \mbox{\hyperlink{classclient_1_1RESPClient_a33ec56bf58bf43309adad28687277fe9}{port}}=6379)
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_a23fd06baa0e67cded57402583a5c6724}{connect}} (self)
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_a83c979df79fee42aa530e1318a103a76}{send}} (self, data)
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_abbdfbffb6c4fb92109ecea9765eb3651}{receive}} (self)
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_aa74d295a5d80868f86cf8d2ac7afd79c}{close}} (self)
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_aa89a2b83346f6f72f6ec3ee84cb2bebc}{send\+\_\+command}} (self, $\ast$args)
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_ae9be556c62f077bdb8e9c5d2b9a055eb}{parse\+\_\+response}} (self, \mbox{\hyperlink{namespaceclient_a38136955188a8f5daa72048468d9f5c8}{response}}, type)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclient_1_1RESPClient_a10b25fd49f4a725596227d4510ebd487}{format\+\_\+resp}} ($\ast$args)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclient_1_1RESPClient_a84bd4b600535178288bfcead20c2ee55}{host}}
+\item 
+\mbox{\hyperlink{classclient_1_1RESPClient_a33ec56bf58bf43309adad28687277fe9}{port}}
+\item 
+\mbox{\hyperlink{classclient_1_1RESPClient_a08f4a1fe868b1ca3a1254b58eb4b2897}{sock}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief A client for communicating with a Redis server using the RESP protocol.
+
+This class handles establishing a connection, sending and receiving data,
+and formatting commands and responses according to the RESP protocol.
+
+@details The RESP protocol is used for communication between clients and servers
+in Redis-like systems. The RESPClient allows the client to send commands such as
+SET, GET, and DEL to a Redis server and receive responses. This class abstracts
+the communication logic and ensures that data is correctly formatted according to
+the RESP protocol.
+
+Attributes:
+    host (str): The Redis server hostname (default is '127.0.0.1').
+    port (int): The Redis server port (default is 6379).
+    sock (socket.socket): The socket object used to communicate with the Redis server.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classclient_1_1RESPClient_ada31bc72373736ffb110c8e2a8e1caf4}\label{classclient_1_1RESPClient_ada31bc72373736ffb110c8e2a8e1caf4}} 
+\index{client.RESPClient@{client.RESPClient}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{host = {\ttfamily \textquotesingle{}127.0.0.1\textquotesingle{}},  }\item[{}]{port = {\ttfamily 6379} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Initializes the RESPClient with the specified host and port.
+
+@param host The Redis server hostname (default is '127.0.0.1').
+@param port The Redis server port (default is 6379).
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclient_1_1RESPClient_aa74d295a5d80868f86cf8d2ac7afd79c}\label{classclient_1_1RESPClient_aa74d295a5d80868f86cf8d2ac7afd79c}} 
+\index{client.RESPClient@{client.RESPClient}!close@{close}}
+\index{close@{close}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+close (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Closes the connection to the server.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classclient_1_1RESPClient_a23fd06baa0e67cded57402583a5c6724}\label{classclient_1_1RESPClient_a23fd06baa0e67cded57402583a5c6724}} 
+\index{client.RESPClient@{client.RESPClient}!connect@{connect}}
+\index{connect@{connect}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+connect (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Establishes a connection to the Redis server.
+
+@throws ConnectionError If the connection to the Redis server fails.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classclient_1_1RESPClient_a10b25fd49f4a725596227d4510ebd487}\label{classclient_1_1RESPClient_a10b25fd49f4a725596227d4510ebd487}} 
+\index{client.RESPClient@{client.RESPClient}!format\_resp@{format\_resp}}
+\index{format\_resp@{format\_resp}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{format\_resp()}{format\_resp()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+format\+\_\+resp (\begin{DoxyParamCaption}\item[{$\ast$}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Formats the command and its arguments according to the RESP protocol.
+
+@param args The command and arguments to format.
+@return The command formatted as a RESP string.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classclient_1_1RESPClient_ae9be556c62f077bdb8e9c5d2b9a055eb}\label{classclient_1_1RESPClient_ae9be556c62f077bdb8e9c5d2b9a055eb}} 
+\index{client.RESPClient@{client.RESPClient}!parse\_response@{parse\_response}}
+\index{parse\_response@{parse\_response}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{parse\_response()}{parse\_response()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+parse\+\_\+response (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{response,  }\item[{}]{type }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Parses the response from the Redis server.
+
+@param response The response from the server.
+@param type The type of command that was executed ("GET", "SET", etc.).
+@return The parsed response based on the command type.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classclient_1_1RESPClient_abbdfbffb6c4fb92109ecea9765eb3651}\label{classclient_1_1RESPClient_abbdfbffb6c4fb92109ecea9765eb3651}} 
+\index{client.RESPClient@{client.RESPClient}!receive@{receive}}
+\index{receive@{receive}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{receive()}{receive()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+receive (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Receives data from the server.
+
+@return The server's response, as a string.
+
+@throws ConnectionError If the socket is not connected.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classclient_1_1RESPClient_a83c979df79fee42aa530e1318a103a76}\label{classclient_1_1RESPClient_a83c979df79fee42aa530e1318a103a76}} 
+\index{client.RESPClient@{client.RESPClient}!send@{send}}
+\index{send@{send}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+send (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Sends data to the server.
+
+@param data The data to send, as a string.
+
+@throws ConnectionError If the socket is not connected.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classclient_1_1RESPClient_aa89a2b83346f6f72f6ec3ee84cb2bebc}\label{classclient_1_1RESPClient_aa89a2b83346f6f72f6ec3ee84cb2bebc}} 
+\index{client.RESPClient@{client.RESPClient}!send\_command@{send\_command}}
+\index{send\_command@{send\_command}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{send\_command()}{send\_command()}}
+{\footnotesize\ttfamily def client.\+R\+E\+S\+P\+Client.\+send\+\_\+command (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{$\ast$}]{args }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Sends a command to the Redis server using the RESP protocol.
+
+@param args The command and arguments to send to Redis.
+@return The server's response.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclient_1_1RESPClient_a84bd4b600535178288bfcead20c2ee55}\label{classclient_1_1RESPClient_a84bd4b600535178288bfcead20c2ee55}} 
+\index{client.RESPClient@{client.RESPClient}!host@{host}}
+\index{host@{host}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{host}{host}}
+{\footnotesize\ttfamily client.\+R\+E\+S\+P\+Client.\+host}
+
+\mbox{\Hypertarget{classclient_1_1RESPClient_a33ec56bf58bf43309adad28687277fe9}\label{classclient_1_1RESPClient_a33ec56bf58bf43309adad28687277fe9}} 
+\index{client.RESPClient@{client.RESPClient}!port@{port}}
+\index{port@{port}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily client.\+R\+E\+S\+P\+Client.\+port}
+
+\mbox{\Hypertarget{classclient_1_1RESPClient_a08f4a1fe868b1ca3a1254b58eb4b2897}\label{classclient_1_1RESPClient_a08f4a1fe868b1ca3a1254b58eb4b2897}} 
+\index{client.RESPClient@{client.RESPClient}!sock@{sock}}
+\index{sock@{sock}!client.RESPClient@{client.RESPClient}}
+\doxysubsubsection{\texorpdfstring{sock}{sock}}
+{\footnotesize\ttfamily client.\+R\+E\+S\+P\+Client.\+sock}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{client_8py}{client.\+py}}\end{DoxyCompactItemize}

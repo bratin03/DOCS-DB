@@ -1,0 +1,72 @@
+\hypertarget{lsm__tree__wrapper_8cpp}{}\doxysection{src/lsm\+\_\+tree\+\_\+wrapper.cpp File Reference}
+\label{lsm__tree__wrapper_8cpp}\index{src/lsm\_tree\_wrapper.cpp@{src/lsm\_tree\_wrapper.cpp}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include \char`\"{}lsm\+\_\+tree.\+h\char`\"{}}\newline
+Include dependency graph for lsm\+\_\+tree\+\_\+wrapper.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{lsm__tree__wrapper_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+lsm\+\_\+tree $\ast$ \mbox{\hyperlink{lsm__tree__wrapper_8cpp_a401b0d59cadc47f35dc36b84bb186ce4}{lsm\+\_\+tree\+\_\+create}} ()
+\item 
+void \mbox{\hyperlink{lsm__tree__wrapper_8cpp_a8e5850443e4ea6dde544b1fd716d0e96}{lsm\+\_\+tree\+\_\+destroy}} (lsm\+\_\+tree $\ast$tree)
+\item 
+void \mbox{\hyperlink{lsm__tree__wrapper_8cpp_ad5c9a636a1511289d531b17842eab4fd}{lsm\+\_\+tree\+\_\+put}} (lsm\+\_\+tree $\ast$tree, const char $\ast$key, const char $\ast$value)
+\item 
+const char $\ast$ \mbox{\hyperlink{lsm__tree__wrapper_8cpp_ad03c1c3c67e49fcc3c39e6b51cbc02db}{lsm\+\_\+tree\+\_\+get}} (lsm\+\_\+tree $\ast$tree, const char $\ast$key)
+\item 
+void \mbox{\hyperlink{lsm__tree__wrapper_8cpp_ac7260193ded7b5feb00a8e27ce4291e7}{lsm\+\_\+tree\+\_\+remove}} (lsm\+\_\+tree $\ast$tree, const char $\ast$key)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::mutex \mbox{\hyperlink{lsm__tree__wrapper_8cpp_a7b197700595a4bbd8b89c2ecb0abf2ad}{lsm\+\_\+tree\+\_\+mutex}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lsm__tree__wrapper_8cpp_a401b0d59cadc47f35dc36b84bb186ce4}\label{lsm__tree__wrapper_8cpp_a401b0d59cadc47f35dc36b84bb186ce4}} 
+\index{lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}!lsm\_tree\_create@{lsm\_tree\_create}}
+\index{lsm\_tree\_create@{lsm\_tree\_create}!lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree\_create()}{lsm\_tree\_create()}}
+{\footnotesize\ttfamily lsm\+\_\+tree$\ast$ lsm\+\_\+tree\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lsm__tree__wrapper_8cpp_a8e5850443e4ea6dde544b1fd716d0e96}\label{lsm__tree__wrapper_8cpp_a8e5850443e4ea6dde544b1fd716d0e96}} 
+\index{lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}!lsm\_tree\_destroy@{lsm\_tree\_destroy}}
+\index{lsm\_tree\_destroy@{lsm\_tree\_destroy}!lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree\_destroy()}{lsm\_tree\_destroy()}}
+{\footnotesize\ttfamily void lsm\+\_\+tree\+\_\+destroy (\begin{DoxyParamCaption}\item[{lsm\+\_\+tree $\ast$}]{tree }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lsm__tree__wrapper_8cpp_ad03c1c3c67e49fcc3c39e6b51cbc02db}\label{lsm__tree__wrapper_8cpp_ad03c1c3c67e49fcc3c39e6b51cbc02db}} 
+\index{lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}!lsm\_tree\_get@{lsm\_tree\_get}}
+\index{lsm\_tree\_get@{lsm\_tree\_get}!lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree\_get()}{lsm\_tree\_get()}}
+{\footnotesize\ttfamily const char$\ast$ lsm\+\_\+tree\+\_\+get (\begin{DoxyParamCaption}\item[{lsm\+\_\+tree $\ast$}]{tree,  }\item[{const char $\ast$}]{key }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lsm__tree__wrapper_8cpp_ad5c9a636a1511289d531b17842eab4fd}\label{lsm__tree__wrapper_8cpp_ad5c9a636a1511289d531b17842eab4fd}} 
+\index{lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}!lsm\_tree\_put@{lsm\_tree\_put}}
+\index{lsm\_tree\_put@{lsm\_tree\_put}!lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree\_put()}{lsm\_tree\_put()}}
+{\footnotesize\ttfamily void lsm\+\_\+tree\+\_\+put (\begin{DoxyParamCaption}\item[{lsm\+\_\+tree $\ast$}]{tree,  }\item[{const char $\ast$}]{key,  }\item[{const char $\ast$}]{value }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lsm__tree__wrapper_8cpp_ac7260193ded7b5feb00a8e27ce4291e7}\label{lsm__tree__wrapper_8cpp_ac7260193ded7b5feb00a8e27ce4291e7}} 
+\index{lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}!lsm\_tree\_remove@{lsm\_tree\_remove}}
+\index{lsm\_tree\_remove@{lsm\_tree\_remove}!lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree\_remove()}{lsm\_tree\_remove()}}
+{\footnotesize\ttfamily void lsm\+\_\+tree\+\_\+remove (\begin{DoxyParamCaption}\item[{lsm\+\_\+tree $\ast$}]{tree,  }\item[{const char $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{lsm__tree__wrapper_8cpp_a7b197700595a4bbd8b89c2ecb0abf2ad}\label{lsm__tree__wrapper_8cpp_a7b197700595a4bbd8b89c2ecb0abf2ad}} 
+\index{lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}!lsm\_tree\_mutex@{lsm\_tree\_mutex}}
+\index{lsm\_tree\_mutex@{lsm\_tree\_mutex}!lsm\_tree\_wrapper.cpp@{lsm\_tree\_wrapper.cpp}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree\_mutex}{lsm\_tree\_mutex}}
+{\footnotesize\ttfamily std\+::mutex lsm\+\_\+tree\+\_\+mutex}
+

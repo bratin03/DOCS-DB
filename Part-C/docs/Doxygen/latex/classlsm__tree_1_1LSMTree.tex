@@ -1,0 +1,89 @@
+\hypertarget{classlsm__tree_1_1LSMTree}{}\doxysection{lsm\+\_\+tree.\+L\+S\+M\+Tree Class Reference}
+\label{classlsm__tree_1_1LSMTree}\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classlsm__tree_1_1LSMTree_aef9ca04842508cdd4e29bdf3f668a45a}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, lib\+\_\+path=\textquotesingle{}../build/liblsm\+\_\+tree\+\_\+wrapper.\+so\textquotesingle{})
+\item 
+def \mbox{\hyperlink{classlsm__tree_1_1LSMTree_a3aea884416f2f77508d38c7e3ff17ed0}{put}} (self, str key, str value)
+\item 
+str \mbox{\hyperlink{classlsm__tree_1_1LSMTree_a63ababd8e3da6608ee1e5b2b583870b6}{get}} (self, str key)
+\item 
+def \mbox{\hyperlink{classlsm__tree_1_1LSMTree_a00b24541fad689e8280669f381631a5e}{remove}} (self, str key)
+\item 
+def \mbox{\hyperlink{classlsm__tree_1_1LSMTree_abedcc3ad8238c159653d14596554d368}{\+\_\+\+\_\+del\+\_\+\+\_\+}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classlsm__tree_1_1LSMTree_a3537884329f6d28716e3c2ca9cb99d2f}{lsm\+\_\+tree\+\_\+lib}}
+\item 
+\mbox{\hyperlink{classlsm__tree_1_1LSMTree_a59fdb549d8bd06bcfb955e08c9f805d5}{tree}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlsm__tree_1_1LSMTree_aef9ca04842508cdd4e29bdf3f668a45a}\label{classlsm__tree_1_1LSMTree_aef9ca04842508cdd4e29bdf3f668a45a}} 
+\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def lsm\+\_\+tree.\+L\+S\+M\+Tree.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{lib\+\_\+path = {\ttfamily \textquotesingle{}../build/liblsm\+\_\+tree\+\_\+wrapper.so\textquotesingle{}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initializes the LSMTree object by loading the shared library
+and setting up function signatures.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classlsm__tree_1_1LSMTree_abedcc3ad8238c159653d14596554d368}\label{classlsm__tree_1_1LSMTree_abedcc3ad8238c159653d14596554d368}} 
+\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}!\_\_del\_\_@{\_\_del\_\_}}
+\index{\_\_del\_\_@{\_\_del\_\_}!lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsubsection{\texorpdfstring{\_\_del\_\_()}{\_\_del\_\_()}}
+{\footnotesize\ttfamily def lsm\+\_\+tree.\+L\+S\+M\+Tree.\+\_\+\+\_\+del\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Destructor to clean up and destroy the LSM tree instance.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classlsm__tree_1_1LSMTree_a63ababd8e3da6608ee1e5b2b583870b6}\label{classlsm__tree_1_1LSMTree_a63ababd8e3da6608ee1e5b2b583870b6}} 
+\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}!get@{get}}
+\index{get@{get}!lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily  str lsm\+\_\+tree.\+L\+S\+M\+Tree.\+get (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{key }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Retrieves the value associated with the given key from the LSM tree.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classlsm__tree_1_1LSMTree_a3aea884416f2f77508d38c7e3ff17ed0}\label{classlsm__tree_1_1LSMTree_a3aea884416f2f77508d38c7e3ff17ed0}} 
+\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}!put@{put}}
+\index{put@{put}!lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsubsection{\texorpdfstring{put()}{put()}}
+{\footnotesize\ttfamily def lsm\+\_\+tree.\+L\+S\+M\+Tree.\+put (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{key,  }\item[{str}]{value }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Inserts or updates a key-value pair in the LSM tree.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classlsm__tree_1_1LSMTree_a00b24541fad689e8280669f381631a5e}\label{classlsm__tree_1_1LSMTree_a00b24541fad689e8280669f381631a5e}} 
+\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}!remove@{remove}}
+\index{remove@{remove}!lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily def lsm\+\_\+tree.\+L\+S\+M\+Tree.\+remove (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{key }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Removes the key-value pair from the LSM tree.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classlsm__tree_1_1LSMTree_a3537884329f6d28716e3c2ca9cb99d2f}\label{classlsm__tree_1_1LSMTree_a3537884329f6d28716e3c2ca9cb99d2f}} 
+\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}!lsm\_tree\_lib@{lsm\_tree\_lib}}
+\index{lsm\_tree\_lib@{lsm\_tree\_lib}!lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsubsection{\texorpdfstring{lsm\_tree\_lib}{lsm\_tree\_lib}}
+{\footnotesize\ttfamily lsm\+\_\+tree.\+L\+S\+M\+Tree.\+lsm\+\_\+tree\+\_\+lib}
+
+\mbox{\Hypertarget{classlsm__tree_1_1LSMTree_a59fdb549d8bd06bcfb955e08c9f805d5}\label{classlsm__tree_1_1LSMTree_a59fdb549d8bd06bcfb955e08c9f805d5}} 
+\index{lsm\_tree.LSMTree@{lsm\_tree.LSMTree}!tree@{tree}}
+\index{tree@{tree}!lsm\_tree.LSMTree@{lsm\_tree.LSMTree}}
+\doxysubsubsection{\texorpdfstring{tree}{tree}}
+{\footnotesize\ttfamily lsm\+\_\+tree.\+L\+S\+M\+Tree.\+tree}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{lsm__tree_8py}{lsm\+\_\+tree.\+py}}\end{DoxyCompactItemize}
