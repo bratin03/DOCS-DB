@@ -73,3 +73,6 @@ if [ $count -gt 0 ]; then
 else
     echo "No data collected."
 fi
+
+# Remove the log file
+rm -f "$LOG_FILE"

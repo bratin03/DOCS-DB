@@ -60,3 +60,9 @@ avg_latency=$(echo "$total_latency / $num_clients" | bc -l)
 # Display the results
 echo "Average Bandwidth: $avg_bandwidth bytes/s"
 echo "Average Latency: $avg_latency microseconds"
+
+# Remove the log files
+for (( i=1; i<=num_clients; i++ )); do
+    log_file="$log_dir/metrics_$i.log"
+    rm -f "$log_file"
+done
