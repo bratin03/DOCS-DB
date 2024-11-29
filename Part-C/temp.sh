@@ -1,0 +1,1 @@
+gcc -o bin/dpdk_server src/dpdk_server.c -I./src -L../Part-A/build/src -L./bin -llsm-tree -llsm_tree_wrapper_c -lstdc++  

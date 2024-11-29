@@ -1,3 +1,7 @@
+# DOCS-DB (Part-C)
+
+## Running server without DPDK
+
 ### Setup
 
 1. Create a virtual environment and activate it.
@@ -62,6 +66,7 @@ redis-benchmark -h 127.0.0.1 -p 6379 -c 1000 -n 100000 -t GET
 redis-benchmark -h 127.0.0.1 -p 6379 -c 1000 -n 100000 -t SET
 ```
 
+## Running server with DPDK
 
-
-
+### Setup
+1. Use the `c_wrapper.sh` script to compile the code.
