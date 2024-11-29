@@ -1,36 +1,53 @@
 #include <string>
-#include <mutex>  // Include C++ standard library features
+#include <mutex>      // Include C++ standard library features
 #include "lsm_tree.h" // Your original header
 
-// C++ code for LSM Tree implementation, mutex, etc.
-std::mutex lsm_tree_mutex;
+/// @file lsm_tree_wrapper.cpp
+/// @brief Provides a C-compatible API for the LSM Tree for interoperability with Python (via ctypes) or other C-based integrations.
 
-// Now wrap C++ functions with C-compatible API (for use with ctypes, Python, etc.)
-extern "C" {
+std::mutex lsm_tree_mutex; ///< Mutex for thread-safe operations on the LSM tree.
 
-    // Create a new LSM tree instance
-    lsm_tree* lsm_tree_create() {
-        return new lsm_tree();
-    }
+/// @brief Create a new LSM tree instance.
+/// @return A pointer to the newly created LSM tree instance.
+extern "C" lsm_tree *lsm_tree_create()
+{
+    return new lsm_tree();
+}
 
-    // Destroy an LSM tree instance
-    void lsm_tree_destroy(lsm_tree* tree) {
-        delete tree;
-    }
+/// @brief Destroy an LSM tree instance.
+/// @param tree A pointer to the LSM tree instance to be destroyed.
+extern "C" void lsm_tree_destroy(lsm_tree *tree)
+{
+    delete tree;
+}
 
-    // Insert or update a key-value pair in the LSM tree
-    void lsm_tree_put(lsm_tree* tree, const char* key, const char* value) {
-        tree->put(key, value);
-    }
+/// @brief Insert or update a key-value pair in the LSM tree.
+/// @param tree A pointer to the LSM tree instance.
+/// @param key The key as a null-terminated C string.
+/// @param value The value as a null-terminated C string.
+extern "C" void lsm_tree_put(lsm_tree *tree, const char *key, const char *value)
+{
+    std::lock_guard<std::mutex> lock(lsm_tree_mutex); // Ensure thread-safe access.
+    tree->put(key, value);
+}
 
-    // Retrieve the value associated with a key
-    const char* lsm_tree_get(lsm_tree* tree, const char* key) {
-        std::string result = tree->get(key);
-        return strdup(result.c_str());  // Allocate memory for the C string
-    }
+/// @brief Retrieve the value associated with a given key in the LSM tree.
+/// @param tree A pointer to the LSM tree instance.
+/// @param key The key as a null-terminated C string.
+/// @return The value as a null-terminated C string, or nullptr if the key is not found.
+/// @note The returned string is dynamically allocated. The caller is responsible for freeing it using `free()`.
+extern "C" const char *lsm_tree_get(lsm_tree *tree, const char *key)
+{
+    std::lock_guard<std::mutex> lock(lsm_tree_mutex); // Ensure thread-safe access.
+    std::string result = tree->get(key);
+    return strdup(result.c_str()); // Allocate memory for the C string.
+}
 
-    // Remove a key-value pair from the LSM tree
-    void lsm_tree_remove(lsm_tree* tree, const char* key) {
-        tree->remove(key);
-    }
+/// @brief Remove a key-value pair from the LSM tree.
+/// @param tree A pointer to the LSM tree instance.
+/// @param key The key as a null-terminated C string.
+extern "C" void lsm_tree_remove(lsm_tree *tree, const char *key)
+{
+    std::lock_guard<std::mutex> lock(lsm_tree_mutex); // Ensure thread-safe access.
+    tree->remove(key);
 }

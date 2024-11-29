@@ -121,32 +121,56 @@ class RESPClient:
         return resp
 
 
-# Example usage
 if __name__ == "__main__":
     """
     @brief Example usage of the RESPClient class.
     
-    This script connects to the Redis server and sends commands to set, get,
-    and delete a key, while parsing and printing the responses.
+    This script connects to the Redis server and sends commands iteratively
+    until the user inputs 'exit' or 'EXIT'.
     """
     client = RESPClient()
     try:
         client.connect()
 
-        # Set a key
-        response = client.send_command("SET", "mykey", "myvalue")
-        print("Response:", client.parse_response(response, "SET"))
+        while True:
+            # Take user input for commands
+            user_input = input("Enter command (or type 'exit' to quit): ").strip()
 
-        # Get the key's value
-        response = client.send_command("GET", "mykey")
-        print("Response:", client.parse_response(response, "GET"))
+            # Exit condition
+            if user_input.lower() == "exit":
+                print("Exiting...")
+                break
 
-        # Delete the key
-        response = client.send_command("DEL", "mykey")
-        print("Response:", client.parse_response(response, "DEL"))
+            # Split the input into command and arguments
+            command_parts = user_input.split(" ", 2)
+            command = command_parts[0].upper()
 
-        # Get the key's value again
-        response = client.send_command("GET", "mykey")
-        print("Response:", client.parse_response(response, "GET"))
+            if command == "SET" and len(command_parts) == 3:
+                # Process SET command
+                key = command_parts[1]
+                value = command_parts[2]
+
+                # Remove surrounding quotes from value if present
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1]
+
+                response = client.send_command(command, key, value)
+                print("Response:", client.parse_response(response, "SET"))
+
+            elif command == "GET" and len(command_parts) == 2:
+                # Process GET command
+                key = command_parts[1]
+                response = client.send_command(command, key)
+                print("Response:", client.parse_response(response, "GET"))
+
+            elif command == "DEL" and len(command_parts) == 2:
+                # Process DEL command
+                key = command_parts[1]
+                response = client.send_command(command, key)
+                print("Response:", client.parse_response(response, "DEL"))
+
+            else:
+                print("Invalid command or format. Please use SET, GET, or DEL.")
+                
     finally:
         client.close()
