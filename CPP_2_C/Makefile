@@ -1,35 +1,30 @@
 # Compiler and flags
 CXX = g++
 CC = gcc
-CXXFLAGS = -fPIC -shared -std=c++20  # Added -std=c++20 to enable C++20 features
+CXXFLAGS = -std=c++20 -Wall -I../Part-A/src/lsm_tree # Add the include path
+CFLAGS = -Wall
+LDFLAGS = -L../Part-A/build/src -llsm-tree-static -lstdc++
 
-# Paths for includes and libraries
-CFLAGS = -I../Part-A/src/lsm_tree  # Include path for lsm_tree.h
-LDFLAGS = -L../Part-A/build/src -L. -llsm-tree -llsm_tree_wrapper_c -lstdc++  # Library paths and linking flags
+# Source and output files
+WRAPPER_SRC = lsm_tree_wrapper_c.cpp
+WRAPPER_OBJ = lsm_tree_wrapper_c.o
+MAIN_SRC = main.c
+EXECUTABLE = main
 
-# Specific paths for different build stages
-INCLUDE_PATH = ../Part-A/src/lsm_tree
-LIB_PATH = .
-SRC_PATH = .
-BIN_PATH = .
+# Targets
+all: $(EXECUTABLE)
 
-# Files
-WRAPPER_SRC = $(SRC_PATH)/lsm_tree_wrapper_c.cpp
-WRAPPER_LIB = $(LIB_PATH)/liblsm_tree_wrapper_c.so
-MAIN_SRC = $(SRC_PATH)/main.c
-MAIN_BIN = $(BIN_PATH)/main
+# Build the main executable
+$(EXECUTABLE): $(WRAPPER_OBJ) $(MAIN_SRC)
+	$(CXX) $(WRAPPER_OBJ) $(MAIN_SRC) -o $(EXECUTABLE) $(LDFLAGS)
 
-# Default target (build both the wrapper and the main program)
-all: $(WRAPPER_LIB) $(MAIN_BIN)
+# Compile the wrapper object
+$(WRAPPER_OBJ): $(WRAPPER_SRC)
+	$(CXX) $(CXXFLAGS) -c $(WRAPPER_SRC) -o $(WRAPPER_OBJ)
 
-# Build the wrapper shared library (C++ wrapper for the lsm-tree)
-$(WRAPPER_LIB): $(WRAPPER_SRC)
-	$(CXX) $(CXXFLAGS) -I$(INCLUDE_PATH) -o $@ $^ $(LDFLAGS)
-
-# Build the main C program (links to the wrapper library)
-$(MAIN_BIN): $(MAIN_SRC)
-	$(CC) -o $@ $^ -I$(LIB_PATH) $(LDFLAGS)
-
-# Clean build artifacts
+# Clean build files
 clean:
-	rm -f $(LIB_PATH)/*.so $(BIN_PATH)/$(MAIN_BIN)
+	rm -f $(EXECUTABLE) $(WRAPPER_OBJ)
+
+# Phony targets
+.PHONY: all clean
