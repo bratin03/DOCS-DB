@@ -1,1 +1,1 @@
-g++ -fPIC -shared -std=c++20 -I../Part-A/src/lsm_tree -o bin/liblsm_tree_wrapper_c.so src/lsm_tree_wrapper_c.cpp -L../Part-A/build/src -L. -llsm-tree -lstdc++  
+g++ -std=c++20 -Wall -I../Part-A/src/lsm_tree  -c src/lsm_tree_wrapper_c.cpp -o bin/lsm_tree_wrapper_c.o

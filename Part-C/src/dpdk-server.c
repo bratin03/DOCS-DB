@@ -22,7 +22,7 @@
 void *tree;
 
 // Define DEBUG mode
-#define DEBUG // Uncomment this line to enable debugging
+// #define DEBUG // Uncomment this line to enable debugging
 
 #define MAX_EVENTS 4096
 #define BUFFER_SIZE 2048
@@ -349,7 +349,7 @@ int main(int argc, char *argv[])
     struct sockaddr_in my_addr;
     bzero(&my_addr, sizeof(my_addr));
     my_addr.sin_family = AF_INET;
-    my_addr.sin_port = htons(8080); // Using port 8080 instead of 80 for easier testing
+    my_addr.sin_port = htons(6379); // Using port 8080 instead of 80 for easier testing
     my_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     // Bind the socket to the specified address and port

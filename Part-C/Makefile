@@ -17,7 +17,7 @@ LIBS+= $(shell $(PKGCONF) --static --libs libdpdk)
 LIBS += -L${FF_PATH}/lib -Wl,--whole-archive,-lfstack,--no-whole-archive
 LIBS += -Wl,--no-whole-archive -lrt -lm -ldl -lcrypto -pthread -lnuma
 LIBS += -lstdc++ 
-DB_PATH = -I./src -L../Part-A/build/src -L./bin -llsm-tree -llsm_tree_wrapper_c -Wl,-rpath=./bin 	
+DB_PATH = -I./src -L../Part-A/build/src -L./bin -llsm-tree-static 
 
 SRCS = src/dpdk-server.cpp
 OBJS = $(SRCS:src/%.cpp=src/%.o)
@@ -26,7 +26,7 @@ DPDK_SERVER_EXEC = bin/dpdk-server
 
 all: $(DPDK_SERVER_EXEC)
 
-$(DPDK_SERVER_EXEC): src/dpdk-server.o
+$(DPDK_SERVER_EXEC): src/dpdk-server.o ./bin/lsm_tree_wrapper_c.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS) $(DB_PATH)
 
 src/%.o: src/%.cpp
