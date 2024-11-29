@@ -7,55 +7,44 @@
 #include <netinet/in.h>
 #include <poll.h>
 #include <fcntl.h>
+#include <signal.h>
+#include <arpa/inet.h>
 #include "lsm_tree_wrapper_c.h"
 
 #define MAX_BUFFER_SIZE 4096
 #define PORT 6379
 #define MAX_CLIENTS 1024
 
+void *tree;
+
 // Define DEBUG mode
-// #define DEBUG  // Uncomment this line to enable debugging
-
-// Placeholder functions for LSM tree operations
-// These need to be replaced with your actual LSM tree API functions
-void lsm_tree_put(const char *key, const char *value)
-{
-    // Implement the actual set logic with your LSM tree
-}
-
-const char *lsm_tree_get(const char *key)
-{
-    // Implement the actual get logic with your LSM tree
-    return NULL; // Return NULL if key not found
-}
-
-void lsm_tree_remove(const char *key)
-{
-    // Implement the actual remove logic with your LSM tree
-}
+// #define DEBUG // Uncomment this line to enable debugging
 
 // Helper functions to build RESP-2 messages
-char *build_resp(const char *message)
+char *build_resp(const char *message, size_t *len_send)
 {
     size_t len = strlen(message) + 3;
     char *response = (char *)malloc(len);
     snprintf(response, len, "+%s\r\n", message);
+    *len_send = len;
     return response;
 }
 
-char *build_resp_get(const char *message)
+char *build_resp_get(const char *message,size_t *len_send)
 {
     size_t len = strlen(message) + 6;
     char *response = (char *)malloc(len);
     snprintf(response, len, "$%zu\r\n%s\r\n", strlen(message), message);
+    *len_send = len;
     return response;
 }
 
-char *build_error(const char *message)
+char *build_error(const char *message, size_t *len_send)
 {
     size_t len = strlen(message) + 6;
     char *response = (char *)malloc(len);
     snprintf(response, len, "-ERR %s\r\n", message);
+    *len_send = len;
     return response;
 }
 
@@ -64,6 +53,7 @@ void parse_resp(char *message, char **command, char ***args, int *arg_count)
     char *token;
     *arg_count = 0;
 
+    // Tokenize the first line to get the number of arguments (*2)
     token = strtok(message, "\r\n");
     if (token[0] != '*')
     {
@@ -71,11 +61,13 @@ void parse_resp(char *message, char **command, char ***args, int *arg_count)
         return;
     }
 
-    *arg_count = atoi(token + 1);
+    *arg_count = atoi(token + 1); // Extract the number of arguments
     *args = (char **)malloc(sizeof(char *) * (*arg_count));
 
+    // Process each argument
     for (int i = 0; i < *arg_count; i++)
     {
+        // Expecting the argument length (e.g., $3 for "GET")
         token = strtok(NULL, "\r\n");
         if (token[0] != '$')
         {
@@ -83,12 +75,12 @@ void parse_resp(char *message, char **command, char ***args, int *arg_count)
             return;
         }
 
-        size_t length = atoi(token + 1);
+        size_t length = atoi(token + 1); // Get the length of the argument
         token = strtok(NULL, "\r\n");
-        (*args)[i] = strndup(token, length);
+        (*args)[i] = strndup(token, length); // Copy the argument
     }
 
-    *command = (*args)[0];
+    *command = (*args)[0]; // The first argument is the command (e.g., "GET")
 }
 
 // Command Handlers
@@ -97,7 +89,11 @@ void handle_set(char *key, char *value)
 #ifdef DEBUG
     printf("DEBUG: Handle SET - key: %s, value: %s\n", key, value);
 #endif
-    lsm_tree_put(key, value);
+    if (tree == NULL)
+    {
+        tree = lsm_tree_create();
+    }
+    lsm_tree_put(tree, key, value);
 }
 
 const char *handle_get(char *key)
@@ -105,7 +101,16 @@ const char *handle_get(char *key)
 #ifdef DEBUG
     printf("DEBUG: Handle GET - key: %s\n", key);
 #endif
-    return lsm_tree_get(key);
+    if (tree == NULL)
+    {
+        return NULL;
+    }
+
+    const char *get_response = lsm_tree_get(tree, key);
+#ifdef DEBUG
+    printf("DEBUG: GET response: %s\n", get_response);
+#endif
+    return get_response;
 }
 
 void handle_del(char *key)
@@ -113,55 +118,82 @@ void handle_del(char *key)
 #ifdef DEBUG
     printf("DEBUG: Handle DEL - key: %s\n", key);
 #endif
-    lsm_tree_remove(key);
+    if (tree == NULL)
+    {
+        return;
+    }
+    lsm_tree_remove(tree, key);
 }
 
 // Modular function to handle commands
 void handle_command(int client_fd, char *command, char **args, int arg_count)
 {
     char *response = NULL;
+    size_t *response_len = (size_t *)malloc(sizeof(size_t));
 
 #ifdef DEBUG
     printf("DEBUG: Handling command: %s, args count: %d\n", command, arg_count);
+    for (int i = 0; i < arg_count; i++)
+    {
+        printf("DEBUG: Arg %d: %s\n", i, args[i]);
+    }
 #endif
 
-    if (strcmp(command, "SET") == 0 && arg_count == 2)
+    if (strcmp(command, "SET") == 0 && arg_count == 3)
     {
-        handle_set(args[0], args[1]);
-        response = build_resp("OK");
+        handle_set(args[1], args[2]);
+        response = build_resp("OK", response_len);
     }
-    else if (strcmp(command, "GET") == 0 && arg_count == 1)
+    else if (strcmp(command, "GET") == 0 && arg_count == 2)
     {
-        const char *response_value = handle_get(args[0]);
+        const char *response_value = handle_get(args[1]);
         if (response_value != NULL)
         {
-            response = build_resp_get(response_value);
+#ifdef DEBUG
+            printf("DEBUG: GET response: %s\n", response_value);
+#endif
+            response = build_resp_get(response_value, response_len);
+#ifdef DEBUG
+            printf("DEBUG: GET response: %s\n", response);
+#endif
         }
         else
         {
-            response = build_error("Key not found");
+            response = build_error("Key not found", response_len);
         }
     }
-    else if (strcmp(command, "DEL") == 0 && arg_count == 1)
+    else if (strcmp(command, "DEL") == 0 && arg_count == 2)
     {
-        handle_del(args[0]);
-        response = build_resp("OK");
+        handle_del(args[1]);
+        response = build_resp("OK", response_len);
     }
     else if (strcmp(command, "PING") == 0)
     {
-        response = build_resp("PONG");
+        response = build_resp("PONG", response_len);
     }
     else
     {
-        response = build_error("Invalid command or arguments");
+        response = build_error("Invalid command or arguments", response_len);
     }
 
     // Send response
 #ifdef DEBUG
     printf("DEBUG: Sending response: %s\n", response);
 #endif
-    write(client_fd, response, strlen(response));
+    write(client_fd, response, *response_len);
     free(response);
+    free(response_len);
+}
+
+// Signal handler for graceful shutdown
+void handle_signal(int signal)
+{
+    printf("Received signal %d, shutting down server...\n", signal);
+    if (tree != NULL)
+    {
+        lsm_tree_destroy(tree);
+    }
+    exit(EXIT_SUCCESS);
 }
 
 // Main server function
@@ -178,8 +210,17 @@ int main()
     int nfds = 1;
     int timeout = -1; // Infinite timeout, waits indefinitely for events
 
+    tree = lsm_tree_create();
+    // Register signal handlers
+    signal(SIGINT, handle_signal);
+    signal(SIGTERM, handle_signal);
     // Create server socket
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
+
+    // SO_REUSEADDR option
+    int opt = 1;
+    setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+
     if (server_socket < 0)
     {
         perror("Failed to create socket");
@@ -305,9 +346,11 @@ int main()
 
                 if (command == NULL)
                 {
-                    char *response = build_error("Invalid RESP format");
-                    write(fds[i].fd, response, strlen(response));
+                    size_t *len_send = (size_t *)malloc(sizeof(size_t));
+                    char *response = build_error("Invalid RESP format", len_send);
+                    write(fds[i].fd, response, *len_send);
                     free(response);
+                    free(len_send);
                     continue;
                 }
 

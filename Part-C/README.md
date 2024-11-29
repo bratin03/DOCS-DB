@@ -70,3 +70,9 @@ redis-benchmark -h 127.0.0.1 -p 6379 -c 1000 -n 100000 -t SET
 
 ### Setup
 1. Use the `c_wrapper.sh` script to compile the code.
+
+2. Add the path of the `Part-C/bin` to `LD_LIBRARY_PATH` in the `~/.bashrc` file.
+
+```bash
+export LD_LIBRARY_PATH=/home/bratin/DOCS-DB/Part-C/bin:$LD_LIBRARY_PATH
+```

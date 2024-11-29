@@ -56,7 +56,13 @@ void lsm_tree::put(const std::string &key, const std::string &value)
         wal.clear();
     }
 
-    kv_pair entry = {key, value};
+    auto final_value = value;
+    if (value == TOMBSTONE)
+    {
+        final_value = "";
+    }
+
+    kv_pair entry = {key, final_value};
     wal.append(entry.to_log_entry());
     memtable.insert(entry);
 }
