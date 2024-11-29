@@ -2,6 +2,7 @@ import asyncio
 import uvloop
 from multiprocessing import cpu_count
 from lsm_tree import LSMTree
+import threading
 
 # Use uvloop for better performance
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
@@ -9,6 +10,23 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 lsm_tree = None
 
 # RESP-2 Utilities
+
+"""
+@brief Signal handler for Ctrl+C to gracefully exit the server after calling the destructor of lsm tree
+@param sig The signal number.
+@param frame The current stack frame.
+
+"""
+
+def signal_handler(sig, frame):
+
+    print("\nClosing the server and cleaning up resources...")
+    lsm_tree.__del__()
+
+    import os
+    os._exit(0)
+
+
 
 """
 @brief Parse a RESP-2 message to extract command and arguments.
@@ -161,9 +179,22 @@ async def start_worker(host, port):
         await server.serve_forever()
 
 if __name__ == "__main__":
+    import signal
+    signal.signal(signal.SIGINT, signal_handler)
     host = "127.0.0.1"
     port = 6379
     lsm_tree = LSMTree()
 
-    workers = cpu_count()  # Number of workers equals CPU cores
-    asyncio.run(start_worker(host, port))
+    NUM_THREADS = cpu_count()//3
+    NUM_THREADS = 1 if NUM_THREADS == 0 else NUM_THREADS
+
+    # Start event loop concurrently in 2 threads to handle multiple clients on same port
+    threads = [threading.Thread(target=asyncio.run, args=(start_worker(host, port),)) for _ in range(NUM_THREADS)]
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    
+
