@@ -1,0 +1,141 @@
+\hypertarget{dpdk__server_8cpp}{}\doxysection{src/dpdk\+\_\+server.cpp File Reference}
+\label{dpdk__server_8cpp}\index{src/dpdk\_server.cpp@{src/dpdk\_server.cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$strings.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}ff\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ff\+\_\+api.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ff\+\_\+epoll.\+h\char`\"{}}\newline
+Include dependency graph for dpdk\+\_\+server.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dpdk__server_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{dpdk__server_8cpp_ae42954bb8545d24e3e9dcde5920c9a0b}{M\+A\+X\+\_\+\+E\+V\+E\+N\+TS}}~4096
+\item 
+\#define \mbox{\hyperlink{dpdk__server_8cpp_a6b20d41d6252e9871430c242cb1a56e7}{B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}~2048
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{dpdk__server_8cpp_a0a778b7e0a99fa32a4905c31fd3d492c}{loop}} (void $\ast$arg)
+\begin{DoxyCompactList}\small\item\em Event loop function to handle incoming connections and data. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{dpdk__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function to initialize the server and run the event loop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct epoll\+\_\+event \mbox{\hyperlink{dpdk__server_8cpp_aec0e547134563cdcc13c7545b1f2abbf}{ev}}
+\item 
+struct epoll\+\_\+event \mbox{\hyperlink{dpdk__server_8cpp_acc3fe99e84abfb562e4afca193743074}{events}} \mbox{[}\mbox{\hyperlink{dpdk__server_8cpp_ae42954bb8545d24e3e9dcde5920c9a0b}{M\+A\+X\+\_\+\+E\+V\+E\+N\+TS}}\mbox{]}
+\item 
+int \mbox{\hyperlink{dpdk__server_8cpp_ad9ea3108c3907d7dedaf4ee7283bef1d}{epfd}}
+\item 
+int \mbox{\hyperlink{dpdk__server_8cpp_ad2c8fb3df3a737e0685e902870a611d2}{sockfd}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{dpdk__server_8cpp_a6b20d41d6252e9871430c242cb1a56e7}\label{dpdk__server_8cpp_a6b20d41d6252e9871430c242cb1a56e7}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE~2048}
+
+\mbox{\Hypertarget{dpdk__server_8cpp_ae42954bb8545d24e3e9dcde5920c9a0b}\label{dpdk__server_8cpp_ae42954bb8545d24e3e9dcde5920c9a0b}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!MAX\_EVENTS@{MAX\_EVENTS}}
+\index{MAX\_EVENTS@{MAX\_EVENTS}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{MAX\_EVENTS}{MAX\_EVENTS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+E\+V\+E\+N\+TS~4096}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{dpdk__server_8cpp_a0a778b7e0a99fa32a4905c31fd3d492c}\label{dpdk__server_8cpp_a0a778b7e0a99fa32a4905c31fd3d492c}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!loop@{loop}}
+\index{loop@{loop}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily int loop (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+
+
+Event loop function to handle incoming connections and data. 
+
+This function waits for events such as new connections or incoming data. It handles each event accordingly\+:
+\begin{DoxyItemize}
+\item Accepts new client connections.
+\item Reads data from connected clients and sends the length of the received data back.
+\item Closes connections in case of errors or if no data is received.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em arg} & Pointer to additional arguments (unused). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Status code (0 on success). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dpdk__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{dpdk__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!main@{main}}
+\index{main@{main}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function to initialize the server and run the event loop. 
+
+This function initializes the server socket, binds it to the specified port, and starts listening for incoming connections. It then creates an epoll instance, adds the server socket to it, and begins running the event loop to handle events.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of command-\/line arguments. \\
+\hline
+{\em argv} & The array of command-\/line arguments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Status code (0 on success). 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{dpdk__server_8cpp_ad9ea3108c3907d7dedaf4ee7283bef1d}\label{dpdk__server_8cpp_ad9ea3108c3907d7dedaf4ee7283bef1d}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!epfd@{epfd}}
+\index{epfd@{epfd}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{epfd}{epfd}}
+{\footnotesize\ttfamily int epfd}
+
+\mbox{\Hypertarget{dpdk__server_8cpp_aec0e547134563cdcc13c7545b1f2abbf}\label{dpdk__server_8cpp_aec0e547134563cdcc13c7545b1f2abbf}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!ev@{ev}}
+\index{ev@{ev}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{ev}{ev}}
+{\footnotesize\ttfamily struct epoll\+\_\+event ev}
+
+\mbox{\Hypertarget{dpdk__server_8cpp_acc3fe99e84abfb562e4afca193743074}\label{dpdk__server_8cpp_acc3fe99e84abfb562e4afca193743074}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!events@{events}}
+\index{events@{events}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{events}{events}}
+{\footnotesize\ttfamily struct epoll\+\_\+event events\mbox{[}\mbox{\hyperlink{dpdk__server_8cpp_ae42954bb8545d24e3e9dcde5920c9a0b}{M\+A\+X\+\_\+\+E\+V\+E\+N\+TS}}\mbox{]}}
+
+\mbox{\Hypertarget{dpdk__server_8cpp_ad2c8fb3df3a737e0685e902870a611d2}\label{dpdk__server_8cpp_ad2c8fb3df3a737e0685e902870a611d2}} 
+\index{dpdk\_server.cpp@{dpdk\_server.cpp}!sockfd@{sockfd}}
+\index{sockfd@{sockfd}!dpdk\_server.cpp@{dpdk\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{sockfd}{sockfd}}
+{\footnotesize\ttfamily int sockfd}
+

@@ -19,7 +19,7 @@ mkdir -p "$log_dir"
 # Run clients in parallel, passing the number of packets to each client
 for (( i=1; i<=num_clients; i++ )); do
     # Run each client in the background
-    ./client $i $num_packets &
+    ../bin/client $i $num_packets &
 done
 
 # Wait for all background clients to finish

@@ -16,14 +16,14 @@ CXXFLAGS = -std=c++20 -pthread -O0 -g -gdwarf-2 $(shell $(PKGCONF) --cflags libd
 LIBS+= $(shell $(PKGCONF) --static --libs libdpdk)
 LIBS += -L${FF_PATH}/lib -Wl,--whole-archive,-lfstack,--no-whole-archive
 LIBS += -Wl,--no-whole-archive -lrt -lm -ldl -lcrypto -pthread -lnuma
-LIBS += -lstdc++  # <-- Add this line to link against the C++ standard library
+LIBS += -lstdc++ 
 
 SRCS = src/server.cpp src/client.cpp src/dpdk_server.cpp
 OBJS = $(SRCS:src/%.cpp=src/%.o)
 
-SERVER_EXEC = server
-CLIENT_EXEC = client
-DPDK_SERVER_EXEC = dpdk_server
+SERVER_EXEC = bin/server
+CLIENT_EXEC = bin/client
+DPDK_SERVER_EXEC = bin/dpdk_server
 
 all: $(SERVER_EXEC) $(CLIENT_EXEC) $(DPDK_SERVER_EXEC)
 

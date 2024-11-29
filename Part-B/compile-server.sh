@@ -1,1 +1,0 @@
-g++ src/server.cpp -o server -std=c++20 -pthread -O3
