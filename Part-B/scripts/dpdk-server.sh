@@ -1,1 +1,1 @@
-sudo ../bin/dpdk_server --conf config/config.ini --proc-type=primary --proc-id=0 
+sudo ../bin/dpdk_server --conf ../config/config.ini --proc-type=primary --proc-id=0 
