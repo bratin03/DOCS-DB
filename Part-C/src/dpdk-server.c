@@ -1,3 +1,13 @@
+/*
+Student Information:
+1. Bratin Mondal - 21CS10016
+2. Swarnabh Mandal - 21CS10068
+3. Somya Kumar - 21CS30050
+
+Deparment of Computer Science and Engineering
+Indian Institute of Technology, Kharagpur
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +31,6 @@
 
 void *tree;
 
-// Define DEBUG mode
 // #define DEBUG // Uncomment this line to enable debugging
 
 #define MAX_EVENTS 4096
@@ -33,7 +42,14 @@ struct epoll_event events[MAX_EVENTS];
 int epfd;
 int sockfd;
 
-// Helper functions to build RESP-2 messages
+/**
+ * @brief Builds a simple response message with a prefix.
+ * 
+ * @param message The message to include in the response.
+ * @param len_send The length of the response message.
+ * 
+ * @return The response message.
+ */
 char *build_resp(const char *message, size_t *len_send)
 {
     size_t len = strlen(message) + 3;
@@ -43,6 +59,14 @@ char *build_resp(const char *message, size_t *len_send)
     return response;
 }
 
+/**
+ * @brief Builds a response message for the GET command.
+ * 
+ * @param message The message to include in the response.
+ * @param len_send The length of the response message.
+ * 
+ * @return The response message.
+ */
 char *build_resp_get(const char *message, size_t *len_send)
 {
     size_t len = strlen(message) + 6;
@@ -52,6 +76,14 @@ char *build_resp_get(const char *message, size_t *len_send)
     return response;
 }
 
+/**
+ * @brief Builds an error response message.
+ * 
+ * @param message The error message to include in the response.
+ * @param len_send The length of the response message.
+ * 
+ * @return The response message.
+ */
 char *build_error(const char *message, size_t *len_send)
 {
     size_t len = strlen(message) + 6;
@@ -61,6 +93,14 @@ char *build_error(const char *message, size_t *len_send)
     return response;
 }
 
+/**
+ * @brief Parses the incoming message from the client.
+ * 
+ * @param message The incoming message from the client.
+ * @param command The command extracted from the message.
+ * @param args The arguments extracted from the message.
+ * @param arg_count The number of arguments in the message.
+ */
 void parse_resp(char *message, char **command, char ***args, int *arg_count)
 {
     char *token;
@@ -96,7 +136,12 @@ void parse_resp(char *message, char **command, char ***args, int *arg_count)
     *command = (*args)[0]; // The first argument is the command (e.g., "GET")
 }
 
-// Command Handlers
+/**
+ * @brief Handles the SET command to insert or update a key-value pair in the LSM tree.
+ * 
+ * @param key The key to insert or update.
+ * @param value The value associated with the key.
+ */
 void handle_set(char *key, char *value)
 {
 #ifdef DEBUG
@@ -109,6 +154,12 @@ void handle_set(char *key, char *value)
     lsm_tree_put(tree, key, value);
 }
 
+/**
+ * @brief Handles the GET command to retrieve the value associated with a key from the LSM tree.
+ * 
+ * @param key The key to search for.
+ * @return The value associated with the key. Returns `NULL` if the key is not found.
+ */
 const char *handle_get(char *key)
 {
 #ifdef DEBUG
@@ -126,6 +177,11 @@ const char *handle_get(char *key)
     return get_response;
 }
 
+/**
+ * @brief Handles the DEL command to remove a key-value pair from the LSM tree.
+ * 
+ * @param key The key to be removed.
+ */
 void handle_del(char *key)
 {
 #ifdef DEBUG
@@ -138,13 +194,25 @@ void handle_del(char *key)
     lsm_tree_remove(tree, key);
 }
 
+/**
+ * @brief Structure to hold the response message and its length.
+ * 
+ * This structure is used to pass the response message and its length between functions.
+ */
 struct resp
 {
     char *message;
     size_t len;
 };
 
-// Modular function to handle commands
+/**
+ * @brief Handles the incoming command from the client and sends the appropriate response.
+ * 
+ * @param command The command extracted from the message.
+ * @param args The arguments extracted from the message.
+ * @param arg_count The number of arguments in the message.
+ * @param response_struct The response structure to hold the response message and its length.
+ */
 void handle_command(char *command, char **args, int arg_count,struct resp *response_struct)
 {
     char *response = NULL;
@@ -203,7 +271,11 @@ void handle_command(char *command, char **args, int arg_count,struct resp *respo
     response_struct->len = *response_len;
 }
 
-// Signal handler for graceful shutdown
+/**
+ * @brief Signal handler to gracefully shut down the server.
+ * 
+ * @param signal The signal received.
+ */
 void handle_signal(int signal)
 {
     printf("Received signal %d, shutting down server...\n", signal);

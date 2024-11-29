@@ -2,16 +2,24 @@
 
 ## Structure of The Project
 
+Project Information:
+- `Readme.md` - Project readme file.
 - `docs/` - Directory containing documentation files.
 - `Doxyfile` - Configuration file for Doxygen.
-- `Readme.md` - Project readme file.
+
+Configuration and Build:
 - `CMakeLists.txt` - CMake configuration file.
 - `build.sh` - Shell script to build the project.
 - `setup.sh` - Shell script to set up the project.
+
+Source Code:
 - `src/` - Directory containing source code files.
 - `repl.cpp` - Source file for the REPL.
+
+Examples and Tests:
 - `repl.txt` - Example REPL input file.
 - `test/` - Directory containing test files.
+
 
 
 ## Running the Project

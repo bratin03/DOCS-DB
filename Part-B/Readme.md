@@ -2,15 +2,19 @@
 
 ## Structure of The Project
 
+Project Information: 
+- `Readme.md`: Project readme file.
+- `Makefile`: File containing build instructions.
+- `Doxyfile`: Configuration file for Doxygen.
+
+Directories:
 - `bin/`: Directory containing binary files.
 - `config/`: Directory containing configuration files.
 - `docs/`: Directory containing documentation files.
-- `Doxyfile`: Configuration file for Doxygen.
 - `log/`: Directory containing log files.
-- `Makefile`: File containing build instructions.
-- `Readme.md`: Project readme file.
 - `scripts/`: Directory containing various scripts.
 - `src/`: Directory containing source code files.
+
 
 
 ### Note: Since DPDK can not be run on a virtual NIC, for running our code we use a virtual machine. The server can be run on the virtual machine with and without DPDK. The client can be run on the host machine. We build a virtual machine with a NIC that can be configured to run with DPDK. 
