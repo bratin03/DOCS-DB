@@ -19,8 +19,8 @@ Indian Institute of Technology, Kharagpur
 
 // #define DEBUG
 
-#define SERVER_IP "127.0.0.1" // Server IP address
-#define SERVER_PORT 8080      // Server Port
+#define SERVER_IP "192.168.122.32" // Server IP address
+#define SERVER_PORT 8080           // Server Port
 
 /**
  * @brief Simulates a client sending multiple packets to a server and measuring the round-trip latency.
@@ -77,6 +77,10 @@ void run_client(int client_id, int num_packets)
         int packet_size = size_dist(rng);             ///< Random packet size
         std::fill(buffer, buffer + packet_size, 'A'); ///< Fill the buffer with data
 
+#ifdef DEBUG
+        std::cout << "Sending packet " << i + 1 << " of size " << packet_size << " bytes." << std::endl;
+#endif
+
         auto start = std::chrono::high_resolution_clock::now(); ///< Start time for latency measurement
 
         // Send data to the server
@@ -89,7 +93,7 @@ void run_client(int client_id, int num_packets)
         }
 
 #ifdef DEBUG
-        std::cout << "Sent " << packet_size << " bytes" << std::endl;
+        std::cout << "Sent " << packet_size << " bytes to the server." << std::endl;
 #endif
 
         // Receive the response (length of data sent)
@@ -104,13 +108,17 @@ void run_client(int client_id, int num_packets)
 
 #ifdef DEBUG
         response = ntohl(response);
-        std::cout << "Response: " << response << std::endl;
+        std::cout << "Received response: " << response << " bytes from server." << std::endl;
 #endif
 
         auto end = std::chrono::high_resolution_clock::now(); ///< End time for latency measurement
         auto latency = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
         total_latency += latency;
         total_bytes_sent += packet_size;
+
+#ifdef DEBUG
+        std::cout << "Round-trip latency for packet " << i + 1 << ": " << latency << " microseconds." << std::endl;
+#endif
     }
 
     // Calculate average latency and bandwidth
@@ -120,6 +128,14 @@ void run_client(int client_id, int num_packets)
     // Log metrics summary (only avg latency and avg bandwidth)
     log_file << std::fixed << bandwidth / 8 << "\n"; // Bandwidth in bytes/s
     log_file << std::fixed << avg_latency << "\n";   // Average latency in microseconds
+
+#ifdef DEBUG
+    std::cout << "Total bytes sent: " << total_bytes_sent << " bytes." << std::endl;
+    std::cout << "Total latency: " << total_latency << " microseconds." << std::endl;
+    std::cout << "Average latency: " << avg_latency << " microseconds." << std::endl;
+    std::cout << "Calculated bandwidth: " << bandwidth / 8 << " bytes/s." << std::endl;
+#endif
+
     log_file.close();
     close(sock);
 }
@@ -146,7 +162,13 @@ int main(int argc, char *argv[])
     int num_packets = std::stoi(argv[2]); ///< Number of packets to send
 
     // Create log directory if it doesn't exist
-    system("mkdir -p ./log");
+    auto ret = system("mkdir -p ./log");
+
+    if (ret != 0)
+    {
+        std::cerr << "Failed to create log directory!" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
     run_client(client_id, num_packets); ///< Run the client with specified parameters
 

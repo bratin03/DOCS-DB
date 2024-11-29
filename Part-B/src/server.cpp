@@ -23,7 +23,7 @@ Indian Institute of Technology, Kharagpur
 #define MAX_PACKET_COUNT 10 // Maximum packets a client can send
 
 // Define the SERVER IP address here
-#define SERVER_IP "127.0.0.1" // Replace with your desired IP address
+#define SERVER_IP "192.168.122.32" // Replace with your desired IP address
 
 /**
  * @brief Handles a single client connection, receives multiple packets, and sends back the length of each packet.
@@ -46,6 +46,9 @@ void handleClient(int clientSocket)
         if (ret <= 0)
         {
             // If no data is received or the connection is closed, exit the loop
+#ifdef DEBUG
+            std::cout << "No data received or connection closed. Exiting client handler." << std::endl;
+#endif
             break;
         }
 
@@ -57,12 +60,22 @@ void handleClient(int clientSocket)
         if (send_ret <= 0)
         {
             // If the send operation fails, exit the loop
+#ifdef DEBUG
+            std::cout << "Failed to send packet size. Exiting client handler." << std::endl;
+#endif
             break;
         }
+
+#ifdef DEBUG
+        std::cout << "Data received, length: " << ret << " bytes. Sent back the length: " << ret << " bytes." << std::endl;
+#endif
     }
 
     // Close the client connection
     close(clientSocket);
+#ifdef DEBUG
+    std::cout << "Client connection closed." << std::endl;
+#endif
 }
 
 /**
@@ -92,6 +105,9 @@ int main()
         perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
+#ifdef DEBUG
+    std::cout << "Server socket created successfully." << std::endl;
+#endif
 
     // Set socket options to reuse address and port
     if (setsockopt(serverFd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)) < 0)
@@ -100,6 +116,9 @@ int main()
         close(serverFd);
         exit(EXIT_FAILURE);
     }
+#ifdef DEBUG
+    std::cout << "Socket options set successfully: SO_REUSEADDR and SO_REUSEPORT." << std::endl;
+#endif
 
     // Set up the server address with a specific IP address (SERVER_IP)
     serverAddr.sin_family = AF_INET;
@@ -113,6 +132,9 @@ int main()
         close(serverFd);
         exit(EXIT_FAILURE);
     }
+#ifdef DEBUG
+    std::cout << "Socket bound to IP: " << SERVER_IP << " and port: " << PORT << std::endl;
+#endif
 
     // Start listening for incoming connections
     if (listen(serverFd, 3) < 0)
@@ -121,6 +143,9 @@ int main()
         close(serverFd);
         exit(EXIT_FAILURE);
     }
+#ifdef DEBUG
+    std::cout << "Server is now listening for incoming connections." << std::endl;
+#endif
 
     std::cout << "Server started on IP " << SERVER_IP << " and port " << PORT << std::endl;
 
@@ -138,7 +163,7 @@ int main()
         }
 
 #ifdef DEBUG
-        std::cout << "New client connected" << std::endl;
+        std::cout << "New client connected, client socket: " << clientSocket << std::endl;
 #endif
         // Spawn a new thread to handle the client
         std::thread clientThread(handleClient, clientSocket);

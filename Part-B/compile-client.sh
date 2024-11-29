@@ -1,0 +1,1 @@
+g++ src/client.cpp -o client -std=c++20 -pthread -O3 
