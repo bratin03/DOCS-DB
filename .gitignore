@@ -51,4 +51,5 @@ cpp/build
 */server
 */client
 */venv
-/Part-C/doxygen_output
+
+*/Doxygen/*
