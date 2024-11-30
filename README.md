@@ -3,7 +3,7 @@
 To-Do:
 
 Part-A:
-- [] Design Document @somya-kr and [@somya-kr]
+- [] Design Document [@somya-kr]
 
 Part-B:
 
