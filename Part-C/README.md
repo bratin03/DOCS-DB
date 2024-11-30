@@ -1,4 +1,4 @@
-# DOCS-DB (Part-C)
+#  DOCS-DB (Part-C)
 
 ## Structure of The Project
 
@@ -13,13 +13,13 @@ Directories:
 - `config/` - Directory containing configuration files.
 - `docs/` - Directory containing documentation files.
 - `src/` - Directory containing source code files.
+- `result/` - Directory containing the results.
 
 Shell scripts:
 - `benchmark.sh` - Shell script for benchmarking the server.
-- `convert.sh` - Shell script to convert files.
-- `c_wrapper.sh` - Shell script to compile the C++ wrapper.
+- `python_wrapper.sh` - Shell script to compile the wrapper for usage in python file.
+- `c_wrapper.sh` - Shell script to compile the wrapper for usage in c file.
 - `dpdk-server.sh` - Shell script to run the server with DPDK.
-- `temp.sh` - Temporary shell script.
 
 
 ## Running server without DPDK
@@ -39,7 +39,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Run `convert.sh`
+3. Run `python_wrapper.sh`
 
 4. Add the path of the `Part-A/build/src` to `LD_LIBRARY_PATH` in the `~/.bashrc` file.
 
@@ -52,8 +52,6 @@ export LD_LIBRARY_PATH=<path-to-docs-db>/DOCS-DB/Part-A/build/src:$LD_LIBRARY_PA
 ```bash
 python server.py
 ```
-
-Starts the server at `127.0.0.1:6379`.
 
 6. Open another terminal and run the following command to start the client.
 

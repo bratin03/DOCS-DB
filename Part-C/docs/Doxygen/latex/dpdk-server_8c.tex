@@ -1,0 +1,346 @@
+\doxysection{src/dpdk-\/server.c File Reference}
+\hypertarget{dpdk-server_8c}{}\label{dpdk-server_8c}\index{src/dpdk-\/server.c@{src/dpdk-\/server.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$poll.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include "{}ff\+\_\+config.\+h"{}}\newline
+{\ttfamily \#include "{}ff\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}ff\+\_\+epoll.\+h"{}}\newline
+{\ttfamily \#include "{}lsm\+\_\+tree\+\_\+wrapper\+\_\+c.\+h"{}}\newline
+Include dependency graph for dpdk-\/server.c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dpdk-server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structresp}{resp}}
+\begin{DoxyCompactList}\small\item\em Structure to hold the response message and its length. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{dpdk-server_8c_ae42954bb8545d24e3e9dcde5920c9a0b}{MAX\+\_\+\+EVENTS}}~8192
+\item 
+\#define \mbox{\hyperlink{dpdk-server_8c_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}~4096
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{dpdk-server_8c_aec1eedfa9d83cd09c222f514b7c99eda}{build\+\_\+resp}} (const char \texorpdfstring{$\ast$}{*}message, size\+\_\+t \texorpdfstring{$\ast$}{*}len\+\_\+send)
+\begin{DoxyCompactList}\small\item\em Builds a simple response message with a prefix. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{dpdk-server_8c_a4a9a4bcbdce26a02fbe5a1819de58c8b}{build\+\_\+resp\+\_\+get}} (const char \texorpdfstring{$\ast$}{*}message, size\+\_\+t \texorpdfstring{$\ast$}{*}len\+\_\+send)
+\begin{DoxyCompactList}\small\item\em Builds a response message for the GET command. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{dpdk-server_8c_af103aa45c16c878c7dac9435aeb23300}{build\+\_\+error}} (const char \texorpdfstring{$\ast$}{*}message, size\+\_\+t \texorpdfstring{$\ast$}{*}len\+\_\+send)
+\begin{DoxyCompactList}\small\item\em Builds an error response message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dpdk-server_8c_a7bc4fbfe5557e67278e4db721f92a051}{parse\+\_\+resp}} (char \texorpdfstring{$\ast$}{*}message, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}commands, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}args, int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}arg\+\_\+counts, int \texorpdfstring{$\ast$}{*}message\+\_\+count)
+\begin{DoxyCompactList}\small\item\em Parses the incoming messages from the client, handling multiple messages in the input. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dpdk-server_8c_ad578a33148e3c241b34878e6dc550617}{handle\+\_\+set}} (char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Handles the SET command to insert or update a key-\/value pair in the LSM tree. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{dpdk-server_8c_aff0ae0c392214a088fc39265540216c0}{handle\+\_\+get}} (char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Handles the GET command to retrieve the value associated with a key from the LSM tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dpdk-server_8c_aa194d3219ea328c62dee8a76d23725da}{handle\+\_\+del}} (char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Handles the DEL command to remove a key-\/value pair from the LSM tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dpdk-server_8c_ad17b265de3f1326d34b597930021b352}{handle\+\_\+command}} (char \texorpdfstring{$\ast$}{*}command, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}args, int arg\+\_\+count, struct \mbox{\hyperlink{structresp}{resp}} \texorpdfstring{$\ast$}{*}response\+\_\+struct)
+\begin{DoxyCompactList}\small\item\em Handles the incoming command from the client and sends the appropriate response. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dpdk-server_8c_adb1a37faa77219e1add3c026597c3dec}{handle\+\_\+signal}} (int signal)
+\begin{DoxyCompactList}\small\item\em Signal handler to gracefully shut down the server. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{dpdk-server_8c_a0a778b7e0a99fa32a4905c31fd3d492c}{loop}} (void \texorpdfstring{$\ast$}{*}arg)
+\begin{DoxyCompactList}\small\item\em Event loop function to handle incoming connections and data. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{dpdk-server_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function to initialize the server and run the event loop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{dpdk-server_8c_ad3a4ddf5da69699b2fcfff228d2cff82}{tree}}
+\item 
+struct epoll\+\_\+event \mbox{\hyperlink{dpdk-server_8c_aec0e547134563cdcc13c7545b1f2abbf}{ev}}
+\item 
+struct epoll\+\_\+event \mbox{\hyperlink{dpdk-server_8c_acc3fe99e84abfb562e4afca193743074}{events}} \mbox{[}\mbox{\hyperlink{dpdk-server_8c_ae42954bb8545d24e3e9dcde5920c9a0b}{MAX\+\_\+\+EVENTS}}\mbox{]}
+\item 
+int \mbox{\hyperlink{dpdk-server_8c_ad9ea3108c3907d7dedaf4ee7283bef1d}{epfd}}
+\item 
+int \mbox{\hyperlink{dpdk-server_8c_ad2c8fb3df3a737e0685e902870a611d2}{sockfd}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{dpdk-server_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{dpdk-server_8c_a6b20d41d6252e9871430c242cb1a56e7} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define BUFFER\+\_\+\+SIZE~4096}
+
+\Hypertarget{dpdk-server_8c_ae42954bb8545d24e3e9dcde5920c9a0b}\label{dpdk-server_8c_ae42954bb8545d24e3e9dcde5920c9a0b} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!MAX\_EVENTS@{MAX\_EVENTS}}
+\index{MAX\_EVENTS@{MAX\_EVENTS}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_EVENTS}{MAX\_EVENTS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+EVENTS~8192}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{dpdk-server_8c_af103aa45c16c878c7dac9435aeb23300}\label{dpdk-server_8c_af103aa45c16c878c7dac9435aeb23300} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!build\_error@{build\_error}}
+\index{build\_error@{build\_error}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{build\_error()}{build\_error()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} build\+\_\+error (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{len\+\_\+send }\end{DoxyParamCaption})}
+
+
+
+Builds an error response message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The error message to include in the response. \\
+\hline
+{\em len\+\_\+send} & The length of the response message.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response message or NULL on failure. 
+\end{DoxyReturn}
+\Hypertarget{dpdk-server_8c_aec1eedfa9d83cd09c222f514b7c99eda}\label{dpdk-server_8c_aec1eedfa9d83cd09c222f514b7c99eda} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!build\_resp@{build\_resp}}
+\index{build\_resp@{build\_resp}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{build\_resp()}{build\_resp()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} build\+\_\+resp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{len\+\_\+send }\end{DoxyParamCaption})}
+
+
+
+Builds a simple response message with a prefix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The message to include in the response. \\
+\hline
+{\em len\+\_\+send} & The length of the response message.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response message or NULL on failure. 
+\end{DoxyReturn}
+\Hypertarget{dpdk-server_8c_a4a9a4bcbdce26a02fbe5a1819de58c8b}\label{dpdk-server_8c_a4a9a4bcbdce26a02fbe5a1819de58c8b} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!build\_resp\_get@{build\_resp\_get}}
+\index{build\_resp\_get@{build\_resp\_get}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{build\_resp\_get()}{build\_resp\_get()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} build\+\_\+resp\+\_\+get (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{len\+\_\+send }\end{DoxyParamCaption})}
+
+
+
+Builds a response message for the GET command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The message to include in the response. \\
+\hline
+{\em len\+\_\+send} & The length of the response message.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response message or NULL on failure. 
+\end{DoxyReturn}
+\Hypertarget{dpdk-server_8c_ad17b265de3f1326d34b597930021b352}\label{dpdk-server_8c_ad17b265de3f1326d34b597930021b352} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!handle\_command@{handle\_command}}
+\index{handle\_command@{handle\_command}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{handle\_command()}{handle\_command()}}
+{\footnotesize\ttfamily void handle\+\_\+command (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{command,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{args,  }\item[{int}]{arg\+\_\+count,  }\item[{struct \mbox{\hyperlink{structresp}{resp}} \texorpdfstring{$\ast$}{*}}]{response\+\_\+struct }\end{DoxyParamCaption})}
+
+
+
+Handles the incoming command from the client and sends the appropriate response. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command extracted from the message. \\
+\hline
+{\em args} & The arguments extracted from the message. \\
+\hline
+{\em arg\+\_\+count} & The number of arguments in the message. \\
+\hline
+{\em response\+\_\+struct} & The response structure to hold the response message and its length. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{dpdk-server_8c_aa194d3219ea328c62dee8a76d23725da}\label{dpdk-server_8c_aa194d3219ea328c62dee8a76d23725da} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!handle\_del@{handle\_del}}
+\index{handle\_del@{handle\_del}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{handle\_del()}{handle\_del()}}
+{\footnotesize\ttfamily void handle\+\_\+del (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Handles the DEL command to remove a key-\/value pair from the LSM tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to be removed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{dpdk-server_8c_aff0ae0c392214a088fc39265540216c0}\label{dpdk-server_8c_aff0ae0c392214a088fc39265540216c0} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!handle\_get@{handle\_get}}
+\index{handle\_get@{handle\_get}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{handle\_get()}{handle\_get()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} handle\+\_\+get (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Handles the GET command to retrieve the value associated with a key from the LSM tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value associated with the key. Returns {\ttfamily NULL} if the key is not found. 
+\end{DoxyReturn}
+\Hypertarget{dpdk-server_8c_ad578a33148e3c241b34878e6dc550617}\label{dpdk-server_8c_ad578a33148e3c241b34878e6dc550617} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!handle\_set@{handle\_set}}
+\index{handle\_set@{handle\_set}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{handle\_set()}{handle\_set()}}
+{\footnotesize\ttfamily void handle\+\_\+set (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{key,  }\item[{char \texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+
+
+
+Handles the SET command to insert or update a key-\/value pair in the LSM tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to insert or update. \\
+\hline
+{\em value} & The value associated with the key. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{dpdk-server_8c_adb1a37faa77219e1add3c026597c3dec}\label{dpdk-server_8c_adb1a37faa77219e1add3c026597c3dec} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!handle\_signal@{handle\_signal}}
+\index{handle\_signal@{handle\_signal}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{handle\_signal()}{handle\_signal()}}
+{\footnotesize\ttfamily void handle\+\_\+signal (\begin{DoxyParamCaption}\item[{int}]{signal }\end{DoxyParamCaption})}
+
+
+
+Signal handler to gracefully shut down the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em signal} & The signal received. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{dpdk-server_8c_a0a778b7e0a99fa32a4905c31fd3d492c}\label{dpdk-server_8c_a0a778b7e0a99fa32a4905c31fd3d492c} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!loop@{loop}}
+\index{loop@{loop}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily int loop (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{arg }\end{DoxyParamCaption})}
+
+
+
+Event loop function to handle incoming connections and data. 
+
+This function waits for events such as new connections or incoming data. It handles each event accordingly\+:
+\begin{DoxyItemize}
+\item Accepts new client connections.
+\item Reads data from connected clients and sends the length of the received data back.
+\item Closes connections in case of errors or if no data is received.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em arg} & Pointer to additional arguments (unused). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Status code (0 on success). 
+\end{DoxyReturn}
+\Hypertarget{dpdk-server_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{dpdk-server_8c_a0ddf1224851353fc92bfbff6f499fa97} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!main@{main}}
+\index{main@{main}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function to initialize the server and run the event loop. 
+
+This function initializes the server socket, binds it to the specified port, and starts listening for incoming connections. It then creates an epoll instance, adds the server socket to it, and begins running the event loop to handle events.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of command-\/line arguments. \\
+\hline
+{\em argv} & The array of command-\/line arguments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Status code (0 on success). 
+\end{DoxyReturn}
+\Hypertarget{dpdk-server_8c_a7bc4fbfe5557e67278e4db721f92a051}\label{dpdk-server_8c_a7bc4fbfe5557e67278e4db721f92a051} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!parse\_resp@{parse\_resp}}
+\index{parse\_resp@{parse\_resp}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{parse\_resp()}{parse\_resp()}}
+{\footnotesize\ttfamily void parse\+\_\+resp (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{message,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{commands,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{args,  }\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{arg\+\_\+counts,  }\item[{int \texorpdfstring{$\ast$}{*}}]{message\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+Parses the incoming messages from the client, handling multiple messages in the input. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The incoming message(s) from the client. \\
+\hline
+{\em commands} & An array to hold the parsed commands. \\
+\hline
+{\em args} & An array to hold the arguments for each command. \\
+\hline
+{\em arg\+\_\+counts} & An array to hold the argument count for each command. \\
+\hline
+{\em message\+\_\+count} & A pointer to an integer to store the number of parsed messages. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{dpdk-server_8c_ad9ea3108c3907d7dedaf4ee7283bef1d}\label{dpdk-server_8c_ad9ea3108c3907d7dedaf4ee7283bef1d} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!epfd@{epfd}}
+\index{epfd@{epfd}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{epfd}{epfd}}
+{\footnotesize\ttfamily int epfd}
+
+\Hypertarget{dpdk-server_8c_aec0e547134563cdcc13c7545b1f2abbf}\label{dpdk-server_8c_aec0e547134563cdcc13c7545b1f2abbf} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!ev@{ev}}
+\index{ev@{ev}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{ev}{ev}}
+{\footnotesize\ttfamily struct epoll\+\_\+event ev}
+
+\Hypertarget{dpdk-server_8c_acc3fe99e84abfb562e4afca193743074}\label{dpdk-server_8c_acc3fe99e84abfb562e4afca193743074} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!events@{events}}
+\index{events@{events}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{events}{events}}
+{\footnotesize\ttfamily struct epoll\+\_\+event events\mbox{[}\mbox{\hyperlink{dpdk-server_8c_ae42954bb8545d24e3e9dcde5920c9a0b}{MAX\+\_\+\+EVENTS}}\mbox{]}}
+
+\Hypertarget{dpdk-server_8c_ad2c8fb3df3a737e0685e902870a611d2}\label{dpdk-server_8c_ad2c8fb3df3a737e0685e902870a611d2} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!sockfd@{sockfd}}
+\index{sockfd@{sockfd}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{sockfd}{sockfd}}
+{\footnotesize\ttfamily int sockfd}
+
+\Hypertarget{dpdk-server_8c_ad3a4ddf5da69699b2fcfff228d2cff82}\label{dpdk-server_8c_ad3a4ddf5da69699b2fcfff228d2cff82} 
+\index{dpdk-\/server.c@{dpdk-\/server.c}!tree@{tree}}
+\index{tree@{tree}!dpdk-\/server.c@{dpdk-\/server.c}}
+\doxysubsubsection{\texorpdfstring{tree}{tree}}
+{\footnotesize\ttfamily void\texorpdfstring{$\ast$}{*} tree}
+

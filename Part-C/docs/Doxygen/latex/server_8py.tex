@@ -1,43 +1,43 @@
-\hypertarget{server_8py}{}\doxysection{src/server.py File Reference}
-\label{server_8py}\index{src/server.py@{src/server.py}}
-\doxysubsection*{Namespaces}
+\doxysection{src/server.py File Reference}
+\hypertarget{server_8py}{}\label{server_8py}\index{src/server.py@{src/server.py}}
+\doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \mbox{\hyperlink{namespaceserver}{server}}
+namespace \mbox{\hyperlink{namespaceserver}{server}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-def \mbox{\hyperlink{namespaceserver_af9528be28ea578b974bf204c5f243958}{server.\+parse\+\_\+resp}} (message)
+\mbox{\hyperlink{namespaceserver_ace27a2120bee18ea6d188f3f4db36e5b}{server.\+signal\+\_\+handler}} (sig, frame)
 \item 
-def \mbox{\hyperlink{namespaceserver_a4b9245ee9914bb0a667c2ae880003376}{server.\+build\+\_\+resp}} (message)
+\mbox{\hyperlink{namespaceserver_a4e588b419fed5dc7eb932f61004693f5}{server.\+parse\+\_\+resp}} (message)
 \item 
-def \mbox{\hyperlink{namespaceserver_aa6fbd75c9a5ca26992ca5620c6213265}{server.\+build\+\_\+resp\+\_\+get}} (message)
+\mbox{\hyperlink{namespaceserver_aa377e5a9cbf210df8c82f7be50dea010}{server.\+build\+\_\+resp}} (message)
 \item 
-def \mbox{\hyperlink{namespaceserver_aa70791b3417643b600039ce0d7434b13}{server.\+build\+\_\+error}} (message)
+\mbox{\hyperlink{namespaceserver_a484122a24463e1a0c417cc9ed85bb4ab}{server.\+build\+\_\+resp\+\_\+get}} (message)
 \item 
-def \mbox{\hyperlink{namespaceserver_aee621386ace9d7508c81456bb2b868ee}{server.\+handle\+\_\+set}} (key, value)
+\mbox{\hyperlink{namespaceserver_ac88dbd74c2a15df7379a836567250e9c}{server.\+build\+\_\+error}} (message)
 \item 
-def \mbox{\hyperlink{namespaceserver_abac39492ae20bd1ebbd63e33e3fde61e}{server.\+handle\+\_\+get}} (key)
+\mbox{\hyperlink{namespaceserver_a553e818728ec0113a406cae0cb5d9060}{server.\+handle\+\_\+set}} (key, value)
 \item 
-def \mbox{\hyperlink{namespaceserver_a6923f7939f756e2f63bc038dec4a219d}{server.\+handle\+\_\+del}} (key)
+\mbox{\hyperlink{namespaceserver_a8abaa8afc731fec5e41eab16a3e9e9dd}{server.\+handle\+\_\+get}} (key)
 \item 
-def \mbox{\hyperlink{namespaceserver_ab3fbf84945eeebf09c7064358a95c0da}{server.\+handle\+\_\+client}} (reader, writer)
+\mbox{\hyperlink{namespaceserver_a22e2b49f6468b992e0898815bce845ae}{server.\+handle\+\_\+del}} (key)
 \item 
-def \mbox{\hyperlink{namespaceserver_a3f28bf6708def641aa9bdc29673f2a74}{server.\+start\+\_\+worker}} (host, port)
+\mbox{\hyperlink{namespaceserver_a40cfb7f5afce2aaf7f32c731a697ad22}{server.\+handle\+\_\+client}} (reader, writer)
+\item 
+\mbox{\hyperlink{namespaceserver_a35ac92aa117eb503b73828648eb46d2d}{server.\+start\+\_\+worker}} (\mbox{\hyperlink{namespaceserver_ae3a78e93b6c0648c950073f9bfbac59b}{host}}, \mbox{\hyperlink{namespaceserver_af7b39ba3404872fb79e91b08ed362768}{port}})
 \end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{namespaceserver_a28b61ee7d155bf42d0ef310001f64c34}{server.\+lsm\+\_\+tree}} = None
 \item 
-string \mbox{\hyperlink{namespaceserver_ad56c2d79af6c57024f72afe5f809303c}{server.\+host}} = \char`\"{}127.\+0.\+0.\+1\char`\"{}
+str \mbox{\hyperlink{namespaceserver_ae3a78e93b6c0648c950073f9bfbac59b}{server.\+host}} = "{}192.\+168.\+122.\+33"{}
 \item 
 int \mbox{\hyperlink{namespaceserver_af7b39ba3404872fb79e91b08ed362768}{server.\+port}} = 6379
 \item 
-\mbox{\hyperlink{namespaceserver_a9f38fe53de48f7ef32224eced3ebab4a}{server.\+workers}} = cpu\+\_\+count()
+int \mbox{\hyperlink{namespaceserver_ab93a65402bee53192c63f93d388f4f9f}{server.\+NUM\+\_\+\+THREADS}} = cpu\+\_\+count()//3
 \item 
-list \mbox{\hyperlink{namespaceserver_a0e03aa75669a1415bea1bbbdd0c92349}{server.\+processes}} = \mbox{[}$\,$\mbox{]}
-\item 
-\mbox{\hyperlink{namespaceserver_ad4526092e7ffb3a2fb5f5962e0f4a382}{server.\+pid}} = asyncio.\+run(start\+\_\+worker(host, port))
+list \mbox{\hyperlink{namespaceserver_abd99a48b631f6ee143e5c44d95d248a2}{server.\+threads}} = \mbox{[}threading.\+Thread(target=asyncio.\+run, args=(\mbox{\hyperlink{namespaceserver_a35ac92aa117eb503b73828648eb46d2d}{start\+\_\+worker}}(\mbox{\hyperlink{namespaceserver_ae3a78e93b6c0648c950073f9bfbac59b}{host}}, \mbox{\hyperlink{namespaceserver_af7b39ba3404872fb79e91b08ed362768}{port}}),)) for \+\_\+ in range(\mbox{\hyperlink{namespaceserver_ab93a65402bee53192c63f93d388f4f9f}{NUM\+\_\+\+THREADS}})\mbox{]}
 \end{DoxyCompactItemize}

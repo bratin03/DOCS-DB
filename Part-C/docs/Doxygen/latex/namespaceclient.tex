@@ -1,29 +1,69 @@
-\hypertarget{namespaceclient}{}\doxysection{client Namespace Reference}
-\label{namespaceclient}\index{client@{client}}
-\doxysubsection*{Classes}
+\doxysection{client Namespace Reference}
+\hypertarget{namespaceclient}{}\label{namespaceclient}\index{client@{client}}
+\doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classclient_1_1RESPClient}{R\+E\+S\+P\+Client}}
+class \mbox{\hyperlink{classclient_1_1RESPClient}{RESPClient}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{namespaceclient_aa851ba64aab53bb0035ea1e482af353a}{client}} = \mbox{\hyperlink{classclient_1_1RESPClient}{R\+E\+S\+P\+Client}}()
+\mbox{\hyperlink{namespaceclient_aa851ba64aab53bb0035ea1e482af353a}{client}} = \mbox{\hyperlink{classclient_1_1RESPClient}{RESPClient}}(host=\textquotesingle{}192.\+168.\+122.\+32\textquotesingle{})
 \item 
-\mbox{\hyperlink{namespaceclient_a38136955188a8f5daa72048468d9f5c8}{response}} = client.\+send\+\_\+command(\char`\"{}S\+ET\char`\"{}, \char`\"{}mykey\char`\"{}, \char`\"{}myvalue\char`\"{})
+\mbox{\hyperlink{namespaceclient_a811f17e9c0a27ebcf4b3d4a49906df5a}{user\+\_\+input}} = input("{}Enter \mbox{\hyperlink{namespaceclient_a87917c653ccc457e6b8a9a1d318af5ca}{command}} (or type \textquotesingle{}exit\textquotesingle{} to quit)\+: "{}).strip()
+\item 
+\mbox{\hyperlink{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}{command\+\_\+parts}} = user\+\_\+input.\+split("{} "{}, 2)
+\item 
+\mbox{\hyperlink{namespaceclient_a87917c653ccc457e6b8a9a1d318af5ca}{command}} = \mbox{\hyperlink{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}{command\+\_\+parts}}\mbox{[}0\mbox{]}.upper()
+\item 
+\mbox{\hyperlink{namespaceclient_a502b77b6f56beb09ebf86ce8f48c929f}{key}} = \mbox{\hyperlink{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}{command\+\_\+parts}}\mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceclient_a85fb4213c2cf48faceccb2d6607aa7fe}{value}} = \mbox{\hyperlink{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}{command\+\_\+parts}}\mbox{[}2\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceclient_a38136955188a8f5daa72048468d9f5c8}{response}} = client.\+send\+\_\+command(\mbox{\hyperlink{namespaceclient_a87917c653ccc457e6b8a9a1d318af5ca}{command}}, \mbox{\hyperlink{namespaceclient_a502b77b6f56beb09ebf86ce8f48c929f}{key}}, \mbox{\hyperlink{namespaceclient_a85fb4213c2cf48faceccb2d6607aa7fe}{value}})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{namespaceclient_aa851ba64aab53bb0035ea1e482af353a}\label{namespaceclient_aa851ba64aab53bb0035ea1e482af353a}} 
+\Hypertarget{namespaceclient_aa851ba64aab53bb0035ea1e482af353a}\label{namespaceclient_aa851ba64aab53bb0035ea1e482af353a} 
 \index{client@{client}!client@{client}}
 \index{client@{client}!client@{client}}
 \doxysubsubsection{\texorpdfstring{client}{client}}
-{\footnotesize\ttfamily client.\+client = \mbox{\hyperlink{classclient_1_1RESPClient}{R\+E\+S\+P\+Client}}()}
+{\footnotesize\ttfamily client.\+client = \mbox{\hyperlink{classclient_1_1RESPClient}{RESPClient}}(host=\textquotesingle{}192.\+168.\+122.\+32\textquotesingle{})}
 
-\mbox{\Hypertarget{namespaceclient_a38136955188a8f5daa72048468d9f5c8}\label{namespaceclient_a38136955188a8f5daa72048468d9f5c8}} 
+\Hypertarget{namespaceclient_a87917c653ccc457e6b8a9a1d318af5ca}\label{namespaceclient_a87917c653ccc457e6b8a9a1d318af5ca} 
+\index{client@{client}!command@{command}}
+\index{command@{command}!client@{client}}
+\doxysubsubsection{\texorpdfstring{command}{command}}
+{\footnotesize\ttfamily client.\+command = \mbox{\hyperlink{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}{command\+\_\+parts}}\mbox{[}0\mbox{]}.upper()}
+
+\Hypertarget{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}\label{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67} 
+\index{client@{client}!command\_parts@{command\_parts}}
+\index{command\_parts@{command\_parts}!client@{client}}
+\doxysubsubsection{\texorpdfstring{command\_parts}{command\_parts}}
+{\footnotesize\ttfamily client.\+command\+\_\+parts = user\+\_\+input.\+split("{} "{}, 2)}
+
+\Hypertarget{namespaceclient_a502b77b6f56beb09ebf86ce8f48c929f}\label{namespaceclient_a502b77b6f56beb09ebf86ce8f48c929f} 
+\index{client@{client}!key@{key}}
+\index{key@{key}!client@{client}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily client.\+key = \mbox{\hyperlink{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}{command\+\_\+parts}}\mbox{[}1\mbox{]}}
+
+\Hypertarget{namespaceclient_a38136955188a8f5daa72048468d9f5c8}\label{namespaceclient_a38136955188a8f5daa72048468d9f5c8} 
 \index{client@{client}!response@{response}}
 \index{response@{response}!client@{client}}
 \doxysubsubsection{\texorpdfstring{response}{response}}
-{\footnotesize\ttfamily client.\+response = client.\+send\+\_\+command(\char`\"{}S\+ET\char`\"{}, \char`\"{}mykey\char`\"{}, \char`\"{}myvalue\char`\"{})}
+{\footnotesize\ttfamily client.\+response = client.\+send\+\_\+command(\mbox{\hyperlink{namespaceclient_a87917c653ccc457e6b8a9a1d318af5ca}{command}}, \mbox{\hyperlink{namespaceclient_a502b77b6f56beb09ebf86ce8f48c929f}{key}}, \mbox{\hyperlink{namespaceclient_a85fb4213c2cf48faceccb2d6607aa7fe}{value}})}
+
+\Hypertarget{namespaceclient_a811f17e9c0a27ebcf4b3d4a49906df5a}\label{namespaceclient_a811f17e9c0a27ebcf4b3d4a49906df5a} 
+\index{client@{client}!user\_input@{user\_input}}
+\index{user\_input@{user\_input}!client@{client}}
+\doxysubsubsection{\texorpdfstring{user\_input}{user\_input}}
+{\footnotesize\ttfamily client.\+user\+\_\+input = input("{}Enter \mbox{\hyperlink{namespaceclient_a87917c653ccc457e6b8a9a1d318af5ca}{command}} (or type \textquotesingle{}exit\textquotesingle{} to quit)\+: "{}).strip()}
+
+\Hypertarget{namespaceclient_a85fb4213c2cf48faceccb2d6607aa7fe}\label{namespaceclient_a85fb4213c2cf48faceccb2d6607aa7fe} 
+\index{client@{client}!value@{value}}
+\index{value@{value}!client@{client}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily client.\+value = \mbox{\hyperlink{namespaceclient_ac8a2ed85c406db67c562eeaed8ad7b67}{command\+\_\+parts}}\mbox{[}2\mbox{]}}
 

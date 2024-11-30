@@ -19,7 +19,7 @@ Indian Institute of Technology, Kharagpur
 
 // #define DEBUG
 
-#define SERVER_IP "192.168.122.33" // Server IP address
+#define SERVER_IP "192.168.122.32" // Server IP address
 #define SERVER_PORT 8080           // Server Port
 
 /**

@@ -134,9 +134,11 @@ async def handle_client(reader, writer):
     try:
         while True:
             data = await reader.read(4096)
+            print(data)
             if not data:
                 break
             command, args = parse_resp(data)
+            print(command, args)
             if not command:
                 writer.write(build_error("Invalid RESP format"))
                 await writer.drain()
@@ -191,7 +193,7 @@ async def start_worker(host, port):
 if __name__ == "__main__":
     import signal
     signal.signal(signal.SIGINT, signal_handler)
-    host = "127.0.0.1"
+    host = "192.168.122.33"
     port = 6379
     lsm_tree = LSMTree()
 

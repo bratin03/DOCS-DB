@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['close_59',['close',['../classclient_1_1RESPClient.html#aa74d295a5d80868f86cf8d2ac7afd79c',1,'client::RESPClient']]],
-  ['connect_60',['connect',['../classclient_1_1RESPClient.html#a23fd06baa0e67cded57402583a5c6724',1,'client::RESPClient']]]
+  ['close_0',['close',['../classclient_1_1RESPClient.html#a1495117847f9ed49ad1da1d9ed46ae4f',1,'client::RESPClient']]],
+  ['connect_1',['connect',['../classclient_1_1RESPClient.html#add3647cef1ff6e8330c7ee3141e1d16a',1,'client::RESPClient']]]
 ];

@@ -23,7 +23,7 @@ Indian Institute of Technology, Kharagpur
 #define MAX_PACKET_COUNT 10 // Maximum packets a client can send
 
 // Define the SERVER IP address here
-#define SERVER_IP "192.168.122.32" // Replace with your desired IP address
+#define SERVER_IP "192.168.122.33" // Replace with your desired IP address
 
 /**
  * @brief Handles a single client connection, receives multiple packets, and sends back the length of each packet.

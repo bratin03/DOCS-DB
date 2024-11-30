@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['handle_5fclient_63',['handle_client',['../namespaceserver.html#ab3fbf84945eeebf09c7064358a95c0da',1,'server']]],
-  ['handle_5fdel_64',['handle_del',['../namespaceserver.html#a6923f7939f756e2f63bc038dec4a219d',1,'server']]],
-  ['handle_5fget_65',['handle_get',['../namespaceserver.html#abac39492ae20bd1ebbd63e33e3fde61e',1,'server']]],
-  ['handle_5fset_66',['handle_set',['../namespaceserver.html#aee621386ace9d7508c81456bb2b868ee',1,'server']]]
+  ['handle_5fclient_0',['handle_client',['../namespaceserver.html#a40cfb7f5afce2aaf7f32c731a697ad22',1,'server']]],
+  ['handle_5fcommand_1',['handle_command',['../dpdk-server_8c.html#ad17b265de3f1326d34b597930021b352',1,'dpdk-server.c']]],
+  ['handle_5fdel_2',['handle_del',['../dpdk-server_8c.html#aa194d3219ea328c62dee8a76d23725da',1,'handle_del():&#160;dpdk-server.c'],['../namespaceserver.html#a22e2b49f6468b992e0898815bce845ae',1,'server.handle_del()']]],
+  ['handle_5fget_3',['handle_get',['../dpdk-server_8c.html#aff0ae0c392214a088fc39265540216c0',1,'handle_get():&#160;dpdk-server.c'],['../namespaceserver.html#a8abaa8afc731fec5e41eab16a3e9e9dd',1,'server.handle_get()']]],
+  ['handle_5fset_4',['handle_set',['../dpdk-server_8c.html#ad578a33148e3c241b34878e6dc550617',1,'handle_set():&#160;dpdk-server.c'],['../namespaceserver.html#a553e818728ec0113a406cae0cb5d9060',1,'server.handle_set()']]],
+  ['handle_5fsignal_5',['handle_signal',['../dpdk-server_8c.html#adb1a37faa77219e1add3c026597c3dec',1,'dpdk-server.c']]]
 ];

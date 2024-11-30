@@ -24,7 +24,7 @@ Indian Institute of Technology, Kharagpur
 #include "ff_api.h"
 #include "ff_epoll.h"
 
-#define MAX_EVENTS 4096
+#define MAX_EVENTS 8192
 #define BUFFER_SIZE 2048
 
 // #define DEBUG

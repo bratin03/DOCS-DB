@@ -53,7 +53,7 @@ while true; do
     count=$((count + 1))
 
     # Wait for some time before checking again
-    sleep 0.05
+    sleep 0.02
 done
 
 # Calculate and display the averages
