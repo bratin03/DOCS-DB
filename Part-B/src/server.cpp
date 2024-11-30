@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file server.cpp
+ * @brief Simple server program that receives multiple packets from clients and sends back the length of each packet.
+ */
+
 #include <iostream>
 #include <thread>
 #include <vector>

@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file red_black.cpp
+ * @brief Implementation of the red_black_tree class.
+ */
+
 #include "red_black.h"
 #include "data.h"
 #include "node.h"

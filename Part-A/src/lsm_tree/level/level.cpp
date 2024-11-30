@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file level.cpp
+ * @brief Implementation of the level class.
+ */
+
 #include "level.h"
 #include <algorithm>
 #include <string>

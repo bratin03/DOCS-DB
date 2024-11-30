@@ -3,11 +3,15 @@ Student Information:
 1. Bratin Mondal - 21CS10016
 2. Swarnabh Mandal - 21CS10068
 3. Somya Kumar - 21CS30050
-
+u
 Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file data.h
+ * @brief Definition of the Red-Black tree entry structure.
+ */
 
 #ifndef DATA_H
 #define DATA_H
@@ -23,7 +27,7 @@ Indian Institute of Technology, Kharagpur
 /**
  * @struct rb_entry
  * @brief Represents an entry in a Red-Black tree, used in the Memtable or Sparse Index.
- * 
+ *
  * This structure contains a `key` of type `std::string` and a `val` which can be either a string (for the Memtable)
  * or an `uint64_t` (for the Sparse Index, representing an offset inside the SST).
  * It also supports operations like calculating the size of the entry and comparison based on the key.
@@ -31,10 +35,10 @@ Indian Institute of Technology, Kharagpur
 struct rb_entry
 {
     std::string key; ///< The key associated with the entry.
-    
+
     /**
      * @brief The value associated with the key.
-     * 
+     *
      * The value can be:
      * - A `std::string` for Memtable entries.
      * - An `uint64_t` representing an offset in the Sparse Index inside the SST.
@@ -44,9 +48,9 @@ struct rb_entry
 
     /**
      * @brief Constructor for the Red-Black tree entry (Memtable version).
-     * 
+     *
      * This constructor creates an entry from a key-value pair (`kv_pair`).
-     * 
+     *
      * @param pair The key-value pair to initialize the entry with.
      */
     explicit rb_entry(kv_pair pair)
@@ -57,11 +61,11 @@ struct rb_entry
 
     /**
      * @brief Constructor for the Red-Black tree entry.
-     * 
+     *
      * This constructor initializes the entry with a key and a value.
      * The value is stored as a `std::any` object which can hold any type, but is expected
      * to be either a string or an uint64_t (offset in the Sparse Index).
-     * 
+     *
      * @param key The key for the entry.
      * @param val The value associated with the key.
      */
@@ -73,9 +77,9 @@ struct rb_entry
 
     /**
      * @brief Constructor for an entry with just a key (no associated value).
-     * 
+     *
      * This constructor initializes the entry with just a key, and no value (empty `std::optional`).
-     * 
+     *
      * @param key The key for the entry.
      */
     explicit rb_entry(std::string key)
@@ -89,12 +93,12 @@ struct rb_entry
 
     /**
      * @brief Calculates the size of the entry.
-     * 
+     *
      * This function returns the size of the entry, which is the size of the key plus the size of the value.
      * - If the value is empty (`std::nullopt`), it returns the size of the key.
      * - If the value is a string, it adds the size of the string.
      * - If the value is an `uint64_t`, it adds 8 bytes (the size of a 64-bit integer).
-     * 
+     *
      * @return The size of the entry in bytes.
      */
     uint64_t size() const
@@ -117,13 +121,13 @@ struct rb_entry
 
     /**
      * @brief Compares two `rb_entry` objects based on the key.
-     * 
+     *
      * This function compares the keys of two Red-Black tree entries and returns the comparison result.
      * It uses the `<=>` (three-way comparison) operator and returns:
      * - `std::strong_ordering::equal` if the keys are the same.
      * - `std::strong_ordering::less` if this entry's key is smaller.
      * - `std::strong_ordering::greater` if this entry's key is larger.
-     * 
+     *
      * @param other The other `rb_entry` to compare with.
      * @return std::strong_ordering The result of comparing the keys.
      */
@@ -144,9 +148,9 @@ struct rb_entry
 
     /**
      * @brief Checks if two `rb_entry` objects are equal.
-     * 
+     *
      * This function compares the keys of two Red-Black tree entries to determine if they are equal.
-     * 
+     *
      * @param other The other `rb_entry` to compare with.
      * @return true If the keys of both entries are equal.
      * @return false If the keys are different.

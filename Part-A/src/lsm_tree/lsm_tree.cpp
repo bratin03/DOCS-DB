@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file lsm_tree.cpp
+ * @brief Implementation of the lsm_tree class.
+ */
+
 #include "lsm_tree.h"
 #include <shared_mutex>
 

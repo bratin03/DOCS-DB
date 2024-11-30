@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file dpdk_server.cpp
+ * @brief A simple server program using DPDK and epoll. The server listens for incoming connections and sends back the length of the received data.
+ */
+
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <stdlib.h>

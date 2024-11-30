@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file wal.h
+ * @brief Definition of the write_ahead_log class.
+ */
+
 #ifndef WAL_H
 #define WAL_H
 

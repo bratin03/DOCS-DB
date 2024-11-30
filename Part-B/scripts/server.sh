@@ -61,7 +61,7 @@ while true; do
     count=$((count + 1))
 
     # Wait for 0.1 seconds before the next check (increased frequency)
-    sleep 0.1
+    sleep 0.02
 done
 
 # Calculate and display the averages

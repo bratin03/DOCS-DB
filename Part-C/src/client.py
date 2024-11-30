@@ -8,13 +8,19 @@
 # Indian Institute of Technology, Kharagpur
 # */
 
+"""
+@file client.py
+
+@brief A client for communicating with a Redis server using the RESP protocol.
+"""
 
 import socket
+
 
 class RESPClient:
     """
     @brief A client for communicating with a Redis server using the RESP protocol.
-    
+
     This class handles establishing a connection, sending and receiving data,
     and formatting commands and responses according to the RESP protocol.
 
@@ -30,7 +36,7 @@ class RESPClient:
         sock (socket.socket): The socket object used to communicate with the Redis server.
     """
 
-    def __init__(self, host='127.0.0.1', port=6379):
+    def __init__(self, host="127.0.0.1", port=6379):
         """
         @brief Initializes the RESPClient with the specified host and port.
 
@@ -59,25 +65,25 @@ class RESPClient:
         @brief Sends data to the server.
 
         @param data The data to send, as a string.
-        
+
         @throws ConnectionError If the socket is not connected.
         """
         if not self.sock:
             raise ConnectionError("Socket is not connected.")
-        self.sock.sendall(data.encode('utf-8'))
+        self.sock.sendall(data.encode("utf-8"))
 
     def receive(self):
         """
         @brief Receives data from the server.
 
         @return The server's response, as a string.
-        
+
         @throws ConnectionError If the socket is not connected.
         """
         if not self.sock:
             raise ConnectionError("Socket is not connected.")
         response = self.sock.recv(4096)
-        return response.decode('utf-8')
+        return response.decode("utf-8")
 
     def close(self):
         """
@@ -99,7 +105,7 @@ class RESPClient:
         resp_command = self.format_resp(*args)
         self.send(resp_command)
         return self.receive()
-    
+
     def parse_response(self, response, type):
         """
         @brief Parses the response from the Redis server.
@@ -135,11 +141,11 @@ class RESPClient:
 if __name__ == "__main__":
     """
     @brief Example usage of the RESPClient class.
-    
+
     This script connects to the Redis server and sends commands iteratively
     until the user inputs 'exit' or 'EXIT'.
     """
-    client = RESPClient(host='192.168.122.32')
+    client = RESPClient(host="192.168.122.32")
     try:
         client.connect()
 
@@ -182,6 +188,6 @@ if __name__ == "__main__":
 
             else:
                 print("Invalid command or format. Please use SET, GET, or DEL.")
-                
+
     finally:
         client.close()

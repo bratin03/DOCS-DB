@@ -8,11 +8,22 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file lsm_tree_test.cpp
+ * @brief Unit tests for the LSM tree class.
+ */
+
 #include <gtest/gtest.h>
 #include <string>
 #include "../src/lsm_tree/lsm_tree.h"
 
-// Fixture for setting up and tearing down an LSM tree for each test
+/**
+ * @brief Test fixture for the LSM tree class.
+ *
+ * This fixture sets up a new LSM tree before each test and deletes it after each test.
+ *
+ * The fixture also provides common setup and teardown methods for the tests.
+ */
 class LSMTreeTest : public ::testing::Test
 {
 protected:
@@ -20,7 +31,6 @@ protected:
 
     void SetUp() override
     {
-        
     }
 
     void TearDown() override
@@ -30,7 +40,11 @@ protected:
     }
 };
 
-// Test put and get functionality
+/**
+ * @brief Test for putting and getting key-value pairs in the LSM tree.
+ *
+ * This test puts key-value pairs in the tree and then retrieves them to verify the values.
+ */
 TEST_F(LSMTreeTest, PutAndGet)
 {
     // Put some key-value pairs
@@ -45,7 +59,11 @@ TEST_F(LSMTreeTest, PutAndGet)
     EXPECT_EQ(tree.get("key3"), "");
 }
 
-// Test updating a key's value
+/**
+ * @brief Test for updating the value of a key in the LSM tree.
+ *
+ * This test updates the value of a key in the tree and then retrieves it to verify the updated value.
+ */
 TEST_F(LSMTreeTest, UpdateValue)
 {
     tree.put("key1", "initial_value");
@@ -56,7 +74,11 @@ TEST_F(LSMTreeTest, UpdateValue)
     EXPECT_EQ(tree.get("key1"), "updated_value");
 }
 
-// Test remove functionality
+/**
+ * @brief Test for removing a key from the LSM tree.
+ *
+ * This test removes a key from the tree and then checks if the key is no longer available.
+ */
 TEST_F(LSMTreeTest, RemoveKey)
 {
     tree.put("key1", "value1");
@@ -75,7 +97,11 @@ TEST_F(LSMTreeTest, RemoveKey)
     EXPECT_EQ(tree.get("key2"), "value2");
 }
 
-// Test drop_table functionality
+/**
+ * @brief Test for dropping all data in the LSM tree.
+ *
+ * This test puts some key-value pairs in the tree and then drops all data in the table.
+ */
 TEST_F(LSMTreeTest, DropTable)
 {
     tree.put("key1", "value1");

@@ -8,11 +8,22 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file rb_tree_test.cpp
+ * @brief Unit tests for the Red-Black tree class.
+ */
 #include <gtest/gtest.h>
 #include "../src/red_black_tree/red_black.h"
 #include "../src/red_black_tree/data.h"
 #include "../src/red_black_tree/node.h"
 
+/**
+ * @brief Test fixture for the Red-Black tree class.
+ *
+ * This fixture sets up a new Red-Black tree before each test and deletes it after each test.
+ *
+ * The fixture also provides common setup and teardown methods for the tests.
+ */
 class RedBlackTreeTest : public ::testing::Test
 {
 protected:
@@ -31,6 +42,11 @@ protected:
     }
 };
 
+/**
+ * @brief Test for inserting elements into the Red-Black tree.
+ *
+ * This test inserts elements into the tree and checks if they exist.
+ */
 TEST_F(RedBlackTreeTest, InsertTest)
 {
     kv_pair pair1 = {"key1", "value1"};
@@ -46,6 +62,11 @@ TEST_F(RedBlackTreeTest, InsertTest)
     EXPECT_FALSE(tree.exists("key3"));
 }
 
+/**
+ * @brief Test for checking the size of the Red-Black tree.
+ *
+ * This test inserts elements into the tree and checks the size of the tree.
+ */
 TEST_F(RedBlackTreeTest, SizeTest)
 {
     kv_pair pair1 = {"key1", "value1"};
@@ -61,6 +82,11 @@ TEST_F(RedBlackTreeTest, SizeTest)
     EXPECT_EQ(tree.size(), 10);
 }
 
+/**
+ * @brief Test for getting elements from the Red-Black tree.
+ *
+ * This test inserts elements into the tree and then retrieves them to check the values.
+ */
 TEST_F(RedBlackTreeTest, GetTest)
 {
     kv_pair pair1 = {"key1", "value1"};
@@ -84,6 +110,11 @@ TEST_F(RedBlackTreeTest, GetTest)
     EXPECT_FALSE(value3.has_value());
 }
 
+/**
+ * @brief Test for finding the floor of a key in the Red-Black tree.
+ *
+ * This test inserts elements into the tree and then finds the floor of a key.
+ */
 TEST_F(RedBlackTreeTest, FloorTest)
 {
     kv_pair pair1 = {"key1", "value1"};
@@ -110,6 +141,11 @@ TEST_F(RedBlackTreeTest, FloorTest)
     EXPECT_FALSE(floor3.has_value());
 }
 
+/**
+ * @brief Test for removing elements from the Red-Black tree.
+ *
+ * This test inserts elements into the tree and then removes one of them.
+ */
 TEST_F(RedBlackTreeTest, RemoveTest)
 {
     kv_pair pair1 = {"key1", "value1"};
@@ -129,6 +165,11 @@ TEST_F(RedBlackTreeTest, RemoveTest)
     EXPECT_TRUE(tree.exists("key2"));
 }
 
+/**
+ * @brief Test for getting all nodes from the Red-Black tree.
+ *
+ * This test inserts elements into the tree and then retrieves all nodes.
+ */
 TEST_F(RedBlackTreeTest, GetAllNodesTest)
 {
     kv_pair pair1 = {"key1", "value1"};
@@ -145,6 +186,11 @@ TEST_F(RedBlackTreeTest, GetAllNodesTest)
     EXPECT_EQ(all_nodes[1].key, "key2");
 }
 
+/**
+ * @brief Test for getting and deleting all nodes from the Red-Black tree.
+ *
+ * This test inserts elements into the tree and then retrieves and deletes all nodes.
+ */
 TEST_F(RedBlackTreeTest, GetAndDeleteAllNodesTest)
 {
     kv_pair pair1 = {"key1", "value1"};

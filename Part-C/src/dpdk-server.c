@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file dpdk-server.c
+ * @brief Server program that accepts multiple client connections and handles Redis protocol commands.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

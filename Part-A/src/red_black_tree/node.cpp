@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file node.cpp
+ * @brief Implementation of the node class.
+ */
+
 #include "node.h"
 #include "data.h"
 #include <iostream>
@@ -660,9 +665,9 @@ void node::rotate_right()
 /**
  * @brief Print the tree in a 2D representation.
  *
- * This function recursively prints the tree structure in a rotated, 
- * 2D format with indentation. Each level of depth in the tree is 
- * indicated by an additional 4-space indentation. Nodes are printed 
+ * This function recursively prints the tree structure in a rotated,
+ * 2D format with indentation. Each level of depth in the tree is
+ * indicated by an additional 4-space indentation. Nodes are printed
  * with their keys and colors.
  *
  * @param space The indentation level to visually represent the tree structure.
@@ -691,11 +696,11 @@ void node::print_2d(int space) const
 /**
  * @brief Check for structural errors in the node's subtree.
  *
- * This function performs checks to identify common errors within 
- * the Red-Black Tree structure. It verifies that keys are not too long 
+ * This function performs checks to identify common errors within
+ * the Red-Black Tree structure. It verifies that keys are not too long
  * and checks if the parent node's pointers correctly reference the child.
  *
- * @param is_root Set to true if this node is the root; root nodes are 
+ * @param is_root Set to true if this node is the root; root nodes are
  * excluded from certain checks, as they do not have a parent.
  */
 void node::check_for_errors(bool is_root)
@@ -734,10 +739,10 @@ void node::check_for_errors(bool is_root)
 /**
  * @brief Convert the node to a string representation.
  *
- * This function creates a string that represents the node's key and 
+ * This function creates a string that represents the node's key and
  * color for easy debugging and printing.
  *
- * @return A string formatted as "key:color", where `key` is the node's 
+ * @return A string formatted as "key:color", where `key` is the node's
  * key and `color` is the integer representation of the node's color.
  */
 std::string node::to_str() const

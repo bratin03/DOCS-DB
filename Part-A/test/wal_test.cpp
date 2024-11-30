@@ -8,12 +8,22 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file wal_test.cpp
+ * @brief Unit tests for the Write Ahead Log (WAL) class.
+ */
 #include <gtest/gtest.h>
 #include <fstream>
 #include "../src/wal/wal.h"
 #include "../src/red_black_tree/red_black.h"
 
-// Test class for Write Ahead Log (WAL)
+/**
+ * @brief Test fixture for the Write Ahead Log (WAL) class.
+ *
+ * This fixture sets up a new WAL before each test and deletes it after each test.
+ *
+ * The fixture also provides common setup and teardown methods for the tests.
+ */
 class WALTest : public ::testing::Test
 {
 protected:
@@ -30,7 +40,11 @@ protected:
     }
 };
 
-// Test initialization and file creation
+/**
+ * @brief Test for initializing the WAL.
+ *
+ * This test checks if the WAL file is created successfully.
+ */
 TEST_F(WALTest, InitializationTest)
 {
     std::ifstream file(test_filename);
@@ -38,7 +52,11 @@ TEST_F(WALTest, InitializationTest)
     file.close();
 }
 
-// Test clearing the WAL
+/**
+ * @brief Test for appending to the WAL.
+ *
+ * This test appends a log entry to the WAL and checks if it was written correctly.
+ */
 TEST_F(WALTest, ClearTest)
 {
     std::string content = "Test log entry";

@@ -8,6 +8,12 @@
 # Indian Institute of Technology, Kharagpur
 # */
 
+"""
+@file server.py
+
+@brief A simple asyncio-based server for handling client connections and interacting with an LSM tree.
+"""
+
 import asyncio
 import uvloop
 from multiprocessing import cpu_count
@@ -28,14 +34,15 @@ lsm_tree = None
 
 """
 
+
 def signal_handler(sig, frame):
 
     print("\nClosing the server and cleaning up resources...")
     lsm_tree.__del__()
 
     import os
-    os._exit(0)
 
+    os._exit(0)
 
 
 """
@@ -43,16 +50,18 @@ def signal_handler(sig, frame):
 @param message The RESP-2 formatted message as bytes.
 @return A tuple containing the command as a string and a list of arguments.
 """
+
+
 def parse_resp(message):
     try:
-        parts = message.split(b'\r\n')
-        if parts[0][0] != ord('*'):
+        parts = message.split(b"\r\n")
+        if parts[0][0] != ord("*"):
             raise ValueError("Invalid RESP format")
         arg_count = int(parts[0][1:])
         args = []
         index = 1
         for _ in range(arg_count):
-            if parts[index][0] != ord('$'):
+            if parts[index][0] != ord("$"):
                 raise ValueError("Invalid RESP bulk string format")
             length = int(parts[index][1:])
             index += 1
@@ -64,29 +73,39 @@ def parse_resp(message):
         print(f"Error parsing RESP: {e}")
         return None, None
 
+
 """
 @brief Build a RESP-2 simple string response.
 @param message The message to send as a simple string response.
 @return The encoded RESP-2 response as bytes.
 """
+
+
 def build_resp(message):
     return f"+{message}\r\n".encode()
+
 
 """
 @brief Build a RESP-2 bulk string response.
 @param message The message to send as a bulk string response.
 @return The encoded RESP-2 response as bytes.
 """
+
+
 def build_resp_get(message):
     return f"${len(message)}\r\n{message}\r\n".encode()
+
 
 """
 @brief Build a RESP-2 error response.
 @param message The error message to send.
 @return The encoded RESP-2 error response as bytes.
 """
+
+
 def build_error(message):
     return f"-ERR {message}\r\n".encode()
+
 
 # Command Handlers
 
@@ -96,26 +115,34 @@ def build_error(message):
 @param value The value to associate with the key.
 @return A string response indicating success.
 """
+
+
 async def handle_set(key, value):
     lsm_tree.put(key, value)
     return "OK"
+
 
 """
 @brief Handle the 'GET' command to retrieve the value for a key.
 @param key The key to retrieve the value for.
 @return A tuple containing a flag (1 if the key exists, 0 otherwise) and the value or None.
 """
+
+
 async def handle_get(key):
     val = lsm_tree.get(key)
     if val is not None:
         return 1, val
     return 0, None
 
+
 """
 @brief Handle the 'DEL' command to delete a key from the LSM tree.
 @param key The key to delete.
 @return A string response indicating success or None if the key does not exist.
 """
+
+
 async def handle_del(key):
     val = lsm_tree.get(key)
     if val is None:
@@ -123,13 +150,16 @@ async def handle_del(key):
     lsm_tree.remove(key)
     return "OK"
 
+
 """
 @brief Handle a client connection, parsing and responding to commands.
 @param reader The asyncio StreamReader for reading data from the client.
 @param writer The asyncio StreamWriter for sending data to the client.
 """
+
+
 async def handle_client(reader, writer):
-    addr = writer.get_extra_info('peername')
+    addr = writer.get_extra_info("peername")
     print(f"New connection from {addr}")
     try:
         while True:
@@ -176,37 +206,40 @@ async def handle_client(reader, writer):
         writer.close()
         await writer.wait_closed()
 
+
 """
 @brief Start a worker to handle client connections on a given host and port.
 @param host The host to bind the server to.
 @param port The port to bind the server to.
 """
+
+
 async def start_worker(host, port):
-    server = await asyncio.start_server(
-        handle_client, host, port, reuse_port=True
-    )
+    server = await asyncio.start_server(handle_client, host, port, reuse_port=True)
     addr = server.sockets[0].getsockname()
     print(f"Worker running on {addr}")
     async with server:
         await server.serve_forever()
 
+
 if __name__ == "__main__":
     import signal
+
     signal.signal(signal.SIGINT, signal_handler)
     host = "192.168.122.33"
     port = 6379
     lsm_tree = LSMTree()
 
-    NUM_THREADS = cpu_count()//3
+    NUM_THREADS = cpu_count() // 3
     NUM_THREADS = 1 if NUM_THREADS == 0 else NUM_THREADS
 
     # Start event loop concurrently in 2 threads to handle multiple clients on same port
-    threads = [threading.Thread(target=asyncio.run, args=(start_worker(host, port),)) for _ in range(NUM_THREADS)]
+    threads = [
+        threading.Thread(target=asyncio.run, args=(start_worker(host, port),))
+        for _ in range(NUM_THREADS)
+    ]
     for thread in threads:
         thread.start()
 
     for thread in threads:
         thread.join()
-
-    
-

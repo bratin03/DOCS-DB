@@ -20,9 +20,11 @@ Directories:
 ### Note: Since DPDK can not be run on a virtual NIC, for running our code we use a virtual machine. The server can be run on the virtual machine with and without DPDK. The client can be run on the host machine. We build a virtual machine with a NIC that can be configured to run with DPDK. 
 
 ## Creating a Virtual Network
->> 1. Run the `setup.sh` script to set up the namespaces and `test_setup.sh` to test the setup.
+>> 1. Run the `ns_setup.sh` script to set up the namespaces and `test_setup.sh` to test the setup.
 
->> 2. Run the `test_setup.sh` script to test the setup.
+>> 2. Run the `ns_test_setup.sh` script to test the setup.
+
+>> 3. Use the `ns_teardown.sh` script to tear down the namespaces.
 
 
 ## Building the Project

@@ -10,13 +10,13 @@ Indian Institute of Technology, Kharagpur
 
 /**
  * @mainpage DOCS-DB Documentation - Part A
- * 
+ *
  * @section overview Overview
  * DOCS-DB is a high-performance, persistent key-value storage system designed for scalability and reliability. It offers efficient access to data through its robust architecture, which includes in-memory structures and disk-based storage mechanisms. DOCS-DB ensures high throughput and low latency, making it suitable for a wide range of applications, from small-scale systems to large distributed environments.
- * 
+ *
  * @section architecture Architecture
  * DOCS-DB leverages an underlying Red-Black Tree (RB_tree) for memory management, providing efficient in-memory storage and fast lookups. To ensure data persistence, DOCS-DB utilizes a Log-Structured Merge Tree (LSM Tree) for on-disk storage, offering optimal write performance and efficient compaction strategies.
- * 
+ *
  * @section features Key Features
  * - **Red-Black Tree (RB_tree)**: Used for efficient in-memory data storage and management. The RB_tree allows for logarithmic time complexity for key lookups, insertions, and deletions.
  * - **Log-Structured Merge Tree (LSM Tree)**: Employed for persistent storage, the LSM tree allows DOCS-DB to handle high write loads while providing efficient disk-based data retrieval.
@@ -27,12 +27,16 @@ Indian Institute of Technology, Kharagpur
 
  * @section performance Performance Considerations
  * DOCS-DB has been designed with performance as a top priority. By using the LSM tree combined with Bloom filters, memtables, and write-ahead logging, the system is optimized for both write-heavy and read-heavy workloads. The use of a Red-Black Tree in memory ensures that read operations are fast and efficient.
- * 
+ *
  * @section usecases Use Cases
  * DOCS-DB is well-suited for scenarios where high write throughput is required, such as logging, time-series data, or event-driven architectures. It is also ideal for applications that need to support large-scale data with the need for efficient querying, such as caching layers or NoSQL database systems.
- * 
+ *
  */
 
+/**
+ * @file lsm_tree.h
+ * @brief Definition of the LSM tree class.
+ */
 
 #ifndef LSM_TREE_H
 #define LSM_TREE_H
@@ -210,13 +214,10 @@ private:
      */
     std::string get_new_segment_path(uint16_t level_order);
 
-
     /**
      * @brief Mutex for thread-safe access to the LSM tree.
      */
     mutable std::shared_mutex tree_mutex;
-
-
 };
 
 #endif // LSM_TREE_H

@@ -8,10 +8,21 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file bloom_test.cpp
+ * @brief Unit tests for the bloom_filter class.
+ */
+
 #include <gtest/gtest.h>
 #include "../src/bloom_filter/bloom.h"
 
-// Test Fixture for bloom_filter
+/**
+ * @brief Test fixture for the Bloom filter class.
+ *
+ * This fixture sets up a new bloom filter before each test and deletes it after each test.
+ *
+ * The fixture also provides common setup and teardown methods for the tests.
+ */
 class BloomFilterTest : public ::testing::Test
 {
 protected:
@@ -30,7 +41,11 @@ protected:
     }
 };
 
-// Test for setting a single key
+/**
+ * @brief Test for setting and checking a key in the Bloom filter.
+ *
+ * This test sets a key in the filter and then checks if it exists.
+ */
 TEST_F(BloomFilterTest, SetAndCheckKeyTest)
 {
     std::string key = "key1";
@@ -40,7 +55,11 @@ TEST_F(BloomFilterTest, SetAndCheckKeyTest)
     EXPECT_TRUE(filter->is_set(key));
 }
 
-// Test for checking a key that is not set
+/**
+ * @brief Test for checking an unset key in the Bloom filter.
+ *
+ * This test checks if a key that has not been set exists in the filter.
+ */
 TEST_F(BloomFilterTest, CheckUnsetKeyTest)
 {
     std::string key = "key2";
@@ -49,7 +68,11 @@ TEST_F(BloomFilterTest, CheckUnsetKeyTest)
     EXPECT_FALSE(filter->is_set(key));
 }
 
-// Test for checking multiple keys
+/**
+ * @brief Test for setting multiple keys in the Bloom filter.
+ *
+ * This test sets multiple keys in the filter and then checks if they exist.
+ */
 TEST_F(BloomFilterTest, SetMultipleKeysTest)
 {
     std::string key1 = "key1";
@@ -64,7 +87,11 @@ TEST_F(BloomFilterTest, SetMultipleKeysTest)
     EXPECT_TRUE(filter->is_set(key2));
 }
 
-// Test for false positives (probabilistic test)
+/**
+ * @brief Test for false positives in the Bloom filter.
+ *
+ * This test sets a key in the filter and then checks if a different key is reported as present.
+ */
 TEST_F(BloomFilterTest, FalsePositiveTest)
 {
     std::string key1 = "key1";
@@ -76,7 +103,11 @@ TEST_F(BloomFilterTest, FalsePositiveTest)
     EXPECT_FALSE(filter->is_set(key2)); // Key2 has not been set, so we expect a false result most of the time
 }
 
-// Test for a key collision (edge case)
+/**
+ * @brief Test for key collisions in the Bloom filter.
+ *
+ * This test sets two keys that collide in the filter and then checks if they are both reported as present.
+ */
 TEST_F(BloomFilterTest, CollisionTest)
 {
     std::string key1 = "collision_key1";

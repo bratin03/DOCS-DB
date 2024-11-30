@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file level.h
+ * @brief Definition of the level class.
+ */
+
 #ifndef LEVEL_H
 #define LEVEL_H
 
@@ -135,10 +140,9 @@ public:
      */
     std::string get_name() const;
 
-
     /**
      * @brief Creates a filename based on segment index and level order.
-     * 
+     *
      * @param segment_i The segment index (e.g., segment number).
      * @param level_order The level order (e.g., hierarchical level).
      * @return std::string The generated filename.

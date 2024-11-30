@@ -8,6 +8,11 @@ Department of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file red_black.h
+ * @brief Definition of the red_black_tree class.
+ */
+
 #ifndef RED_BLACK_H
 #define RED_BLACK_H
 

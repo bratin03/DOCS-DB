@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file client.cpp
+ * @brief Client program for sending packets to a server and measuring latency.
+ */
+
 #include <iostream>
 #include <chrono>
 #include <random>

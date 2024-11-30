@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file repl.cpp
+ * @brief A Read-Eval-Print Loop (REPL) program for interacting with the LSM tree.
+ */
+
 #include "src/lsm_tree/lsm_tree.h"
 #include <iostream>
 #include <fstream>

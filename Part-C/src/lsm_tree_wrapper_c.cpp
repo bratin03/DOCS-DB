@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file lsm_tree_wrapper_c.cpp
+ * @brief C wrapper for the LSM tree class.
+ */
+
 #include "lsm_tree.h"
 
 /**

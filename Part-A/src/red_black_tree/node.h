@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file node.h
+ * @brief Definition of the node class.
+ */
+
 #ifndef NODE_H
 #define NODE_H
 

@@ -8,19 +8,24 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file bloom.cpp
+ * @brief Implementation of the bloom_filter class.
+ */
+
 #include "bloom.h"
 
 /**
  * @class bloom_filter
  * @brief A Bloom filter is a probabilistic data structure used for membership testing.
- *        It uses multiple hash functions to map elements to a fixed-size bit array, 
+ *        It uses multiple hash functions to map elements to a fixed-size bit array,
  *        and it can tell if an element is definitely not in the set or might be in the set.
  */
 bloom_filter::bloom_filter(long length) : table(length) {}
 
 /**
- * @brief Destructor for bloom_filter class. 
- *        It cleans up any resources used by the bloom filter. 
+ * @brief Destructor for bloom_filter class.
+ *        It cleans up any resources used by the bloom filter.
  *        (No dynamic memory allocation to clean up, so this is a no-op here.)
  */
 bloom_filter::~bloom_filter()
@@ -30,10 +35,10 @@ bloom_filter::~bloom_filter()
 
 /**
  * @brief Sets the bits in the Bloom filter for a given key.
- * 
- * This function computes the hashes of the key using three different hash functions 
+ *
+ * This function computes the hashes of the key using three different hash functions
  * and sets the corresponding bits in the Bloom filter's table.
- * 
+ *
  * @param key The string key to be added to the Bloom filter.
  */
 void bloom_filter::set(const std::string &key)
@@ -47,10 +52,10 @@ void bloom_filter::set(const std::string &key)
 
 /**
  * @brief Checks if a given key is possibly in the Bloom filter.
- * 
+ *
  * This function checks the bits at the positions calculated by the three hash functions.
  * If all bits are set, the key might be in the filter. Otherwise, it is definitely not in the filter.
- * 
+ *
  * @param key The string key to check in the Bloom filter.
  * @return true If the key might be in the filter (i.e., all corresponding bits are set).
  * @return false If the key is definitely not in the filter (i.e., one or more corresponding bits are unset).
@@ -64,9 +69,9 @@ bool bloom_filter::is_set(const std::string &key) const
 
 /**
  * @brief Converts a string key to a uint64_t representation using a hash function.
- * 
+ *
  * This function uses a hash function to convert a string key into a 64-bit unsigned integer.
- * 
+ *
  * @param key The string key to be converted to a uint64_t.
  * @return uint64_t The resulting 64-bit hash value.
  */
@@ -77,10 +82,10 @@ uint64_t bloom_filter::string_to_uint64(const std::string &key) const
 
 /**
  * @brief Hash function 1 used by the Bloom filter.
- * 
+ *
  * This hash function performs bit manipulation and arithmetic operations to produce
  * a hashed value based on the input key. The result is then modulo the size of the Bloom filter's table.
- * 
+ *
  * @param key The 64-bit key to hash.
  * @return uint64_t The hash value for the key, modulo the size of the Bloom filter's table.
  */
@@ -98,10 +103,10 @@ uint64_t bloom_filter::hash_1(uint64_t key) const
 
 /**
  * @brief Hash function 2 used by the Bloom filter.
- * 
+ *
  * This hash function performs bit manipulation and arithmetic operations to produce
  * a second hashed value based on the input key. The result is then modulo the size of the Bloom filter's table.
- * 
+ *
  * @param key The 64-bit key to hash.
  * @return uint64_t The hash value for the key, modulo the size of the Bloom filter's table.
  */
@@ -119,10 +124,10 @@ uint64_t bloom_filter::hash_2(uint64_t key) const
 
 /**
  * @brief Hash function 3 used by the Bloom filter.
- * 
+ *
  * This hash function performs bit manipulation and arithmetic operations to produce
  * a third hashed value based on the input key. The result is then modulo the size of the Bloom filter's table.
- * 
+ *
  * @param key The 64-bit key to hash.
  * @return uint64_t The hash value for the key, modulo the size of the Bloom filter's table.
  */

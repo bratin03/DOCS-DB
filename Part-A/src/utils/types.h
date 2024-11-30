@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file types.h
+ * @brief Definition of the `kv_pair` structure for key-value pairs.
+ */
+
 #ifndef TYPES_H
 #define TYPES_H
 

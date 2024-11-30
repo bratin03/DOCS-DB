@@ -8,6 +8,11 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file bloom.h
+ * @brief Definition of the bloom_filter class.
+ */
+
 #ifndef BLOOM_H
 #define BLOOM_H
 

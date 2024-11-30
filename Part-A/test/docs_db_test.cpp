@@ -8,11 +8,22 @@ Deparment of Computer Science and Engineering
 Indian Institute of Technology, Kharagpur
 */
 
+/**
+ * @file docs_db_test.cpp
+ * @brief Unit tests for the the DOCS-DB system.
+ */
+
 #include <gtest/gtest.h>
 #include <string>
 #include "../src/lsm_tree/lsm_tree.h"
 
-// Fixture for setting up and tearing down an LSM tree for each test
+/**
+ * @brief Test fixture for the LSM tree class.
+ *
+ * This fixture sets up a new LSM tree before each test and deletes it after each test.
+ *
+ * The fixture also provides common setup and teardown methods for the tests.
+ */
 class LSMTreeTest : public ::testing::Test
 {
 protected:
@@ -29,7 +40,11 @@ protected:
     }
 };
 
-// Test put, get, and remove functionality
+/**
+ * @brief Test for putting and getting key-value pairs in the LSM tree.
+ *
+ * This test puts key-value pairs in the tree and then retrieves them to verify the values.
+ */
 TEST_F(LSMTreeTest, OverallTest)
 {
     long long unsigned int upper_limit = 1e6;
