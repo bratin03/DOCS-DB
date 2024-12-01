@@ -1,1 +1,0 @@
-g++ -std=c++20 -Wall -I../Part-A/src/lsm_tree -c src/lsm_tree_wrapper_c.cpp -o bin/lsm_tree_wrapper_c.o
