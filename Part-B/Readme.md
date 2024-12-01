@@ -33,6 +33,7 @@ Directories:
 >> 3. For changing the IP address of the normal server, you can change the IP address in the `server.cpp` file.
 >> 4. For changing the IP address of the DPDK server, you can change the IP address in the 'config/config.ini' file.
 >> 5. Use the IP of the server in the client file `client.cpp` to connect to the server.
+>> 6. Use `configure.sh` to introduce delay and packet loss and use `revert-configure.sh` to revert it.
 
 ## Server without DPDK
 >> 1. Run the `server` file ans also retrieve the PID of the server.
