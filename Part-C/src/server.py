@@ -224,7 +224,7 @@ if __name__ == "__main__":
     import signal
 
     signal.signal(signal.SIGINT, signal_handler)
-    host = "127.0.0.1"
+    host = "192.168.122.33"
     port = 6379
     lsm_tree = LSMTree()
 

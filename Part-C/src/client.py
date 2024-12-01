@@ -145,7 +145,7 @@ if __name__ == "__main__":
     This script connects to the Redis server and sends commands iteratively
     until the user inputs 'exit' or 'EXIT'.
     """
-    client = RESPClient(host="192.168.122.32")
+    client = RESPClient(host="192.168.122.33")
     try:
         client.connect()
 
