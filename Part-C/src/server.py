@@ -164,11 +164,9 @@ async def handle_client(reader, writer):
     try:
         while True:
             data = await reader.read(4096)
-            print(data)
             if not data:
                 break
             command, args = parse_resp(data)
-            print(command, args)
             if not command:
                 writer.write(build_error("Invalid RESP format"))
                 await writer.drain()
