@@ -97,8 +97,7 @@ python client.py
 sudo apt-get install redis-tools
 ```
 
->> 2. Run the following command to start the benchmarking.
-
+>> 2. Use the `benchmark.sh` script to run the benchmarking. Alternatively, you can run the following commands.
 
 - `GET` requests with 1000 parallel connections and 1000000 requests.
 
