@@ -113,3 +113,25 @@ redis-benchmark -h 127.0.0.1 -p 6379 -c 1000 -n 100000 -t SET
 ```
 
 >> Note: Set diferent IP address in the `config.ini` file or in the source code as required.
+
+## Testing
+
+1. Install the required packages.
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Run the following command to start the testing.
+
+- For testing the LSM Tree.
+
+```bash
+python -m unittest test_lsm_tree.py
+```
+
+- For testing the Sever.
+
+```bash
+python -m unittest test_server.py
+```
