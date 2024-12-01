@@ -117,7 +117,7 @@ def build_error(message):
 """
 
 
-async def handle_set(key, value):
+async def handle_set(key, value, lsm_tree=lsm_tree):
     lsm_tree.put(key, value)
     return "OK"
 
@@ -129,7 +129,7 @@ async def handle_set(key, value):
 """
 
 
-async def handle_get(key):
+async def handle_get(key, lsm_tree=lsm_tree):
     val = lsm_tree.get(key)
     if val is not None:
         return 1, val
@@ -143,7 +143,7 @@ async def handle_get(key):
 """
 
 
-async def handle_del(key):
+async def handle_del(key, lsm_tree=lsm_tree):
     val = lsm_tree.get(key)
     if val is None:
         return None
@@ -177,16 +177,16 @@ async def handle_client(reader, writer):
             # Handle commands
             response = None
             if command == "SET" and len(args) == 2:
-                response = await handle_set(args[0], args[1])
+                response = await handle_set(args[0], args[1], lsm_tree)
                 writer.write(build_resp(response))
             elif command == "GET" and len(args) == 1:
-                flag, response = await handle_get(args[0])
+                flag, response = await handle_get(args[0], lsm_tree)
                 if flag:
                     writer.write(build_resp_get(response))
                 else:
                     writer.write(build_error("Key not found"))
             elif command == "DEL" and len(args) == 1:
-                response = await handle_del(args[0])
+                response = await handle_del(args[0], lsm_tree)
                 if response:
                     writer.write(build_resp(response))
                 else:
@@ -215,7 +215,7 @@ async def handle_client(reader, writer):
 
 
 async def start_worker(host, port):
-    server = await asyncio.start_server(handle_client, host, port, reuse_port=True)
+    server = await asyncio.start_server(handle_client, host, port,  reuse_port=True)
     addr = server.sockets[0].getsockname()
     print(f"Worker running on {addr}")
     async with server:
@@ -226,7 +226,7 @@ if __name__ == "__main__":
     import signal
 
     signal.signal(signal.SIGINT, signal_handler)
-    host = "192.168.122.33"
+    host = "127.0.0.1"
     port = 6379
     lsm_tree = LSMTree()
 

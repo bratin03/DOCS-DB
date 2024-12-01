@@ -53,3 +53,6 @@ cpp/build
 */venv
 
 **/Doxygen/
+*/__pycache__/
+*/.vscode/
+*/.idea
