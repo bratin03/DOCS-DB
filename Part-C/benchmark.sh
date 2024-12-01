@@ -18,4 +18,4 @@ if [[ "$request_type" != "GET" && "$request_type" != "SET" ]]; then
 fi
 
 # Run the redis-benchmark command with the specified parameters
-redis-benchmark -h 192.168.122.33 -p 6379 -c "$num_clients" -n "$num_requests" -t "$request_type"
+redis-benchmark -h 192.168.122.32 -p 6379 -c "$num_clients" -n "$num_requests" -t "$request_type"
