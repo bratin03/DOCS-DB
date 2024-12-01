@@ -160,15 +160,13 @@ async def handle_del(key, lsm_tree=lsm_tree):
 
 async def handle_client(reader, writer):
     addr = writer.get_extra_info("peername")
-    print(f"New connection from {addr}")
+    # print(f"New connection from {addr}")
     try:
         while True:
             data = await reader.read(4096)
-            print(data)
             if not data:
                 break
             command, args = parse_resp(data)
-            print(command, args)
             if not command:
                 writer.write(build_error("Invalid RESP format"))
                 await writer.drain()
@@ -202,7 +200,7 @@ async def handle_client(reader, writer):
     except Exception as e:
         print(f"Error: {e}")
     finally:
-        print(f"Connection closed: {addr}")
+        # print(f"Connection closed: {addr}")
         writer.close()
         await writer.wait_closed()
 
