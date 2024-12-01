@@ -160,7 +160,7 @@ async def handle_del(key, lsm_tree=lsm_tree):
 
 async def handle_client(reader, writer):
     addr = writer.get_extra_info("peername")
-    print(f"New connection from {addr}")
+    # print(f"New connection from {addr}")
     try:
         while True:
             data = await reader.read(4096)
@@ -200,7 +200,7 @@ async def handle_client(reader, writer):
     except Exception as e:
         print(f"Error: {e}")
     finally:
-        print(f"Connection closed: {addr}")
+        # print(f"Connection closed: {addr}")
         writer.close()
         await writer.wait_closed()
 
@@ -224,7 +224,7 @@ if __name__ == "__main__":
     import signal
 
     signal.signal(signal.SIGINT, signal_handler)
-    host = "127.0.0.1"
+    host = "192.168.122.32"
     port = 6379
     lsm_tree = LSMTree()
 

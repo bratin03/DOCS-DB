@@ -56,3 +56,6 @@ cpp/build
 */__pycache__/
 */.vscode/
 */.idea
+
+# DS Store files
+.DS_Store
