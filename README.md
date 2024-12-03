@@ -2,6 +2,8 @@
 
 DOCS DB is a lightweight, high-performance, key-value database designed for efficient data storage and retrieval. Built with simplicity and speed in mind, DOCS DB uses **Log-Structured Merge (LSM) Trees** to optimize write-heavy workloads, making it ideal for applications requiring frequent data updates.  
 
+This project has been developed as part of the course `CS60203 - Design Optimization of Computing Systems` at IIT Kharagpur.
+
 ---
 
 ## Key Features  
